@@ -242,3 +242,20 @@ The Owner supplied an initial device-information record:
 This updates the prior software-version uncertainty: the Owner reports Android 17 / API 37, One UI 9.0, build `CP2A.260605.A165FXXUBEZJ7`, and a 5 October 2026 security patch. It does **not** establish that the handset is SM-A165F because the model-number field was blank. Nor does it establish Knox state, StrongBox availability, hardware-backed Keystore/KeyMint security level, verified boot, bootloader state, or Device Owner provisioning.
 
 The values have not been independently inspected or cryptographically attested. Treat them as Owner-reported evidence pending a complete model/CSC record and, where relevant, runtime capability probes. No device settings were changed and no diagnostic software was installed.
+
+
+## 14. Owner-reported exact model confirmation (2026-11-25)
+
+The Owner confirmed the model number as **SM-A165F/DS** (Samsung Galaxy A16 dual-SIM variant). This resolves the missing model-number field in the initial evidence record. Combined with the previously supplied software values, the reference handset profile is now:
+
+| Field | Value | Classification |
+|---|---|---|
+| Model | Samsung Galaxy A16 SM-A165F/DS | OWNER-REPORTED |
+| Android | 17 | OWNER-REPORTED |
+| API level | 37 | DERIVED from Android 17 |
+| One UI | 9.0 | OWNER-REPORTED |
+| Build | `CP2A.260605.A165FXXUBEZJ7` | OWNER-REPORTED |
+| Security patch | 5 October 2026 | OWNER-REPORTED |
+| CSC / service provider software | Not supplied | UNKNOWN |
+
+The reference model identity is now complete at the Owner-reported level. No independent handset inspection or cryptographic attestation has occurred. Knox state, StrongBox, hardware-backed Keystore/KeyMint security level, verified boot/bootloader state, and Device Owner/work-profile status remain UNKNOWN. This evidence does not authorize installation, enrollment, configuration changes, or factory reset.
