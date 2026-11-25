@@ -292,3 +292,41 @@ The combined reference profile remains Samsung Galaxy A16 SM-A165F/DS, Android 1
 **Vault implications:** Keep vault data encrypted at rest using the approved key hierarchy. Direct Boot support, if implemented, must use a separate minimal device-protected bootstrap state and must never cache plaintext vault keys or recovery secrets in device-protected storage. Vault content and credential-bound keys remain gated until successful user authentication/unlock. Early-boot security status must clearly distinguish protection active, limited pre-unlock mode, and full post-unlock vault availability.
 
 **Status:** REQUIREMENT RECORDED; implementation feasibility requires A3 design and device/API validation. Current target handset capability, Direct Boot behavior, KeyMint/StrongBox details, and Device Owner eligibility remain UNKNOWN until verified. This requirement does not change the no-factory-reset/no-enrollment/no-device-modification constraints.
+
+
+## 16. Approved enterprise management model and recommended advancements
+
+**Owner decision:** A2-OD-06 APPROVED on 2026-11-25.
+
+### 16.1 Enterprise management authority
+
+AEGIS enterprise mode may use the maximum documented Android Enterprise Device Owner capabilities supported by the actual enrolled device and Android version. This authority is conditional on eligible fully managed provisioning and is limited to documented Android Enterprise/DevicePolicyManager APIs. It is not root, unrestricted system access, OEM authority, bootloader control, firmware modification, or permission to bypass Android security.
+
+Consumer, family, work-profile, and fully managed enterprise modes must be represented distinctly. A work profile is not equivalent to a fully managed Device Owner device. No enterprise authority is inherited by family or consumer mode.
+
+### 16.2 Recommended enterprise capabilities
+
+Subject to device/API support and A3 design review:
+- signed, versioned, tenant-scoped managed configurations;
+- capability discovery and enforcement-state reporting before policy activation;
+- policy validation, configuration diffs, staged rollout rings, last-known-good rollback, and safe-disable procedures;
+- managed application configuration and per-capability policy adapters;
+- device compliance posture with evidence freshness and explicit UNKNOWN/UNSUPPORTED states;
+- tenant isolation, administrator MFA, least-privilege roles, separation of duties, and dual approval for high-impact administrative policy changes;
+- enrollment, reassignment, de-enrollment, ownership disclosure, employee notice, and data-boundary lifecycle handling;
+- always-on VPN/lockdown only where documented APIs and provisioning role permit, with connectivity recovery and failure tests;
+- audit export, security event monitoring, privacy-minimized retention, revocation propagation, and incident response integration;
+- OS/API compatibility matrix and negative tests for unsupported or partially supported capabilities.
+
+### 16.3 Binding safety constraints
+
+- Personal vault and enterprise data remain cryptographically separate; enterprise enrollment cannot silently transfer access or recovery authority.
+- P3 operations require OD-04 human authorization, signed scoped approvals, and local policy checks. P4 remains disabled in v1.
+- Offline behavior follows OD-05; no cached policy may silently outlive its approved maximum lifetime.
+- Unsupported management capabilities must be surfaced as unsupported, not claimed as active.
+- Emergency disable/rollback must not become a route to bypass local authorization or vault protections.
+- All policy changes and administrative actions require attributable audit evidence, subject to documented limits of local/offline logging.
+
+### 16.4 Status and authorization boundary
+
+**Status:** REQUIREMENT AND OWNER POLICY APPROVED; implementation not started. A3 implementation remains gated by A2 exit requirements and separate stage transition. Enrollment, production tenant activation, device modification, root/system access, firmware changes, merge, release, and deployment are not authorized by OD-06.
