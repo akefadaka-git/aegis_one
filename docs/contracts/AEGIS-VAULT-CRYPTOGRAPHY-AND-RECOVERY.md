@@ -46,3 +46,21 @@ Ciphertext tampering/tag failure; nonce uniqueness; key invalidation; biometric 
 Vault granularity/file format; exact recovery-secret derivation, storage, rate limiting and abuse controls; enterprise escrow (not approved); backup/export/retention; biometric strength and credential fallback; data classification tiers.
 
 No cryptographic implementation or key generation is authorized by this contract.
+
+
+## 9. Advanced vault and early-boot requirements
+
+The vault subsystem is expected to provide an integrated, defense-in-depth capability set. Subject to A3 design review and independent security review, the design must cover:
+- encrypted vault objects and metadata; authenticated integrity; versioned formats; safe import/export; app-private storage; secure temporary-file handling; and explicit backup/restore behavior;
+- separation of personal vault and enterprise-managed data key domains, consistent with Owner-approved OD-02; enterprise enrollment must never silently transfer access to a personal vault;
+- per-install/per-vault key separation, device-bound Android Keystore protection, hardware-backed security detection, key rotation, invalidation handling, and user-controlled recovery under OD-01;
+- biometric and device-credential policy, session locking, inactivity/foreground/background transitions, clipboard/share protections, screen-capture policy where supported, and clear user-visible recovery semantics;
+- tamper-resistant handling of vault metadata, audit events, export authorization, deletion semantics, and recovery abuse controls;
+- offline operation under OD-05, including signed-policy expiry and explicit restrictions on sensitive export/recovery/destructive actions;
+- Direct Boot feasibility: a minimal Direct-Boot-aware bootstrap may enforce only a narrow pre-unlock policy using device-protected storage. It must not store plaintext vault data, recovery secrets, or credential-encrypted vault keys there. Full vault availability remains gated on user unlock and the platform's Keystore/authentication rules.
+
+**Early-boot platform boundary:** AEGIS cannot start before Android's own boot chain or obtain unrestricted OS/root privileges as a normal application. It can activate only supported early-start behavior after Android reaches the relevant application lifecycle stage. The design must show a distinct pre-unlock limited-protection state and post-unlock full-vault state. No lock-screen bypass or pre-unlock vault decryption is permitted.
+
+**Administration boundary:** Device-wide configuration is conditional on supported Android APIs and a valid management role. Consumer mode is limited to app-scoped/user-consented capabilities. Fully managed enterprise Device Owner controls require eligible Android Enterprise provisioning and remain within documented policy APIs; Device Owner is not unrestricted root access. Family authority is separate.
+
+**Status:** REQUIREMENTS RECORDED; no crypto algorithm/library, Direct Boot component, device admin enrollment, production key generation, or implementation is approved by this contract alone. All cryptographic choices require current platform guidance, dependency/SBOM review, negative tests, and independent security review.
