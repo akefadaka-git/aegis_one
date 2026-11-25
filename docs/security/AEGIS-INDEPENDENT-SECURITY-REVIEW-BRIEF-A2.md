@@ -149,3 +149,10 @@ This brief is retained as a reusable reviewer scope and methodology document. It
 The review baseline SHA recorded in the original brief is historical. Any actual assessment must pin the exact frozen release-candidate commit and artifact hashes at the time of review.
 
 **Current status:** independent implementation review NOT PERFORMED; scheduled for A4/pre-release. A2 is PARTIALLY EXIT-READY but NOT CLOSED. A3 remains subject to explicit Owner stage authorization. A5 remains separate.
+
+
+## 12. Owner-approved A2 closure disposition — 2026-11-25
+
+The Owner accepted AEGIS-A1-BASE-001 v1.0 as the frozen controlling baseline and approved A2 closure under AEGIS-A2-ADD-001. This handoff brief is retained for the mandatory independent implementation assessment at A4/pre-release; it is not an A2 closure prerequisite. No reviewer has been engaged and no independent review has been performed.
+
+A2: **VERIFIED-CLOSED** (documentation/governance only). A3: **NOT AUTHORIZED / NOT STARTED**. The reviewer must assess a frozen implementation candidate and record exact commit/artifact hashes, qualifications, methodology, findings, remediation and retests before A5. No release/deployment authorization is implied.
