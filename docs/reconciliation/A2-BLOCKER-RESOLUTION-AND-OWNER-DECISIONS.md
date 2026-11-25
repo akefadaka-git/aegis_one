@@ -341,3 +341,12 @@ This assessment does not authorize implementation, handset changes, enrollment, 
 The first-tranche threat-to-control-to-test mapping FT-01 through FT-12 is now documented in Section 9 of [AEGIS-A2-ADD-001](AEGIS-A2-ADD-001-RISK-BASED-ASSURANCE-AND-EXIT-REVISION.md).
 
 **Status: DESIGN-LEVEL MAPPING COMPLETE; TESTS NOT RUN.** This resolves the first-tranche mapping item in Section 12.4. Feature-specific mappings remain required before later workstreams are implemented.
+
+
+## 13. Owner-approved A1 freeze and A2 closure — 2026-11-25
+
+The Owner explicitly confirmed: (1) AEGIS-A1-BASE-001 v1.0 is accepted as the frozen controlling requirements/architecture baseline, subject to controlled amendments; and (2) A2 closure is approved under AEGIS-A2-ADD-001. This supersedes prior status statements that A1 freeze was unconfirmed or A2 remained open.
+
+OD-01 through OD-06 remain APPROVED. First-tranche design traceability FT-01 through FT-12 is COMPLETE; tests remain NOT RUN. Handset evidence, backend/IROKA operational ownership, SBOM, legal/privacy review and independent implementation assessment are retained as feature-specific, integration or A4/pre-release gates—not universal A2 closure blockers.
+
+A2: **VERIFIED-CLOSED (Owner-approved documentation/governance baseline)**. A3: **NOT AUTHORIZED / NOT STARTED**. No code, device mutation, enrollment, production keys, live service activation, merge, release or deployment is authorized. A5 remains separate. Production readiness is NOT ESTABLISHED.
