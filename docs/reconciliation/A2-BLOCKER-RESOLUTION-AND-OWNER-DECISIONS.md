@@ -334,3 +334,10 @@ This section supersedes conflicting timing and exit statements in Sections 4, 7,
 4. Owner explicitly accepts A2 closure and separately authorizes A3.
 
 This assessment does not authorize implementation, handset changes, enrollment, production keys, live service provisioning, merge, release or deployment. A5 remains a separate gate.
+
+
+### 12.5 First-tranche traceability completion
+
+The first-tranche threat-to-control-to-test mapping FT-01 through FT-12 is now documented in Section 9 of [AEGIS-A2-ADD-001](AEGIS-A2-ADD-001-RISK-BASED-ASSURANCE-AND-EXIT-REVISION.md).
+
+**Status: DESIGN-LEVEL MAPPING COMPLETE; TESTS NOT RUN.** This resolves the first-tranche mapping item in Section 12.4. Feature-specific mappings remain required before later workstreams are implemented.
