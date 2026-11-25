@@ -211,3 +211,12 @@ The review must use one immutable repository commit and record its full SHA. The
 - No application implementation or test execution is evidenced by this pack.
 
 The A2 exit assessment is **PARTIALLY EXIT-READY — NOT CLOSED**. See AEGIS-A2-ADD-001 for component-level eligibility and remaining closure requirements.
+
+
+## 12. Owner-approved A1 freeze and A2 closure — 2026-11-25
+
+The Owner explicitly accepted AEGIS-A1-BASE-001 v1.0 as the frozen controlling baseline, subject to controlled amendments, and approved A2 closure under AEGIS-A2-ADD-001. This supersedes the prior “PARTIALLY EXIT-READY — NOT CLOSED” status. A2 is **VERIFIED-CLOSED** as a documentation/governance stage only.
+
+The Owner-reported handset profile remains unverified; Knox/StrongBox/KeyMint/Verified Boot/management state remain UNKNOWN. Backend/IROKA operational ownership remains UNRESOLVED. SBOM is NOT RUN until dependencies exist. Legal review remains NOT PERFORMED. Independent implementation review remains NOT PERFORMED and is scheduled for A4/pre-release. These are later-stage or feature-specific gates, not universal A2 blockers.
+
+A3 is **NOT AUTHORIZED / NOT STARTED**. Implementation tests are NOT RUN. No device changes, enrollment, production keys, live service provisioning, merge, release or deployment is authorized. A5 remains separate.
