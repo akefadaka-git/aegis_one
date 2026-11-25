@@ -59,3 +59,37 @@ See [A2 Evidence Collection Pack](A2-EVIDENCE-COLLECTION-PACK.md) for privacy-sa
 ## 7. Owner decision evidence
 
 - **A2-OD-01 — Vault recovery:** APPROVED 2026-11-25. User-controlled high-entropy recovery secret; no provider/operator recovery; permanent-loss risk must be disclosed. See the Owner decision record in [A2 Blocker Resolution and Owner Decision Register](A2-BLOCKER-RESOLUTION-AND-OWNER-DECISIONS.md).
+
+
+## 8. Controlled reconciliation — Owner decisions and security enhancements (2026-11-25)
+
+This section supersedes conflicting earlier status statements in Sections 2, 4, and 5 where they describe Owner decisions as undecided or the offline TTL as open. The historical entries are retained as audit history; the current controlling decisions are recorded in the Owner Decision Register.
+
+### 8.1 Current Owner-decision state
+
+- A2-OD-01 vault recovery authority: **APPROVED** — user-controlled high-entropy recovery secret; no provider/operator recovery; permanent-loss risk disclosed.
+- A2-OD-02 enterprise vault escrow: **APPROVED** — disabled in v1; personal and enterprise cryptographic boundaries preserved.
+- A2-OD-03 family protection: **APPROVED** — transparent, age-appropriate, least-privilege model; no default access to private vault contents or communications.
+- A2-OD-04 P3/P4: **APPROVED** — P3 requires scoped human authorization and local verification; P4 disabled by default in v1.
+- A2-OD-05 offline and early-boot: **APPROVED** — signed, scoped, expiring policy; P0/P1 maximum 7 days, P2 maximum 24 hours, P3 remote commands denied offline absent a separately approved protocol, P4 disabled; limited Direct Boot-aware bootstrap only within Android's documented boundaries.
+- A2-OD-06 enterprise management: **APPROVED** — maximum documented Android Enterprise Device Owner capabilities only after eligible provisioning; no root or unrestricted system authority.
+
+### 8.2 Security enhancement register
+
+The new [A2 Security Enhancement Register](../security/AEGIS-SECURITY-ENHANCEMENT-REGISTER-A2.md) defines prioritized controls and acceptance evidence for command protocol hardening, key lifecycle, vault isolation, local authorization, Android lifecycle and management modes, offline safety, audit integrity, privacy, supply-chain integrity, recovery, and operational resilience. It is a design/reconciliation artifact, not implementation authorization.
+
+### 8.3 Corrected current blockers
+
+1. Physical handset evidence: **PARTIAL / OWNER-REPORTED**. Model SM-A165F/DS, Android 17/API 37, One UI 9.0, build, security patch, AP/CP/CSC were supplied by the Owner. They have not been independently inspected or attested. Knox, StrongBox, KeyMint security level, verified boot/bootloader, and Device Owner/work-profile state remain **UNKNOWN**.
+2. Independent security review: **NOT PERFORMED**. A qualified independent reviewer must assess the exact frozen commit and report methodology, findings/severity, remediation, and retest.
+3. Backend/IROKA operational ownership: **UNRESOLVED**. Named accountable owners, trust-root custody/rotation, attestation verification, policy publication/revocation, audit retention, and incident response are not evidenced.
+4. Dependency/SBOM: **NOT RUN** because no application dependency graph exists; repeat at A3 dependency introduction and before release.
+5. Threat-to-control-to-test traceability: **PARTIAL**. This register and the enhancement register define design coverage; implementation tests have not run.
+6. Legal review: **NOT PERFORMED** for family age/guardian/custody and enterprise employee transparency/privacy requirements.
+7. A1 formal freeze: **NOT CONFIRMED** by explicit Owner freeze decision.
+
+### 8.4 Current stage decision
+
+A2 remains **OPEN — NOT ELIGIBLE FOR CLOSURE**. The six Owner decisions are approved, but approval of policy does not substitute for physical-device evidence, independent review, accountable service ownership, legal review, or complete traceability. A3 remains **BLOCKED** pending A2 exit and explicit stage transition. A5 remains a separate authorization gate.
+
+No application code, handset state, enrollment, production key, merge, release, or deployment is authorized by this reconciliation.
