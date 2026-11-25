@@ -110,3 +110,27 @@ Do not place private keys, credentials, endpoint secrets, or production user dat
 - This pack: **DOCUMENTED**.
 - A2: **OPEN**.
 - A3: **BLOCKED** pending A2 exit and separate Owner authorization.
+
+
+## 9. Owner-reported handset information received — 2026-11-25
+
+The Owner supplied the following values in conversation. These are recorded as **OWNER-REPORTED**, not independently inspected or cryptographically attested.
+
+| Field | Supplied value | Evidence classification |
+|---|---|---|
+| Model number | Not supplied (field left blank) | UNKNOWN |
+| Android version | 17 | OWNER-REPORTED |
+| API level | 37 (Android 17 mapping) | DERIVED FROM OWNER-REPORTED VERSION |
+| One UI version | 9.0 | OWNER-REPORTED |
+| Build number | `CP2A.260605.A165FXXUBEZJ7` | OWNER-REPORTED |
+| Android security patch level | 5 October 2026 | OWNER-REPORTED |
+| CSC / service provider software version | Not supplied | UNKNOWN |
+| Knox status/version | Not supplied | UNKNOWN |
+| StrongBox availability | Not probed | UNKNOWN |
+| Hardware-backed Keystore / KeyMint security level | Not probed or attested | UNKNOWN |
+| Verified boot / bootloader state | Not supplied or attested | UNKNOWN |
+| Work profile / Device Owner state | Not supplied | UNKNOWN |
+
+**Interpretation:** This is useful initial software-profile evidence, but it does not confirm that the handset is model SM-A165F because the model field was omitted. It also does not prove Knox configuration, hardware-backed key security, StrongBox, verified boot, or enterprise-management state.
+
+Next read-only evidence needed: exact model number from Settings → About phone, plus the service provider software version / CSC from Software information if the Owner is comfortable sharing it. Do not provide IMEI, serial number, phone number, account identifiers, or credentials.
