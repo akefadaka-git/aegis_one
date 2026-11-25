@@ -1,6 +1,6 @@
 # AEGIS ONE — A2 Blocker Resolution Plan and Owner Decision Register
 
-**ID:** AEGIS-A2-BLOCKERS-001 | **Version:** 1.0 | **Status:** OPEN — proposed dispositions, not Owner-approved
+**ID:** AEGIS-A2-BLOCKERS-001 | **Version:** 1.1 | **Status:** OPEN — OD-01 through OD-06 APPROVED; evidence and assurance blockers remain
 
 ## 1. Purpose and disposition
 
@@ -255,3 +255,36 @@ The recommended design is a two-path envelope-encryption model:
 **Scope and limits:** Owner authorization covers architecture, documentation, and subsequent A3 implementation planning/implementation of the approved enterprise management model and the listed recommendations, after A2 exit requirements are met. It does not authorize enrollment or changes to the Owner's handset, production tenant activation, root/system privileges, production key generation, merge, release, or deployment. Any feature requiring a new external service, paid dependency, OEM-only capability, or materially broader data collection must be separately assessed; it is not automatically authorized by the phrase "all advancements." A5 remains a separate gate.
 
 **Evidence:** Owner approval in the AEGIS ONE project conversation dated 2026-11-25, including request to include all recommended advancements. Recorded on the documentation branch; no application code, device state, or `main` branch was changed.
+
+
+## 11. Controlled status reconciliation — 2026-11-25
+
+This addendum corrects earlier status summaries in Sections 1, 3, 7 and 8 where they describe Owner decisions as pending, the handset profile as wholly unknown, or approved policy as still awaiting acceptance. Historical text is retained as audit history; this section and the A2 Traceability and Exit Register define the current status.
+
+### 11.1 Owner decisions now controlling
+
+- **OD-01:** APPROVED — user-controlled high-entropy vault recovery secret; no provider/operator recovery; permanent-loss risk disclosed.
+- **OD-02:** APPROVED — enterprise escrow disabled in v1; personal and enterprise cryptographic separation preserved.
+- **OD-03:** APPROVED — transparent, age-appropriate, least-privilege family model; no default private-vault or communications access.
+- **OD-04:** APPROVED — P3 requires authorized human approval and local policy verification; P4 disabled by default in v1.
+- **OD-05:** APPROVED — signed, scoped, expiring offline policy with defined TTLs; P3 remote actions denied offline absent a separately approved protocol; P4 disabled; limited Direct Boot-aware protection only within Android's documented boundaries.
+- **OD-06:** APPROVED — maximum documented Android Enterprise Device Owner capabilities only after eligible provisioning, with transparency and separation of personal data.
+
+### 11.2 Current evidence status
+
+- Handset model/software/firmware profile: **PARTIAL — OWNER-REPORTED** (SM-A165F/DS; Android 17/API 37; One UI 9.0; build `CP2A.260605.A165FXXUBEZJ7`; patch 5 October 2026; AP/CP `A165FXXUBEZJ7`; CSC `A165FOJMBEZJ7`).
+- Knox, StrongBox, KeyMint security level, Verified Boot/bootloader, and Device Owner/work-profile status: **UNKNOWN / NOT COLLECTED**.
+- Independent security review: **NOT PERFORMED**. Handoff brief prepared; reviewer not identified or engaged.
+- Backend/IROKA operational ownership: **UNRESOLVED**. Interface requirements are documented; named accountable owners, trust-root custody, attestation verifier, policy/revocation operations, audit retention and incident response remain unconfirmed.
+- Legal review: **NOT PERFORMED** for family and enterprise jurisdiction-specific requirements.
+- Application dependency/SBOM scan: **NOT RUN — no app dependency graph exists**; this is an A3 entry/release control, not evidence of a current dependency defect.
+- Implementation tests: **NOT RUN**; no application implementation exists in this stage.
+- A1 formal freeze: **NOT CONFIRMED** by explicit Owner freeze decision.
+
+### 11.3 Independent review handoff
+
+The [A2 Independent Security Review Brief](../security/AEGIS-INDEPENDENT-SECURITY-REVIEW-BRIEF-A2.md) defines reviewer qualifications, scope, methodology, exact artifact set, report format and acceptance rules. It is a handoff brief only. It does not mean a reviewer has been selected, contacted, retained or has performed a review. Review baseline commit: `ee3e2f39d5ab20d6215f0c9d10f0246269c938d4`.
+
+### 11.4 Current stage decision
+
+A2 remains **OPEN — NOT ELIGIBLE FOR CLOSURE**. A3 remains **BLOCKED** pending resolution or explicit Owner risk disposition of A2 exit requirements and a separate stage transition. No code, handset change, enrollment, production key generation, service provisioning, merge, release or deployment is authorized by this status reconciliation. A5 remains a separate gate.
