@@ -194,3 +194,20 @@ Do not install diagnostic software, enable USB debugging, change security settin
 ### 11.4 Independent review handoff
 
 The review must use one immutable repository commit and record its full SHA. The current documentation package at the time this addendum was prepared is pinned to commit `ee3e2f39d5ab20d6215f0c9d10f0246269c938d4`; if any reviewed artifact changes, the reviewer must record and review the new exact commit rather than referring to a moving branch name. The separate [A2 Independent Security Review Brief](../security/AEGIS-INDEPENDENT-SECURITY-REVIEW-BRIEF-A2.md) defines reviewer independence, scope, evidence, findings and retest requirements.
+
+
+---
+
+## 12. Controlled amendment — evidence timing and privacy-safe gates (2026-11-25)
+
+**Controlling amendment:** [AEGIS-A2-ADD-001 — Risk-Based Security Assurance and Exit Revision](AEGIS-A2-ADD-001-RISK-BASED-ASSURANCE-AND-EXIT-REVISION.md). This section supersedes any earlier implication that all handset evidence or a completed independent review is universally required before A3.
+
+- The Owner-reported handset profile remains planning evidence only. Knox, StrongBox, KeyMint, Verified Boot/bootloader and management state remain UNKNOWN / NOT COLLECTED.
+- Obtain additional read-only handset evidence when the relevant A3/A4 feature requires it. Do not install diagnostics, enable USB debugging, enroll, unlock or reset the device without separate explicit authorization.
+- A full independent implementation assessment is scheduled for A4 against a frozen pre-release candidate. A targeted earlier design consultation is optional and risk-triggered.
+- Backend/IROKA ownership and key-custody evidence is required before live integration; no production service or key provisioning is authorized.
+- Family/enterprise legal/privacy evidence is required before real-user or tenant activation. Synthetic-only development must not collect real personal data.
+- SBOM/dependency scanning begins when the first application dependency graph exists and is repeated for release candidates.
+- No application implementation or test execution is evidenced by this pack.
+
+The A2 exit assessment is **PARTIALLY EXIT-READY — NOT CLOSED**. See AEGIS-A2-ADD-001 for component-level eligibility and remaining closure requirements.
