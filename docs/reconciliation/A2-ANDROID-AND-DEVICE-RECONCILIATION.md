@@ -205,3 +205,17 @@ Vendor and platform capability listings do not substitute for testing the actual
 
 ---
 **A2 result: PARTIAL / OPEN. No A3 authorization.**
+
+
+## 11. Detailed A2 contract artifacts
+
+The following versioned design contracts extend this reconciliation:
+
+- [Device Identity and Recovery Contract](../contracts/AEGIS-DEVICE-IDENTITY-AND-RECOVERY-CONTRACT.md)
+- [Roles, Consent and Policy Matrix](../contracts/AEGIS-ROLES-CONSENT-AND-POLICY-MATRIX.md)
+- [IROKA Mobile Command and Execution Contract](../contracts/AEGIS-IROKA-MOBILE-COMMAND-CONTRACT.md)
+- [Vault Cryptography and Recovery Contract](../contracts/AEGIS-VAULT-CRYPTOGRAPHY-AND-RECOVERY.md)
+- [Offline Protection and Audit Contract](../contracts/AEGIS-OFFLINE-PROTECTION-AND-AUDIT-CONTRACT.md)
+- [A2 Traceability and Exit Evidence Register](A2-TRACEABILITY-AND-EXIT-REGISTER.md)
+
+These are proposed contracts, not implementation specifications approved for coding. The traceability register records remaining blockers and A2 exit conditions. Their creation does not close A2 or authorize A3.
