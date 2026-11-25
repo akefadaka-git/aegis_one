@@ -15,7 +15,7 @@ This register separates blockers that can be reduced through repository document
 | Family model | Transparent, age-appropriate, least-privilege guardian controls; no default vault/content surveillance | Limits coercive or excessive access | OWNER-APPROVED 2026-11-25; legal review remains required |
 | P3 actions | Require scoped human authority, valid signed/time-limited approval, and local policy check; user notice where feasible; AI cannot approve | Prevents AI/service-only device-impacting actions | OWNER-APPROVED 2026-11-25; see A2-OD-04 |
 | P4 actions | Disabled by default in v1; future capability requires separate approval, strong human authorization, recovery analysis and independent review | Reduces catastrophic and irreversible misuse | OWNER-APPROVED 2026-11-25; see A2-OD-04 |
-| Offline policy | Permit only low-risk local protection under a signed, unexpired policy; deny sensitive export/recovery/destructive actions offline | Preserves local safety without extending remote authority | OWNER APPROVAL REQUIRED |
+| Offline policy | Signed, scoped, unexpired policy; P0/P1 up to 7 days and P2 up to 24 hours maximum; P3 remote actions denied absent a separately approved offline protocol; P4 disabled | Preserves local safety without extending remote authority | OWNER-APPROVED 2026-11-25; see A2-OD-05 |
 | Attestation failure | Unknown/unsupported → restricted trust state, not PASS; define blocking tiers after device/service capability validation | Avoids false assurance and avoids assuming every device supports identical evidence | PROPOSED TECHNICAL DEFAULT |
 | Consumer anti-removal | Do not promise prevention of uninstall; provide user-mediated account/device recovery and local tamper signals where available | Ordinary apps do not possess Device Owner authority | PLATFORM CONSTRAINT |
 | Enterprise management | Separate opt-in fully managed deployment profile; only use capabilities confirmed by actual provisioning | Separates enterprise privileges from consumer mode | OWNER APPROVAL REQUIRED |
@@ -199,3 +199,28 @@ The recommended design is a two-path envelope-encryption model:
 **Scope and limits:** This decision approves the policy baseline only. It does not authorize implementation or activation of P3/P4 capabilities, remote wipe, key destruction, production command signing, deployment, or changes to the Owner's handset. P4 remains disabled in v1. Any later P4 enablement requires a new explicit Owner decision.
 
 **Evidence:** Owner approval in the AEGIS ONE project conversation dated 2026-11-25. Recorded on the documentation branch; no application code, device state, or `main` branch was changed.
+
+
+### A2-OD-05 — Offline protection and authorization policy
+
+**Decision:** APPROVED by the Owner on 2026-11-25, including the proposed maximum policy lifetimes.
+
+**Approved v1 baseline:**
+- Essential local protection continues during loss of connectivity; connectivity loss must not disable local vault encryption, app locking, or other already-authorized local protections.
+- Cached policy must be issuer-signed and validated for issuer/trust root, device/account scope, version, integrity, and validity period.
+- Maximum cached-policy lifetime: P0/P1 low-risk operations up to 7 days; P2 operations up to 24 hours. These are upper bounds, not guaranteed entitlements; individual operations may require shorter validity or online verification.
+- P3 remote commands are denied offline in v1 unless a future, separately approved offline protocol explicitly defines authorization, freshness, revocation limitations, and safeguards.
+- P4 remains disabled in v1.
+- Offline mode must deny new administrator privileges, trust-root changes, sensitive export, and destructive operations unless a separately approved local procedure explicitly permits the specific operation.
+- Detect and safely handle clock rollback/time uncertainty; do not extend policy validity silently.
+- Apply known revocations immediately. Clearly represent that revocations not yet received cannot be known while disconnected.
+- Queue security events in protected local storage with sequence/integrity controls and synchronize when connectivity returns; local tamper-evidence is not represented as absolute immutability.
+- Provide a safe reconnect/recovery path without weakening local authentication or policy enforcement.
+
+**Additional Owner requirement recorded with OD-05:** The vault subsystem is to be comprehensive and integrated with the security architecture. AEGIS should activate eligible early-boot protections as early as the Android platform permits, rather than waiting for the full user-facing app UI to open. Device-wide administrative control is conditional on Android Enterprise provisioning and supported Android APIs; this is not authority to bypass Android's OS security model or obtain unrestricted root/system access.
+
+**Platform feasibility boundary:** Android starts and enforces its own boot chain before third-party apps. A normal app cannot execute before Android or obtain unrestricted system administration. A Direct-Boot-aware component may run during the limited pre-first-unlock phase using device-protected storage and supported APIs; credential-encrypted vault data and keys remain unavailable until the user unlocks, subject to Android/Keystore behavior. Full Device Owner policy authority requires eligible managed-device provisioning. These limits are mandatory design constraints, not optional caveats.
+
+**Scope and limits:** This decision approves offline policy and records the additional vault/early-boot/management requirements for A2 feasibility reconciliation. It does not authorize bootloader changes, root, firmware modification, custom OS, factory reset, enterprise enrollment, privileged system access, production key generation, merge, release, or deployment. Exact vault cryptography and implementation remain subject to technical design and independent security review. Existing OD-01 recovery and OD-02 no-escrow rules remain in force.
+
+**Evidence:** Owner approval and additional requirements in the AEGIS ONE project conversation dated 2026-11-25. Recorded on the documentation branch; no application code, device state, or `main` branch was changed.
