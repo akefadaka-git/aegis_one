@@ -58,6 +58,9 @@ jobs:
           name: aegis-one-ci-evidence-${{ github.sha }}
           path: |
             build/reports/cyclonedx/bom.json
+            app/build/reports/cyclonedx/bom.json
+            core/**/build/reports/cyclonedx/bom.json
+            platform/**/build/reports/cyclonedx/bom.json
             app/build/outputs/apk/debug/app-debug.apk
             gitleaks.sarif
           if-no-files-found: warn
