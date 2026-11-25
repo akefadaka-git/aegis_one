@@ -6,29 +6,29 @@ AEGIS ONE is a dedicated Android security and protection platform. IROKA provide
 
 ## Project status
 
-- **A1:** Product and architecture baseline established in [A1 Product and Architecture Baseline](docs/architecture/A1-PRODUCT-AND-ARCHITECTURE-BASELINE.md).
+- **A1:** Product and architecture baseline **VERIFIED-CLOSED / FROZEN** in [A1 Product and Architecture Baseline](docs/architecture/A1-PRODUCT-AND-ARCHITECTURE-BASELINE.md).
 - **A2:** **VERIFIED-CLOSED** under [A2 Owner Closure Record](docs/reconciliation/AEGIS-A2-CLOSE-001-OWNER-CLOSURE-RECORD.md); residual device, backend, legal and assurance items remain feature-specific or later-stage gates.
-- **Threat model:** Initial threat model recorded in [A1 Threat Model](docs/security/THREAT-MODEL-A1.md).
-- **A3:** Implementation **NOT AUTHORIZED / NOT STARTED**; bounded plan recorded in [A3 Implementation Plan](docs/implementation/AEGIS-A3-BOUNDED-IMPLEMENTATION-PLAN.md). Separate explicit Owner stage authorization is required.
-- **A4:** Not run.
-- **A5:** Not authorized; deployment/release remains a separate approval gate.
+- **A3:** Owner authorized bounded implementation **A3.0–A3.5** under [AEGIS-A3-PLAN-001](docs/implementation/AEGIS-A3-BOUNDED-IMPLEMENTATION-PLAN.md). Initial foundation is committed on the existing implementation branch; build/test verification is pending.
+- **A3.6–A3.9:** Not included in the current authorization.
+- **A4:** Not started. Independent implementation security assessment remains an A4/pre-release gate.
+- **A5:** Not authorized; merge, release and deployment remain separate Owner approval gates.
 
 ## Architecture and scope
 
 - Native Android application, Kotlin.
 - PMSS Architecture v1.2.
 - Initial reference device: Samsung Galaxy A16 SM-A165F.
-- Separate unmanaged/consumer and fully managed enterprise modes.
+- Separate consumer, family and fully managed enterprise modes with explicit identity boundaries.
 - Local protection must remain useful when IROKA is unavailable.
 - IROKA models and agents may analyze and propose; they cannot self-authorize or override Android controls.
 - OEM integration, custom OS, rooting, and bootloader modification are out of scope.
 
 ## Current constraints
 
-No factory reset, device enrollment, application installation, deployment, or publication is authorized as part of the current A1/A2 work. Device Owner capabilities are conditional on valid Android Enterprise provisioning and are not assumed in ordinary consumer mode.
+No device enrollment, application installation on the reference handset, production key generation, merge, release or deployment is authorized by the current A3 implementation approval. Device Owner capabilities are conditional on valid Android Enterprise provisioning and are not assumed in ordinary consumer mode.
 
 ## Repository governance
 
 This repository is public. No open-source license has been selected; public visibility does not itself grant permission to reuse or redistribute project materials. Do not commit credentials, signing keys, private user data, or production secrets.
 
-A1 is frozen and A2 is closed. A3 implementation, merge, release, and deployment remain subject to their respective stage gates and explicit approvals. A5 is a separate Owner authorization gate.
+A1 remains frozen and A2 remains closed. Current A3 authorization is limited to A3.0–A3.5 on `docs/a1-baseline-a2-reconciliation`; do not create a branch, modify `main`, merge or deploy. A5 is a separate Owner authorization gate.
