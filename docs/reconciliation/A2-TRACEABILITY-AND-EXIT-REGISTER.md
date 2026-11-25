@@ -49,3 +49,8 @@ A2 is **not eligible for closure**. Core design contracts are drafted, but the c
 A3 remains blocked until critical contracts are approved, device capability is recorded or a test-device strategy is accepted, unresolved decisions are closed or explicitly accepted as risks, the threat-control-test matrix is approved, and the Owner separately authorizes A3.
 
 This register does not authorize code, installation, enrollment, merge, or deployment.
+
+
+## 6. Evidence collection procedure
+
+See [A2 Evidence Collection Pack](A2-EVIDENCE-COLLECTION-PACK.md) for privacy-safe handset evidence collection, independent-review package requirements, and backend/IROKA accountability worksheet. The pack is documented; evidence has not yet been collected and independent review has not been performed.
