@@ -9,13 +9,13 @@ allprojects {
  group="org.akefadaka.aegis"
  version="0.1.0"
  tasks.named<org.cyclonedx.gradle.CyclonedxDirectTask>("cyclonedxDirectBom") {
+  // Scope the aggregate SBOM to dependency classpaths that describe shipped code.
+  // Android modules are variant-aware; the CI artifact is the debug APK.
+  includeConfigs = if (path == ":app" || path == ":platform:android-capabilities") {
+   listOf("^debug(Compile|Runtime)Classpath$")
+  } else {
+   listOf("^(compile|runtime)Classpath$")
+  }
   failOnUnresolvedDependencies = true
- }
-}
-project(":app") {
- tasks.named<org.cyclonedx.gradle.CyclonedxDirectTask>("cyclonedxDirectBom") {
-  // This Android metadata configuration has no single consumable build variant.
-  // The app's debug/release compile and runtime classpaths carry the real dependency graph.
-  skipConfigs = listOf("implementationDependenciesMetadata")
  }
 }
