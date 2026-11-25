@@ -223,3 +223,22 @@ These are proposed contracts, not implementation specifications approved for cod
 ## 12. Blocker disposition and Owner decisions
 
 See [A2 Blocker Resolution and Owner Decision Register](A2-BLOCKER-RESOLUTION-AND-OWNER-DECISIONS.md). It separates proposed safe defaults from evidence that cannot be inferred remotely, including physical handset facts and independent security review. A2 remains open; the register is not an Owner approval.
+
+
+## 13. Owner-reported handset software information received (2026-11-25)
+
+The Owner supplied an initial device-information record:
+
+| Field | Value | Classification |
+|---|---|---|
+| Model number | Not supplied | UNKNOWN |
+| Android version | 17 | OWNER-REPORTED |
+| Android API level | 37 | DERIVED from Android 17 |
+| One UI | 9.0 | OWNER-REPORTED |
+| Build number | `CP2A.260605.A165FXXUBEZJ7` | OWNER-REPORTED |
+| Android security patch | 5 October 2026 | OWNER-REPORTED |
+| CSC / service provider software | Not supplied | UNKNOWN |
+
+This updates the prior software-version uncertainty: the Owner reports Android 17 / API 37, One UI 9.0, build `CP2A.260605.A165FXXUBEZJ7`, and a 5 October 2026 security patch. It does **not** establish that the handset is SM-A165F because the model-number field was blank. Nor does it establish Knox state, StrongBox availability, hardware-backed Keystore/KeyMint security level, verified boot, bootloader state, or Device Owner provisioning.
+
+The values have not been independently inspected or cryptographically attested. Treat them as Owner-reported evidence pending a complete model/CSC record and, where relevant, runtime capability probes. No device settings were changed and no diagnostic software was installed.
