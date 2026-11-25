@@ -180,3 +180,10 @@ This section supersedes the universal A3-entry interpretation of the “Independ
 - The reviewer brief remains a handoff specification; review status is **NOT PERFORMED**, not a finding of security weakness or a completed assurance result.
 
 A2 focused exit result: **PARTIALLY EXIT-READY — NOT CLOSED**. Component-level A3 eligibility and remaining conditions are controlled by AEGIS-A2-ADD-001.
+
+
+## 12. Owner-approved A2 closure and assurance timing — 2026-11-25
+
+The Owner accepted AEGIS-A1-BASE-001 v1.0 as the frozen controlling baseline and approved A2 closure under AEGIS-A2-ADD-001. The mandatory independent implementation assessment remains an A4/pre-release gate, not an A2 prerequisite. Dependency/SBOM assurance begins when the application dependency graph is introduced and is repeated for release candidates. Device-specific evidence, live backend/IROKA ownership and legal/privacy review remain gates for the affected feature, integration or real-user activation.
+
+A2: **VERIFIED-CLOSED** (documentation/governance only). A3: **NOT AUTHORIZED / NOT STARTED**. All implementation tests remain NOT RUN; no production readiness or deployment is claimed. OD-01 through OD-06 remain binding.
