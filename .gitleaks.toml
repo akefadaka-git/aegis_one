@@ -1,0 +1,12 @@
+[extend]
+useDefault = true
+
+[[rules]]
+id = "generic-api-key"
+  [[rules.allowlists]]
+  description = "Reviewed false positive: architecture prose describing credential/revocation refresh; no credential value is present."
+  condition = "AND"
+  regexTarget = "line"
+  regexes = ['''^Reconnection performs authentication, key/revocation refresh, policy reconciliation, audit receipt synchronization, and queued-event upload before accepting new remote commands\.$''']
+  paths = ['''^docs/contracts/AEGIS-OFFLINE-PROTECTION-AND-AUDIT-CONTRACT\.md$''']
+  commits = ["fe00cb773c63eb2c983a6e2e30bc620808eb8073"]
