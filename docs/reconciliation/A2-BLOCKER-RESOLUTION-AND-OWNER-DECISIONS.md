@@ -118,3 +118,19 @@ The [A2 Evidence Collection Pack](A2-EVIDENCE-COLLECTION-PACK.md) defines the re
 **Scope and limits:** This approval settles the v1 recovery authority model only. It does not select cryptographic algorithms or parameters, authorize implementation or key generation, approve enterprise escrow, or close the remaining vault design decisions. Recovery-secret handling, rate limiting, phishing resistance, backup behavior, and independent cryptographic review remain design/review requirements.
 
 **Evidence:** Owner instruction in the AEGIS ONE project conversation dated 2026-11-25. Repository record updated on the documentation branch; no application code or device state changed.
+
+
+### A2-OD-01A — Recommended technical design (recommendation; not implementation authorization)
+
+The recommended design is a two-path envelope-encryption model:
+
+1. **Recovery secret generation:** Generate 256 bits of uniformly random entropy with the platform cryptographically secure random generator. Do not use a user-created password as the recovery secret.
+2. **Human-readable encoding:** Encode the entropy as a 24-word mnemonic using a vetted, checksum-protected standard implementation. The exact standard and library require dependency review and independent security review before adoption.
+3. **Vault key:** Generate the vault root/data-encryption key independently and randomly. Protect it through separate wrapping paths: one using a device-bound key protected by Android Keystore, and one using a key derived from the recovery secret.
+4. **Cryptographic construction:** Use a reviewed KDF with explicit domain separation and a reviewed authenticated-encryption construction with unique nonces for each wrapping operation. Exact algorithms, parameters, nonce lifecycle, and libraries remain subject to A3 design review and independent security review; no novel cryptography.
+5. **Phrase handling:** Show the phrase only during setup or deliberate recovery enrollment; require confirmation; advise an offline physical backup. Never transmit it to AEGIS/IROKA services or place it in logs, analytics, crash reports, or automatic clipboard contents.
+6. **Recovery flow:** Require the phrase plus the encrypted vault data/backup. After successful recovery, provision a new device-bound key, re-wrap the vault key, and revoke the lost device's registration where applicable. The phrase must not provide a server operator with plaintext access.
+7. **Loss semantics:** If the phrase and all devices/key material capable of decrypting the vault are lost, recovery is intentionally impossible. Explain this clearly before enrollment and remind users to maintain a safe offline copy.
+8. **Rotation:** Rotate the phrase only through an authenticated existing device or the current recovery phrase. Re-wrap the same vault key under a newly generated recovery secret and invalidate the old phrase.
+
+**Important qualification:** This is the recommended architecture, not approval of a particular mnemonic standard, cryptographic algorithm/library, implementation, backup provider, or production key operation. Those require subsequent technical review and separate A3 authorization.
