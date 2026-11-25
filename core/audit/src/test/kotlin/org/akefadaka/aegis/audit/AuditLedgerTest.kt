@@ -14,7 +14,7 @@ class AuditLedgerTest {
   s.rows[0]=s.rows[0].copy(event=s.rows[0].event.copy(outcomeCode="ALLOW"))
   assertEquals(AuditIntegrity.TAMPERED,l.verify())
  }
- @Test(expected=IllegalArgumentException::class) fun rejectsMultilineFields() {
-  AuditEvent("1","EVENT","actor\nsecret","DENY",1)
+ @Test(expected=IllegalArgumentException::class) fun rejectsFreeFormSecretLikeValues() {
+  AuditEvent("1","EVENT","password=secret","DENY",1)
  }
 }

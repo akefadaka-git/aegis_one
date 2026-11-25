@@ -2,9 +2,12 @@ package org.akefadaka.aegis.audit
 import java.nio.charset.StandardCharsets
 import java.security.MessageDigest
 
-/** Minimized event contract: no arbitrary payload, credential, key or recovery-secret field. */
+/** Minimized event contract; identifier fields reject free-form text and secret-like payloads. */
 data class AuditEvent(val eventId:String,val eventType:String,val actorRef:String,val outcomeCode:String,val occurredAtEpochMillis:Long) {
- init { require(listOf(eventId,eventType,actorRef,outcomeCode).all { it.isNotBlank() && !it.contains('\n') && !it.contains('\r') }) }
+ init {
+  val fields=listOf(eventId,eventType,actorRef,outcomeCode)
+  require(fields.all { it.matches(Regex("[A-Za-z0-9][A-Za-z0-9._:-]{0,127}")) })
+ }
 }
 data class ChainedAuditRecord(val sequence:Long,val event:AuditEvent,val previousDigest:String,val digest:String)
 interface AuditStore { fun append(record:ChainedAuditRecord); fun readAll():List<ChainedAuditRecord> }

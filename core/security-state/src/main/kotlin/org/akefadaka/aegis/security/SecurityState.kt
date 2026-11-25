@@ -2,10 +2,9 @@ package org.akefadaka.aegis.security
 
 enum class CapabilityStatus { VERIFIED, OWNER_REPORTED, UNKNOWN, UNSUPPORTED, DEGRADED }
 enum class EvidenceSource { PLATFORM_API, SIGNED_ATTESTATION, OWNER_REPORT, TEST_FIXTURE, NONE }
-
 data class CapabilityEvidence(
- val capability:String, val status:CapabilityStatus, val source:EvidenceSource,
- val observedAtEpochMillis:Long?=null, val detailCode:String?=null
+ val capability:String,val status:CapabilityStatus,val source:EvidenceSource,
+ val observedAtEpochMillis:Long?=null,val detailCode:String?=null
 ) {
  init {
   require(capability.isNotBlank())
@@ -25,4 +24,9 @@ data class ResourceScope(val resourceType:String,val resourceId:String,val tenan
  init { require(resourceType.isNotBlank() && resourceId.isNotBlank()) }
 }
 data class ConsentGrant(val subjectId:String,val purpose:String,val granted:Boolean)
-data class HumanApproval(val approverId:String,val actionId:String,val scope:ResourceScope,val expiresAtEpochMillis:Long,val approvalId:String)
+data class HumanApproval(
+ val approverId:String,val actionId:String,val scope:ResourceScope,val expiresAtEpochMillis:Long,
+ val approvalId:String,val approverKind:PrincipalKind=PrincipalKind.ACCOUNT_OWNER
+) {
+ init { require(approverId.isNotBlank() && actionId.isNotBlank() && approvalId.isNotBlank()) }
+}
