@@ -10,7 +10,7 @@ This register separates blockers that can be reduced through repository document
 
 | Decision | Recommended baseline | Rationale | State |
 |---|---|---|---|
-| Vault recovery | User-controlled high-entropy recovery secret; no provider/operator recovery; disclose permanent-loss risk | Minimizes unilateral recovery authority and server-side exposure | OWNER APPROVAL REQUIRED |
+| Vault recovery | User-controlled high-entropy recovery secret; no provider/operator recovery; disclose permanent-loss risk | Minimizes unilateral recovery authority and server-side exposure | OWNER-APPROVED 2026-11-25 |
 | Enterprise escrow | Disabled in v1; consider only in a later separately approved enterprise profile with tenant-held keys and dual control | Avoids silent employer access to personal vault data | OWNER APPROVAL REQUIRED |
 | Family model | Transparent, age-appropriate, least-privilege guardian controls; no default vault/content surveillance | Limits coercive or excessive access | OWNER APPROVAL REQUIRED; legal review required |
 | P3 actions | Require scoped admin authority, valid signed approval, and local policy check; user notice where feasible | Prevents AI/service-only device-impacting actions | OWNER APPROVAL REQUIRED |
@@ -102,3 +102,19 @@ This plan is an A2 planning artifact only. It does not authorize device changes,
 ## 9. Evidence collection pack
 
 The [A2 Evidence Collection Pack](A2-EVIDENCE-COLLECTION-PACK.md) defines the read-only handset information to collect, prohibited personal identifiers, independent security review deliverables, and interface ownership worksheet. It reduces process ambiguity but does not itself resolve physical-device, reviewer, or backend-owner blockers.
+
+
+## 10. Owner decision record
+
+### A2-OD-01 — Vault recovery policy
+
+**Decision:** APPROVED by the Owner on 2026-11-25.
+
+**Approved baseline:**
+- Vault recovery uses a user-controlled, high-entropy recovery secret.
+- No provider or service operator recovery is permitted.
+- The permanent-loss risk must be disclosed clearly: loss of the recovery secret together with the relevant device/key material may make vault data permanently unrecoverable.
+
+**Scope and limits:** This approval settles the v1 recovery authority model only. It does not select cryptographic algorithms or parameters, authorize implementation or key generation, approve enterprise escrow, or close the remaining vault design decisions. Recovery-secret handling, rate limiting, phishing resistance, backup behavior, and independent cryptographic review remain design/review requirements.
+
+**Evidence:** Owner instruction in the AEGIS ONE project conversation dated 2026-11-25. Repository record updated on the documentation branch; no application code or device state changed.
