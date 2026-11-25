@@ -129,3 +129,10 @@ The table defines planned acceptance evidence, not executed tests. Every test re
 ### 9.3 Focused A2 exit result
 
 **PARTIALLY EXIT-READY — NOT CLOSED.** A3 foundation workstreams are architecturally eligible after separate Owner stage authorization. Conditional and deferred workstreams are listed in AEGIS-A2-ADD-001. The first-tranche threat/control/test mapping and A1 baseline governance item remain outstanding. No implementation or test execution is claimed.
+
+
+### 9.4 First-tranche mapping completion
+
+The [A2 Controlled Amendment](AEGIS-A2-ADD-001-RISK-BASED-ASSURANCE-AND-EXIT-REVISION.md) Section 9 records the first-tranche threat-to-control-to-test matrix FT-01 through FT-12.
+
+**Disposition: DESIGN-LEVEL FIRST-TRANCHE TRACEABILITY COMPLETE.** All associated tests remain **NOT RUN** because no application implementation exists. This closes the first-tranche design-mapping task only; later feature workstreams require additional threat/test mappings before implementation.
