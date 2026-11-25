@@ -11,7 +11,8 @@ data class CapabilityEvidence(
   require(status!=CapabilityStatus.VERIFIED || source in setOf(EvidenceSource.PLATFORM_API,EvidenceSource.SIGNED_ATTESTATION,EvidenceSource.TEST_FIXTURE))
   require(status!=CapabilityStatus.OWNER_REPORTED || source==EvidenceSource.OWNER_REPORT)
  }
- val isEnforced:Boolean get()=status==CapabilityStatus.VERIFIED
+ /** Test fixtures may model a verified result but can never assert a runtime enforcement fact. */
+ val isEnforced:Boolean get()=status==CapabilityStatus.VERIFIED && source!=EvidenceSource.TEST_FIXTURE
 }
 data class SecurityPosture(val capabilities:Map<String,CapabilityEvidence>) {
  fun capability(name:String)=capabilities[name] ?: CapabilityEvidence(name,CapabilityStatus.UNKNOWN,EvidenceSource.NONE)
@@ -25,8 +26,19 @@ data class ResourceScope(val resourceType:String,val resourceId:String,val tenan
 }
 data class ConsentGrant(val subjectId:String,val purpose:String,val granted:Boolean)
 data class HumanApproval(
- val approverId:String,val actionId:String,val scope:ResourceScope,val expiresAtEpochMillis:Long,
- val approvalId:String,val approverKind:PrincipalKind=PrincipalKind.ACCOUNT_OWNER
+ val approverId:String,
+ val actionId:String,
+ val scope:ResourceScope,
+ val issuedAtEpochMillis:Long,
+ val expiresAtEpochMillis:Long,
+ val approvalId:String,
+ val nonce:String,
+ val signature:ByteArray,
+ val approverKind:PrincipalKind=PrincipalKind.ACCOUNT_OWNER
 ) {
- init { require(approverId.isNotBlank() && actionId.isNotBlank() && approvalId.isNotBlank()) }
+ init {
+  require(approverId.isNotBlank() && actionId.isNotBlank() && approvalId.isNotBlank())
+  require(nonce.isNotBlank() && signature.isNotEmpty())
+  require(issuedAtEpochMillis>=0 && expiresAtEpochMillis>issuedAtEpochMillis)
+ }
 }

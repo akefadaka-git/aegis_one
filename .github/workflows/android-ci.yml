@@ -34,15 +34,28 @@ jobs:
     permissions:
       contents: read
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           fetch-depth: 0
-      - uses: actions/setup-java@v4
+      - uses: actions/setup-java@v5
         with:
           distribution: temurin
           java-version: "17"
-      - uses: gitleaks/gitleaks-action@v2
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: Build, test and Android lint
-        run: ./gradlew --no-daemon clean test lint assembleDebug
+      - name: Install pinned Gitleaks
+        run: |
+          curl -fsSL https://github.com/gitleaks/gitleaks/releases/download/v8.24.3/gitleaks_8.24.3_linux_x64.tar.gz -o /tmp/gitleaks.tar.gz
+          sudo tar -xzf /tmp/gitleaks.tar.gz -C /usr/local/bin gitleaks
+      - name: Scan full Git history for secrets
+        run: gitleaks detect --source . --redact --verbose --exit-code 2 --report-format sarif --report-path gitleaks.sarif --log-opts="--all"
+      - name: Build, test, lint, assemble and generate SBOM
+        run: ./gradlew --no-daemon clean test lint assembleDebug cyclonedxBom
+      - name: Preserve CI evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: aegis-one-ci-evidence-${{ github.sha }}
+          path: |
+            build/reports/cyclonedx/bom.json
+            app/build/outputs/apk/debug/app-debug.apk
+            gitleaks.sarif
+          if-no-files-found: warn
