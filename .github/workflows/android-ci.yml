@@ -2,8 +2,26 @@ name: Android foundation CI
 on:
   push:
     branches: ["docs/a1-baseline-a2-reconciliation"]
+    paths:
+      - ".github/workflows/**"
+      - "*.gradle.kts"
+      - "gradle/**"
+      - "gradlew*"
+      - "gradle.properties"
+      - "app/**"
+      - "core/**"
+      - "platform/**"
   pull_request:
     branches: ["docs/a1-baseline-a2-reconciliation"]
+    paths:
+      - ".github/workflows/**"
+      - "*.gradle.kts"
+      - "gradle/**"
+      - "gradlew*"
+      - "gradle.properties"
+      - "app/**"
+      - "core/**"
+      - "platform/**"
   workflow_dispatch:
 permissions:
   contents: read
