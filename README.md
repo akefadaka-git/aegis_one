@@ -7,9 +7,9 @@ AEGIS ONE is a dedicated Android security and protection platform. IROKA provide
 ## Project status
 
 - **A1:** Product and architecture baseline established in [A1 Product and Architecture Baseline](docs/architecture/A1-PRODUCT-AND-ARCHITECTURE-BASELINE.md).
-- **A2:** Android/device and IROKA integration reconciliation is **PARTIAL / OPEN**. See [A2 Android and Device Reconciliation](docs/reconciliation/A2-ANDROID-AND-DEVICE-RECONCILIATION.md).
+- **A2:** **VERIFIED-CLOSED** under [A2 Owner Closure Record](docs/reconciliation/AEGIS-A2-CLOSE-001-OWNER-CLOSURE-RECORD.md); residual device, backend, legal and assurance items remain feature-specific or later-stage gates.
 - **Threat model:** Initial threat model recorded in [A1 Threat Model](docs/security/THREAT-MODEL-A1.md).
-- **A3:** Not started; requires A2 closure and separate explicit Owner authorization.
+- **A3:** Implementation **NOT AUTHORIZED / NOT STARTED**; bounded plan recorded in [A3 Implementation Plan](docs/implementation/AEGIS-A3-BOUNDED-IMPLEMENTATION-PLAN.md). Separate explicit Owner stage authorization is required.
 - **A4:** Not run.
 - **A5:** Not authorized; deployment/release remains a separate approval gate.
 
@@ -31,4 +31,4 @@ No factory reset, device enrollment, application installation, deployment, or pu
 
 This repository is public. No open-source license has been selected; public visibility does not itself grant permission to reuse or redistribute project materials. Do not commit credentials, signing keys, private user data, or production secrets.
 
-All implementation, merge, release, and deployment actions remain subject to their respective stage gates and explicit approvals.
+A1 is frozen and A2 is closed. A3 implementation, merge, release, and deployment remain subject to their respective stage gates and explicit approvals. A5 is a separate Owner authorization gate.
