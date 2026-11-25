@@ -13,8 +13,8 @@ This register separates blockers that can be reduced through repository document
 | Vault recovery | User-controlled high-entropy recovery secret; no provider/operator recovery; disclose permanent-loss risk | Minimizes unilateral recovery authority and server-side exposure | OWNER-APPROVED 2026-11-25 |
 | Enterprise escrow | Disabled in v1; consider only in a later separately approved enterprise profile with tenant-held keys and dual control | Avoids silent employer access to personal vault data | OWNER APPROVED — 2026-11-25; see A2-OD-02 |
 | Family model | Transparent, age-appropriate, least-privilege guardian controls; no default vault/content surveillance | Limits coercive or excessive access | OWNER-APPROVED 2026-11-25; legal review remains required |
-| P3 actions | Require scoped admin authority, valid signed approval, and local policy check; user notice where feasible | Prevents AI/service-only device-impacting actions | OWNER APPROVAL REQUIRED |
-| P4 actions | Disabled in v1; no remote wipe, key destruction, or irreversible account closure until separately approved and reviewed | Reduces catastrophic and irreversible misuse | OWNER APPROVAL REQUIRED |
+| P3 actions | Require scoped human authority, valid signed/time-limited approval, and local policy check; user notice where feasible; AI cannot approve | Prevents AI/service-only device-impacting actions | OWNER-APPROVED 2026-11-25; see A2-OD-04 |
+| P4 actions | Disabled by default in v1; future capability requires separate approval, strong human authorization, recovery analysis and independent review | Reduces catastrophic and irreversible misuse | OWNER-APPROVED 2026-11-25; see A2-OD-04 |
 | Offline policy | Permit only low-risk local protection under a signed, unexpired policy; deny sensitive export/recovery/destructive actions offline | Preserves local safety without extending remote authority | OWNER APPROVAL REQUIRED |
 | Attestation failure | Unknown/unsupported → restricted trust state, not PASS; define blocking tiers after device/service capability validation | Avoids false assurance and avoids assuming every device supports identical evidence | PROPOSED TECHNICAL DEFAULT |
 | Consumer anti-removal | Do not promise prevention of uninstall; provide user-mediated account/device recovery and local tamper signals where available | Ordinary apps do not possess Device Owner authority | PLATFORM CONSTRAINT |
@@ -169,3 +169,33 @@ The recommended design is a two-path envelope-encryption model:
 **Implementation authorization and limits:** The Owner's instruction on 2026-11-25 authorizes the necessary A3 implementation work for the approved family-protection model. This authorization is subject to the A2 exit gates and does not waive unresolved A2 blockers, independent security review, legal review, or verification requirements. It does not authorize merge, release, deployment, production enrollment, or changes to the Owner's handset; those remain separate gates. Other pending Owner decisions (including P3/P4 action policy and offline policy) are not approved by this decision.
 
 **Evidence:** Owner instruction in the AEGIS ONE project conversation dated 2026-11-25: approval and authorization to implement the approved family-protection model and necessary scoped work. Recorded on the documentation branch; no application code, device state, or `main` branch was changed.
+
+
+### A2-OD-04 — P3/P4 sensitive and irreversible action authorization
+
+**Decision:** APPROVED by the Owner on 2026-11-25.
+
+**Approved v1 policy — P3 high-impact actions:**
+- Require an authenticated, explicitly authorized human administrator or account owner, according to the action and management mode.
+- Require a signed, scoped, time-limited approval.
+- Require local AEGIS policy verification before execution.
+- Enforce least privilege, audit logging, replay protection, and idempotency.
+- Notify affected users where legally and technically feasible.
+- AI models and autonomous agents may recommend or prepare P3 actions but cannot independently approve them.
+
+**Approved v1 policy — P4 irreversible/critical actions:**
+- P4 capabilities are disabled by default in v1, including remote wipe, cryptographic key destruction, irreversible vault deletion, and permanent account closure.
+- AI-only or service-operator-only authorization is prohibited.
+- Any future P4 capability requires a separately approved policy, strong human authorization, explicit scope, independent security review, recovery analysis, and auditable safeguards.
+- Local emergency protections must not silently become irreversible remote actions.
+
+**Authority boundaries:**
+- Family guardian authority does not automatically confer enterprise administrator authority.
+- Enterprise administrators receive no access to personal vault keys.
+- IROKA cannot override local authorization.
+- Device Owner privileges, where legitimately provisioned, do not remove policy and authorization checks.
+- Emergency actions must remain narrowly scoped and cannot become a general authorization bypass.
+
+**Scope and limits:** This decision approves the policy baseline only. It does not authorize implementation or activation of P3/P4 capabilities, remote wipe, key destruction, production command signing, deployment, or changes to the Owner's handset. P4 remains disabled in v1. Any later P4 enablement requires a new explicit Owner decision.
+
+**Evidence:** Owner approval in the AEGIS ONE project conversation dated 2026-11-25. Recorded on the documentation branch; no application code, device state, or `main` branch was changed.
