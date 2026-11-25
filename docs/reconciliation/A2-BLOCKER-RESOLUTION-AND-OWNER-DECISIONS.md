@@ -11,7 +11,7 @@ This register separates blockers that can be reduced through repository document
 | Decision | Recommended baseline | Rationale | State |
 |---|---|---|---|
 | Vault recovery | User-controlled high-entropy recovery secret; no provider/operator recovery; disclose permanent-loss risk | Minimizes unilateral recovery authority and server-side exposure | OWNER-APPROVED 2026-11-25 |
-| Enterprise escrow | Disabled in v1; consider only in a later separately approved enterprise profile with tenant-held keys and dual control | Avoids silent employer access to personal vault data | OWNER APPROVAL REQUIRED |
+| Enterprise escrow | Disabled in v1; consider only in a later separately approved enterprise profile with tenant-held keys and dual control | Avoids silent employer access to personal vault data | OWNER APPROVED — 2026-11-25; see A2-OD-02 |
 | Family model | Transparent, age-appropriate, least-privilege guardian controls; no default vault/content surveillance | Limits coercive or excessive access | OWNER APPROVAL REQUIRED; legal review required |
 | P3 actions | Require scoped admin authority, valid signed approval, and local policy check; user notice where feasible | Prevents AI/service-only device-impacting actions | OWNER APPROVAL REQUIRED |
 | P4 actions | Disabled in v1; no remote wipe, key destruction, or irreversible account closure until separately approved and reviewed | Reduces catastrophic and irreversible misuse | OWNER APPROVAL REQUIRED |
@@ -134,3 +134,20 @@ The recommended design is a two-path envelope-encryption model:
 8. **Rotation:** Rotate the phrase only through an authenticated existing device or the current recovery phrase. Re-wrap the same vault key under a newly generated recovery secret and invalidate the old phrase.
 
 **Important qualification:** This is the recommended architecture, not approval of a particular mnemonic standard, cryptographic algorithm/library, implementation, backup provider, or production key operation. Those require subsequent technical review and separate A3 authorization.
+
+
+### A2-OD-02 — Enterprise vault escrow policy
+
+**Decision:** APPROVED by the Owner on 2026-11-25.
+
+**Approved v1 baseline:**
+- Enterprise vault escrow is disabled in v1.
+- Personal vault data and enterprise-managed data must remain cryptographically separate, with distinct key hierarchies and authorization boundaries.
+- Enterprise enrollment or management must not silently transfer access to, decrypt, or change the recovery authority for an existing personal vault.
+- Enterprise administrators and service operators receive no implicit personal-vault recovery or decryption capability.
+
+**Future consideration:** Any later enterprise escrow capability requires a separate versioned proposal and explicit Owner approval. It must define tenant-held key custody, dual-control authorization, employee disclosure/consent, purpose limitation, auditability, revocation, and independent security review. This future possibility does not weaken the v1 prohibition.
+
+**Scope and limits:** This decision settles the v1 enterprise escrow policy only. It does not authorize enterprise enrollment, implementation, key generation, or production services. It does not itself define the complete technical separation architecture; detailed key-domain, storage, backup, and migration contracts remain subject to design review before implementation.
+
+**Evidence:** Owner instruction in the AEGIS ONE project conversation dated 2026-11-25. Recorded on the documentation branch; no application code, device state, or `main` branch was changed.
