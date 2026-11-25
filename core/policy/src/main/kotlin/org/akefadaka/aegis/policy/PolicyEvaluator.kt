@@ -16,6 +16,11 @@ class PolicyEvaluator {
   OperatingMode.FAMILY -> setOf(PrincipalKind.FAMILY_GUARDIAN,PrincipalKind.FAMILY_MEMBER,PrincipalKind.SYSTEM_SERVICE)
   OperatingMode.ENTERPRISE -> setOf(PrincipalKind.ENTERPRISE_ADMIN,PrincipalKind.EMPLOYEE,PrincipalKind.SYSTEM_SERVICE)
  }
+ private fun approverKinds(mode:OperatingMode)=when(mode) {
+  OperatingMode.CONSUMER -> setOf(PrincipalKind.ACCOUNT_OWNER)
+  OperatingMode.FAMILY -> setOf(PrincipalKind.FAMILY_GUARDIAN)
+  OperatingMode.ENTERPRISE -> setOf(PrincipalKind.ENTERPRISE_ADMIN)
+ }
  fun evaluate(r:ActionRequest,c:EvaluationContext):PolicyDecision {
   if(r.actionId.isBlank() || r.actor.kind !in allowedKinds(r.mode) || r.tier==SecurityTier.P4 || !c.policyFresh) return PolicyDecision.DENY
   if(r.mode==OperatingMode.ENTERPRISE && (r.scope.tenantId==null || r.actor.tenantId!=r.scope.tenantId)) return PolicyDecision.DENY
@@ -25,7 +30,7 @@ class PolicyEvaluator {
   if(r.tier==SecurityTier.P3) {
    if(!c.online) return PolicyDecision.DENY
    val a=c.approval ?: return PolicyDecision.REQUIRE_APPROVAL
-   if(a.approverId==r.actor.id || a.approverKind !in allowedKinds(r.mode) || a.actionId!=r.actionId || a.scope!=r.scope || a.expiresAtEpochMillis<=c.nowEpochMillis) return PolicyDecision.DENY
+   if(a.approverId==r.actor.id || a.approverKind !in approverKinds(r.mode) || a.actionId!=r.actionId || a.scope!=r.scope || a.expiresAtEpochMillis<=c.nowEpochMillis) return PolicyDecision.DENY
   }
   return PolicyDecision.ALLOW
  }

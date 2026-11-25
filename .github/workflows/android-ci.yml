@@ -17,9 +17,14 @@ jobs:
       contents: read
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - uses: actions/setup-java@v4
         with:
           distribution: temurin
           java-version: "17"
-      - name: Build and test with pinned wrapper
-        run: ./gradlew --no-daemon clean test assembleDebug
+      - uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Build, test and Android lint
+        run: ./gradlew --no-daemon clean test lint assembleDebug

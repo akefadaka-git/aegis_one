@@ -19,11 +19,20 @@ class PolicyEvaluatorTest {
  @Test fun p3RequiresOnlineModeAuthorizedHumanApproval() {
   val r=ActionRequest("sensitive",owner,OperatingMode.CONSUMER,scope,SecurityTier.P3)
   assertEquals(PolicyDecision.REQUIRE_APPROVAL,e.evaluate(r,ctx()))
-  val a=HumanApproval("admin","sensitive",scope,2000,"ap-1")
+  val a=HumanApproval("owner-2","sensitive",scope,2000,"ap-1")
   assertEquals(PolicyDecision.ALLOW,e.evaluate(r,ctx().copy(approval=a)))
   assertEquals(PolicyDecision.DENY,e.evaluate(r,ctx(false).copy(approval=a)))
-  val aiApproval=a.copy(approverId="iroka",approverKind=PrincipalKind.AI_AGENT)
-  assertEquals(PolicyDecision.DENY,e.evaluate(r,ctx().copy(approval=aiApproval)))
+  assertEquals(PolicyDecision.DENY,e.evaluate(r,ctx().copy(approval=a.copy(approverId="iroka",approverKind=PrincipalKind.AI_AGENT))))
+ }
+ @Test fun enterpriseP3RequiresAdminNotEmployeeApproval() {
+  val admin=Principal("admin",PrincipalKind.ENTERPRISE_ADMIN,"tenant")
+  val employee=Principal("employee",PrincipalKind.EMPLOYEE,"tenant")
+  val s=ResourceScope("record","1","tenant")
+  val r=ActionRequest("sensitive",employee,OperatingMode.ENTERPRISE,s,SecurityTier.P3)
+  val approval=HumanApproval("employee-2","sensitive",s,2000,"ap-2",PrincipalKind.EMPLOYEE)
+  assertEquals(PolicyDecision.DENY,e.evaluate(r,ctx().copy(approval=approval)))
+  val adminApproval=approval.copy(approverId=admin.id,approverKind=PrincipalKind.ENTERPRISE_ADMIN)
+  assertEquals(PolicyDecision.ALLOW,e.evaluate(r,ctx().copy(approval=adminApproval)))
  }
  @Test fun unknownCapabilityStalePolicyAndTenantMismatchDeny() {
   val r=ActionRequest("x",owner,OperatingMode.CONSUMER,scope,SecurityTier.P1,"missing")
