@@ -274,3 +274,21 @@ After the service-provider-software field could not be located in Settings, the 
 This resolves the previously missing CSC/firmware identifier at the Owner-reported level. The CSC string is recorded verbatim; no unsupported inference is made about the active carrier, country configuration, or service-provider profile. AP/CP/CSC values have not been independently inspected or cryptographically attested.
 
 The combined reference profile remains Samsung Galaxy A16 SM-A165F/DS, Android 17 / API 37, One UI 9.0, build `CP2A.260605.A165FXXUBEZJ7`, security patch 5 October 2026, and the AP/CP/CSC values above. Knox state/version, StrongBox availability, hardware-backed Keystore/KeyMint security level, verified boot/bootloader state, and Device Owner/work-profile status remain UNKNOWN. No device settings were changed, no diagnostic software was installed, and no enrollment or reset was performed.
+
+
+## 15. Owner requirement — early-boot protection and system administration
+
+**Owner requirement (2026-11-25):** Security protections should become active with the operating system as early as Android permits, not wait for the complete AEGIS user interface to open. The Owner also requested device-wide administrative configuration capability.
+
+**Android feasibility and security boundary:**
+- Android's boot chain, verified boot, encryption and system services initialize before third-party applications. A normal third-party app cannot execute before Android itself or replace the OS security authority.
+- AEGIS may evaluate a Direct-Boot-aware, minimal early-start component using supported Android lifecycle entry points (including the locked-boot phase where supported), device-protected storage, and a narrowly defined allowlist of operations. It must not assume credential-encrypted storage, user-authenticated vault keys, or the full vault are available before first unlock.
+- The early-start component must be minimal, resilient to process death, idempotent, observable, and fail safely. It must not unlock the vault, bypass the lock screen, access credential-protected user data, or perform P3/P4 actions before the applicable authorization conditions are met.
+- After user unlock, the normal application may initialize credential-protected vault components, authenticate the user, and reconcile queued events/policy.
+- Device-wide policy administration is available only to the extent granted by Android roles and supported APIs. A fully managed Device Owner can apply documented DevicePolicyManager policies after eligible Android Enterprise provisioning. It is not root, unrestricted system UID, firmware authority, or permission to override platform security.
+- Consumer mode remains app-scoped and user-consented. Enterprise Device Owner mode requires separate eligible provisioning and explicit authorization. Family mode remains distinct and does not inherit enterprise powers.
+- Root access, bootloader unlocking, custom firmware/OS, OEM signing, hidden privilege escalation, and bypassing Android security controls are outside scope.
+
+**Vault implications:** Keep vault data encrypted at rest using the approved key hierarchy. Direct Boot support, if implemented, must use a separate minimal device-protected bootstrap state and must never cache plaintext vault keys or recovery secrets in device-protected storage. Vault content and credential-bound keys remain gated until successful user authentication/unlock. Early-boot security status must clearly distinguish protection active, limited pre-unlock mode, and full post-unlock vault availability.
+
+**Status:** REQUIREMENT RECORDED; implementation feasibility requires A3 design and device/API validation. Current target handset capability, Direct Boot behavior, KeyMint/StrongBox details, and Device Owner eligibility remain UNKNOWN until verified. This requirement does not change the no-factory-reset/no-enrollment/no-device-modification constraints.
