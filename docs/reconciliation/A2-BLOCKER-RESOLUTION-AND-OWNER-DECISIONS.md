@@ -12,7 +12,7 @@ This register separates blockers that can be reduced through repository document
 |---|---|---|---|
 | Vault recovery | User-controlled high-entropy recovery secret; no provider/operator recovery; disclose permanent-loss risk | Minimizes unilateral recovery authority and server-side exposure | OWNER-APPROVED 2026-11-25 |
 | Enterprise escrow | Disabled in v1; consider only in a later separately approved enterprise profile with tenant-held keys and dual control | Avoids silent employer access to personal vault data | OWNER APPROVED — 2026-11-25; see A2-OD-02 |
-| Family model | Transparent, age-appropriate, least-privilege guardian controls; no default vault/content surveillance | Limits coercive or excessive access | OWNER APPROVAL REQUIRED; legal review required |
+| Family model | Transparent, age-appropriate, least-privilege guardian controls; no default vault/content surveillance | Limits coercive or excessive access | OWNER-APPROVED 2026-11-25; legal review remains required |
 | P3 actions | Require scoped admin authority, valid signed approval, and local policy check; user notice where feasible | Prevents AI/service-only device-impacting actions | OWNER APPROVAL REQUIRED |
 | P4 actions | Disabled in v1; no remote wipe, key destruction, or irreversible account closure until separately approved and reviewed | Reduces catastrophic and irreversible misuse | OWNER APPROVAL REQUIRED |
 | Offline policy | Permit only low-risk local protection under a signed, unexpired policy; deny sensitive export/recovery/destructive actions offline | Preserves local safety without extending remote authority | OWNER APPROVAL REQUIRED |
@@ -151,3 +151,21 @@ The recommended design is a two-path envelope-encryption model:
 **Scope and limits:** This decision settles the v1 enterprise escrow policy only. It does not authorize enterprise enrollment, implementation, key generation, or production services. It does not itself define the complete technical separation architecture; detailed key-domain, storage, backup, and migration contracts remain subject to design review before implementation.
 
 **Evidence:** Owner instruction in the AEGIS ONE project conversation dated 2026-11-25. Recorded on the documentation branch; no application code, device state, or `main` branch was changed.
+
+
+### A2-OD-03 — Family protection policy
+
+**Decision:** APPROVED by the Owner on 2026-11-25.
+
+**Approved v1 baseline:**
+- Family protection must use transparent, age-appropriate, least-privilege guardian controls.
+- Guardian authority is limited to lawful, disclosed safety policies and device-use controls; it does not grant unrestricted access to a child's private vault, passwords, recovery secrets, personal files, or communications.
+- No covert surveillance, hidden recording, or undisclosed collection of private communications is permitted.
+- Children receive age-appropriate notice of monitoring, restrictions, and guardian controls.
+- Emergency protections must have defined purposes, authorization, safeguards, and auditability.
+- Account setup and guardian authority must account for applicable age requirements, custody arrangements, local law, and child assent where appropriate.
+- Family roles and permissions remain separate from enterprise administrator privileges.
+
+**Implementation authorization and limits:** The Owner's instruction on 2026-11-25 authorizes the necessary A3 implementation work for the approved family-protection model. This authorization is subject to the A2 exit gates and does not waive unresolved A2 blockers, independent security review, legal review, or verification requirements. It does not authorize merge, release, deployment, production enrollment, or changes to the Owner's handset; those remain separate gates. Other pending Owner decisions (including P3/P4 action policy and offline policy) are not approved by this decision.
+
+**Evidence:** Owner instruction in the AEGIS ONE project conversation dated 2026-11-25: approval and authorization to implement the approved family-protection model and necessary scoped work. Recorded on the documentation branch; no application code, device state, or `main` branch was changed.
