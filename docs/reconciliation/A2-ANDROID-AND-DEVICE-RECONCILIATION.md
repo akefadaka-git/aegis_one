@@ -259,3 +259,18 @@ The Owner confirmed the model number as **SM-A165F/DS** (Samsung Galaxy A16 dual
 | CSC / service provider software | Not supplied | UNKNOWN |
 
 The reference model identity is now complete at the Owner-reported level. No independent handset inspection or cryptographic attestation has occurred. Knox state, StrongBox, hardware-backed Keystore/KeyMint security level, verified boot/bootloader state, and Device Owner/work-profile status remain UNKNOWN. This evidence does not authorize installation, enrollment, configuration changes, or factory reset.
+
+
+## 15. Owner-reported firmware identifiers (2026-11-25)
+
+After the service-provider-software field could not be located in Settings, the Owner used the handset's information screen (dialer code `*#1234#`) and supplied these values:
+
+| Field | Value | Classification |
+|---|---|---|
+| AP | `A165FXXUBEZJ7` | OWNER-REPORTED |
+| CP | `A165FXXUBEZJ7` | OWNER-REPORTED |
+| CSC | `A165FOJMBEZJ7` | OWNER-REPORTED |
+
+This resolves the previously missing CSC/firmware identifier at the Owner-reported level. The CSC string is recorded verbatim; no unsupported inference is made about the active carrier, country configuration, or service-provider profile. AP/CP/CSC values have not been independently inspected or cryptographically attested.
+
+The combined reference profile remains Samsung Galaxy A16 SM-A165F/DS, Android 17 / API 37, One UI 9.0, build `CP2A.260605.A165FXXUBEZJ7`, security patch 5 October 2026, and the AP/CP/CSC values above. Knox state/version, StrongBox availability, hardware-backed Keystore/KeyMint security level, verified boot/bootloader state, and Device Owner/work-profile status remain UNKNOWN. No device settings were changed, no diagnostic software was installed, and no enrollment or reset was performed.
