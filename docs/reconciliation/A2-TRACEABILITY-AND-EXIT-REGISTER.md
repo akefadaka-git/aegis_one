@@ -93,3 +93,39 @@ The new [A2 Security Enhancement Register](../security/AEGIS-SECURITY-ENHANCEMEN
 A2 remains **OPEN — NOT ELIGIBLE FOR CLOSURE**. The six Owner decisions are approved, but approval of policy does not substitute for physical-device evidence, independent review, accountable service ownership, legal review, or complete traceability. A3 remains **BLOCKED** pending A2 exit and explicit stage transition. A5 remains a separate authorization gate.
 
 No application code, handset state, enrollment, production key, merge, release, or deployment is authorized by this reconciliation.
+
+
+---
+
+## 9. Controlled amendment — risk-based traceability and A2 exit assessment (2026-11-25)
+
+**Controlling amendment:** [AEGIS-A2-ADD-001 — Risk-Based Security Assurance and Exit Revision](AEGIS-A2-ADD-001-RISK-BASED-ASSURANCE-AND-EXIT-REVISION.md). This section supersedes earlier universal A3-blocker and independent-review timing statements. Historical entries remain visible for audit history.
+
+### 9.1 First-tranche traceability readiness
+
+| First A3 tranche requirement/threat | Planned component/control | Minimum A3 negative evidence | Entry disposition |
+|---|---|---|---|
+| False security posture / unsupported device capability | Capability manifest and security status model | UNKNOWN/UNSUPPORTED never rendered as VERIFIED or enforced | ELIGIBLE |
+| Privilege confusion across consumer/family/enterprise | Mode and role policy model | Cross-mode, cross-role and cross-tenant denial | ELIGIBLE |
+| Unauthorized local action | Deterministic local policy evaluator | Wrong role, missing consent, stale policy and unsupported capability produce DENY/REQUIRE_APPROVAL with no side effect | ELIGIBLE |
+| Offline policy expiry / clock rollback | Offline policy state machine | Expired policy, rollback, uncertain time and stale revocation do not extend authority | ELIGIBLE |
+| Audit leakage or false immutability claim | Local audit event schema/storage boundary | Secret redaction, sequence-gap detection, integrity failure state; no claim of absolute immutability | ELIGIBLE |
+| Forged/replayed remote command | Typed schema/parser only in first tranche | Malformed, unknown, wrong-scope and duplicate input rejected before side effects | CONDITIONAL; no live command execution |
+| Vault theft/tampering | Vault interfaces and synthetic test harness only | No real secret persistence or plaintext leakage in scaffolding | CONDITIONAL; cryptographic engine deferred |
+| Direct Boot exposure | Minimal bootstrap interface only | No credential-bound secret or vault plaintext in device-protected storage | CONDITIONAL |
+| Family/enterprise authority abuse | Synthetic policy and management adapter tests | Guardian cannot access private vault; work profile is not Device Owner; unsupported controls fail closed | CONDITIONAL |
+
+The table defines planned acceptance evidence, not executed tests. Every test remains **NOT RUN** until implemented and executed.
+
+### 9.2 Revised blocker mapping
+
+- Independent implementation assessment: A4/pre-release gate, not A2 exit.
+- SBOM/dependency scanning: trigger at first dependency introduction in A3 and repeat for release candidates.
+- Device hardware/boot/management evidence: required before accepting affected device-specific controls, not for platform-neutral foundations.
+- Backend/IROKA named operational owners and trust services: required before live integration.
+- Family/enterprise legal/privacy review: required before real-user/tenant activation; synthetic scaffolding may proceed.
+- A1 formal freeze: still NOT CONFIRMED; Owner must confirm the controlling baseline or record a scoped deferral before A2 closure.
+
+### 9.3 Focused A2 exit result
+
+**PARTIALLY EXIT-READY — NOT CLOSED.** A3 foundation workstreams are architecturally eligible after separate Owner stage authorization. Conditional and deferred workstreams are listed in AEGIS-A2-ADD-001. The first-tranche threat/control/test mapping and A1 baseline governance item remain outstanding. No implementation or test execution is claimed.
