@@ -148,3 +148,49 @@ Combined Owner-reported profile:
 - Security patch: 5 October 2026
 
 CSC/service-provider software remains UNKNOWN. Hardware security capability evidence remains NOT COLLECTED.
+
+
+## 11. Reconciled Owner-reported handset profile and current blocker status — 2026-11-25
+
+This addendum supersedes conflicting earlier statements in Sections 8–10 where they say the model or CSC was not supplied, or physical handset information was wholly uncollected. Historical entries are retained for audit chronology.
+
+### 11.1 Current reference profile
+
+| Field | Value | Classification |
+|---|---|---|
+| Model | Samsung Galaxy A16 SM-A165F/DS | OWNER-REPORTED |
+| Android version | 17 | OWNER-REPORTED |
+| API level | 37 | DERIVED from Android 17 mapping |
+| One UI | 9.0 | OWNER-REPORTED |
+| Build | `CP2A.260605.A165FXXUBEZJ7` | OWNER-REPORTED |
+| Security patch | 5 October 2026 | OWNER-REPORTED |
+| AP | `A165FXXUBEZJ7` | OWNER-REPORTED |
+| CP | `A165FXXUBEZJ7` | OWNER-REPORTED |
+| CSC | `A165FOJMBEZJ7` | OWNER-REPORTED |
+
+The CSC string is preserved verbatim. It does not establish active carrier, country configuration, or service-provider policy. No IMEI, serial number, subscriber identifier or credential is required for this evidence record.
+
+### 11.2 Remaining handset evidence
+
+The software/model profile above is OWNER-REPORTED, not independently inspected or cryptographically attested. The following remain **UNKNOWN / NOT COLLECTED**:
+- Knox version, warranty/attestation status and enterprise Knox configuration;
+- StrongBox availability;
+- Android Keystore/KeyMint security level and hardware-backed status;
+- Verified Boot state, bootloader lock state and boot integrity evidence;
+- Existing work-profile or Device Owner management state.
+
+Do not install diagnostic software, enable USB debugging, change security settings, enroll, unlock the bootloader or reset the handset without a separate explicit authorization. Initial read-only Settings evidence can be collected without these actions, but it cannot prove all hardware/boot claims.
+
+### 11.3 Corrected overall evidence status
+
+- Handset software/model/firmware identifiers: **PARTIAL — OWNER-REPORTED**.
+- Hardware-backed security and boot-integrity evidence: **NOT COLLECTED / UNKNOWN**.
+- Independent security review: **NOT PERFORMED**; no reviewer is engaged by this pack.
+- Backend/IROKA accountable owners: **UNRESOLVED**; no production service or key provisioning authorized.
+- Legal review: **NOT PERFORMED**.
+- Application SBOM/dependency scan: **NOT RUN — no application dependency graph exists**.
+- A2: **OPEN**; A3: **BLOCKED** pending A2 exit and explicit stage transition.
+
+### 11.4 Independent review handoff
+
+The review must use one immutable repository commit and record its full SHA. The current documentation package at the time this addendum was prepared is pinned to commit `ee3e2f39d5ab20d6215f0c9d10f0246269c938d4`; if any reviewed artifact changes, the reviewer must record and review the new exact commit rather than referring to a moving branch name. The separate [A2 Independent Security Review Brief](../security/AEGIS-INDEPENDENT-SECURITY-REVIEW-BRIEF-A2.md) defines reviewer independence, scope, evidence, findings and retest requirements.
