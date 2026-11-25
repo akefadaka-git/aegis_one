@@ -160,3 +160,23 @@ This sequence is a recommendation, not an A3 stage transition or authorization t
 - A2: **OPEN**; A3: **BLOCKED** pending A2 exit and explicit stage transition; A5: **NOT AUTHORIZED**.
 
 **No production-readiness claim is made.**
+
+
+---
+
+## 9. Controlled assurance timing revision — AEGIS-A2-ADD-001 (2026-11-25)
+
+**Controlling amendment:** [AEGIS-A2-ADD-001 — Risk-Based Security Assurance and Exit Revision](../reconciliation/AEGIS-A2-ADD-001-RISK-BASED-ASSURANCE-AND-EXIT-REVISION.md).
+
+This section supersedes the universal A3-entry interpretation of the “Independent security review” P0 row in Section 2 and the earlier A2 status/acceptance language in Section 8.
+
+- The independent implementation security assessment is a mandatory **A4 / frozen pre-release** control before A5.
+- A targeted independent architecture/cryptography/protocol consultation may occur earlier when a specific high-risk design question warrants it; this is optional and scoped.
+- Security controls are implemented and verified incrementally in A3: code review, static analysis, dependency review, SBOM when dependencies exist, unit/negative tests, and feature-specific device tests.
+- Exact cryptographic construction, protocol canonicalization, key lifecycle and recovery implementation decisions must be resolved before their affected components are implemented; this is a component-level design gate, not a reason to block unrelated foundations.
+- Hardware-backed security and Android management capabilities remain UNKNOWN until established on supported devices. No unsupported capability may be claimed as enforced.
+- Backend/IROKA operational ownership is required before live integration; synthetic/local interfaces may proceed earlier.
+- Legal/privacy review is required before real family/enterprise activation; synthetic-only scaffolding remains bounded by OD-03/OD-06.
+- The reviewer brief remains a handoff specification; review status is **NOT PERFORMED**, not a finding of security weakness or a completed assurance result.
+
+A2 focused exit result: **PARTIALLY EXIT-READY — NOT CLOSED**. Component-level A3 eligibility and remaining conditions are controlled by AEGIS-A2-ADD-001.
