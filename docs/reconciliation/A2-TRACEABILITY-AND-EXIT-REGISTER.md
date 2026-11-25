@@ -136,3 +136,16 @@ The table defines planned acceptance evidence, not executed tests. Every test re
 The [A2 Controlled Amendment](AEGIS-A2-ADD-001-RISK-BASED-ASSURANCE-AND-EXIT-REVISION.md) Section 9 records the first-tranche threat-to-control-to-test matrix FT-01 through FT-12.
 
 **Disposition: DESIGN-LEVEL FIRST-TRANCHE TRACEABILITY COMPLETE.** All associated tests remain **NOT RUN** because no application implementation exists. This closes the first-tranche design-mapping task only; later feature workstreams require additional threat/test mappings before implementation.
+
+
+## 10. Owner-approved A2 closure — 2026-11-25
+
+**A1 disposition:** The Owner explicitly accepts AEGIS-A1-BASE-001 v1.0 / PMSS Architecture v1.2 as the frozen controlling requirements and architecture baseline. Material changes require controlled amendments.
+
+**A2 disposition:** The Owner explicitly approves closure of A2 under AEGIS-A2-ADD-001. The first-tranche design-level threat/control/test mapping FT-01 through FT-12 is complete. OD-01 through OD-06 remain approved and binding. Earlier “PARTIALLY EXIT-READY / NOT CLOSED” statements are historical and superseded by this closure record.
+
+**Residual gates (not A2 blockers):** handset/Knox/StrongBox/KeyMint/Verified Boot/management evidence before affected device-specific acceptance; named backend/IROKA owners and trust operations before live integration; SBOM/dependency scanning when dependencies are introduced and before release; legal/privacy review before real family/enterprise activation; independent implementation security assessment at A4 against a frozen pre-release candidate. Feature-specific design decisions and threat/test mappings remain required before their respective implementation workstreams.
+
+**A3 status:** NOT AUTHORIZED / NOT STARTED. This closure is not A3 stage authorization. No code, handset changes, enrollment, production keys, live service provisioning, merge, release or deployment is authorized. A5 remains a separate Owner gate.
+
+**Evidence limitation:** first-tranche mapping is design-level only; all implementation tests remain NOT RUN. Production readiness is NOT ESTABLISHED.
