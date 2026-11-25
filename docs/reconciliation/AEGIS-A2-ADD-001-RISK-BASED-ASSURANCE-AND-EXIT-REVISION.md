@@ -163,3 +163,36 @@ An AI-generated assessment or author self-review is not independent assurance.
 **Production readiness: NOT ESTABLISHED.**
 
 **Immediate next step:** Complete the first-tranche threat/control/test traceability and present the A1 baseline/freeze and A2 closure decisions to the Owner. Do not begin A3 code until the Owner separately authorizes the stage transition.
+
+
+---
+
+## 9. First-tranche threat-to-control-to-test mapping completion (2026-11-25)
+
+This section completes the design-level traceability deliverable for the bounded first A3 tranche. It supersedes references in Sections 7 and 8 that described this first-tranche mapping as still outstanding. Test execution remains NOT RUN.
+
+| ID | Threat / failure mode | First-tranche control | Planned negative / acceptance test | Test status |
+|---|---|---|---|---|
+| FT-01 | Build or dependency supply-chain compromise | Pinned toolchain/dependencies when introduced; minimal permissions; secret scanning; SBOM trigger | Unpinned or vulnerable dependency is surfaced; secret fixture is detected; no credentials appear in logs | NOT RUN |
+| FT-02 | UI falsely claims protection is active | Explicit security-state model and evidence provenance | UNKNOWN, OWNER-REPORTED, UNSUPPORTED and DEGRADED never render as VERIFIED/enforced | NOT RUN |
+| FT-03 | Consumer/family/enterprise role confusion | Explicit Mode C/F/E domain and role boundaries | Cross-mode role assignment and unsupported privilege request are denied | NOT RUN |
+| FT-04 | Unauthorized local action | Deterministic deny-by-default local policy evaluator | Missing role, consent, scope, freshness or capability denies; no side effect occurs | NOT RUN |
+| FT-05 | Offline policy replay, expiry bypass or clock rollback | OD-05 TTL enforcement and explicit time-confidence state | Expired policy, rollback, uncertain time and stale revocation never extend authority | NOT RUN |
+| FT-06 | Audit log leaks secrets or overstates immutability | Structured minimized audit event schema; protected storage boundary | Secret fields are rejected/redacted; tampering/gaps are detectable; UI does not claim absolute immutability | NOT RUN |
+| FT-07 | Malformed or ambiguous remote-command input | Typed schema/parser only; strict allowlist; no execution in first tranche | Unknown fields/actions, malformed values, oversized input and wrong target are rejected before side effects | NOT RUN |
+| FT-08 | Vault scaffolding accidentally persists plaintext or secrets | Synthetic fixtures and non-sensitive interfaces only; crypto engine excluded | Test fixture scan finds no real secrets/plaintext persistence; vault engine cannot be invoked through scaffold | NOT RUN |
+| FT-09 | Direct Boot exposes credential-bound data | Minimal non-secret bootstrap boundary | Device-protected storage contains no vault plaintext, recovery phrase, raw vault key or credential-bound secret | NOT RUN |
+| FT-10 | Family policy scaffolding exposes private child data | Synthetic identities; OD-03 least-privilege boundary | Guardian role cannot read vault/passwords/private files/communications; no real child data in fixtures | NOT RUN |
+| FT-11 | Enterprise adapter confuses work profile with Device Owner | Capability-gated adapter and explicit management-mode states | Work Profile never reports fully managed Device Owner; unsupported policy is not reported as enforced | NOT RUN |
+| FT-12 | Test or diagnostic workflow mutates the reference handset | No device interaction in first tranche; mocks and emulators/test devices | CI and unit tests execute without installing on or changing the Owner handset | NOT RUN |
+
+**Mapping disposition:** DESIGN-LEVEL FIRST-TRANCHE TRACEABILITY COMPLETE. This does not mean tests have run, implementation exists, or the full product threat model is closed. Additional feature-specific threats and tests must be added before each later workstream is implemented.
+
+### 9.1 Revised remaining A2 closure items
+
+The first-tranche threat/control/test mapping is complete at design level. Remaining A2 governance items are:
+1. Owner confirms A1 as the controlling requirements baseline or records a scoped deferral.
+2. Existing registers retain consistent status and point to this amendment.
+3. Owner explicitly accepts A2 closure and separately authorizes A3.
+
+No A3 code has been started by this assessment.
