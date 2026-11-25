@@ -3,7 +3,7 @@
 **ID:** AEGIS-A2-ADD-001  
 **Version:** 1.0  
 **Date:** 2026-11-25  
-**Status:** DOCUMENTATION AMENDMENT — A2 EXIT ASSESSMENT RECORDED; OWNER CLOSURE / A3 TRANSITION NOT GRANTED  
+**Status:** OWNER-APPROVED A2 CLOSURE RECORDED — A1 FROZEN; A3 TRANSITION NOT GRANTED  
 **Repository:** `akefadaka-git/aegis_one`  
 **Branch:** `docs/a1-baseline-a2-reconciliation`
 
@@ -196,3 +196,30 @@ The first-tranche threat/control/test mapping is complete at design level. Remai
 3. Owner explicitly accepts A2 closure and separately authorizes A3.
 
 No A3 code has been started by this assessment.
+
+
+## 10. Owner disposition and formal A2 closure — 2026-11-25
+
+### 10.1 A1 baseline acceptance
+The Owner explicitly confirmed acceptance of **AEGIS-A1-BASE-001 v1.0 / PMSS Architecture v1.2** as the frozen controlling requirements and architecture baseline. The baseline is preserved; future material changes require controlled amendments with rationale, impact, evidence and Owner approval.
+
+### 10.2 A2 closure approval
+The Owner explicitly approved **A2 closure under AEGIS-A2-ADD-001**. The first-tranche threat-to-control-to-test mapping FT-01 through FT-12 is complete at design level. OD-01 through OD-06 remain APPROVED and binding. A2 is **VERIFIED-CLOSED** as a documentation, architecture-reconciliation and governance stage.
+
+### 10.3 Residual gates retained
+The following remain explicitly open at the relevant later stage and are not universal A2/A3 entry blockers:
+- Handset Knox, StrongBox, KeyMint, Verified Boot/bootloader and management-mode evidence: required before accepting affected device-specific enforcement.
+- Backend/IROKA named operational owners, trust-root/key custody, verifier, privacy/retention and incident response: required before live integration.
+- Dependency pinning, vulnerability/license scanning and SBOM: begin when dependencies are introduced; refresh for release.
+- Family/enterprise legal and privacy review: required before real-user/tenant activation and jurisdiction-dependent controls.
+- Independent qualified implementation security assessment: mandatory at A4 against a frozen pre-release candidate before A5. Targeted specialist design consultation earlier remains optional and risk-triggered.
+- Feature-specific cryptographic, protocol, Android capability and threat/test decisions: must be resolved before implementing or accepting the affected feature.
+
+### 10.4 Stage authorization boundary
+**A3: NOT AUTHORIZED / NOT STARTED.** The Owner's A1/A2 approval does not authorize application code changes. A separate explicit A3 transition authorization is required. No handset mutation, enrollment, production key generation, live service provisioning, merge, release or deployment is authorized. A5 remains a separate gate.
+
+### 10.5 Evidence and readiness statement
+The FT-01 through FT-12 matrix is design-level traceability only; implementation tests are **NOT RUN**. No application implementation exists in this stage. Production readiness is **NOT ESTABLISHED**. The A2 closure is not a security certification or release approval.
+
+### 10.6 Closure record
+Owner approval was received in the AEGIS ONE project conversation on 2026-11-25, explicitly accepting both A1 baseline freeze and A2 closure. This record documents that decision; it does not infer approval of A3 or A5.
