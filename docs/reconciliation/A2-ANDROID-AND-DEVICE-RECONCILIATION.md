@@ -219,3 +219,7 @@ The following versioned design contracts extend this reconciliation:
 - [A2 Traceability and Exit Evidence Register](A2-TRACEABILITY-AND-EXIT-REGISTER.md)
 
 These are proposed contracts, not implementation specifications approved for coding. The traceability register records remaining blockers and A2 exit conditions. Their creation does not close A2 or authorize A3.
+
+## 12. Blocker disposition and Owner decisions
+
+See [A2 Blocker Resolution and Owner Decision Register](A2-BLOCKER-RESOLUTION-AND-OWNER-DECISIONS.md). It separates proposed safe defaults from evidence that cannot be inferred remotely, including physical handset facts and independent security review. A2 remains open; the register is not an Owner approval.
