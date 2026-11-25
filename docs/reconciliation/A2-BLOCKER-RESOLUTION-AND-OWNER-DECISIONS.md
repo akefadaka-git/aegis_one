@@ -97,3 +97,8 @@ A2 closure does not imply application build, security certification, production 
 - A4/A5: not run / not authorized.
 
 This plan is an A2 planning artifact only. It does not authorize device changes, installation, enrollment, key creation, production service setup, merge, release, or deployment.
+
+
+## 9. Evidence collection pack
+
+The [A2 Evidence Collection Pack](A2-EVIDENCE-COLLECTION-PACK.md) defines the read-only handset information to collect, prohibited personal identifiers, independent security review deliverables, and interface ownership worksheet. It reduces process ambiguity but does not itself resolve physical-device, reviewer, or backend-owner blockers.
