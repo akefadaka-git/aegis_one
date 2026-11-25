@@ -163,3 +163,57 @@ This removes test/build-tool-only configurations from the intended inventory bou
 - Overall A3 first tranche: **PARTIAL / NOT CLOSED**.
 - Production readiness: **NOT ESTABLISHED**.
 - No A4/A5, merge, deployment, release, device installation or enrollment authorization is created by this addendum.
+
+
+## 10. Verification addendum — narrowed SBOM inspection (2026-11-25)
+
+### 10.1 Run #45556857300 — CI PASS, aggregate SBOM NOT ACCEPTED
+
+**Workflow:** [Android foundation CI — run #45556857300](https://github.com/akefadaka-git/aegis_one/actions/runs/45556857300)  
+**Source SHA:** `9e089b361a628ef0ac216b5b49a69c8d6adb5ab4`  
+**Branch:** `docs/a1-baseline-a2-reconciliation`  
+**Job:** `verify`, job ID `139010882253`, conclusion `success`  
+**Artifact:** [CI evidence artifact 14996495428](https://github.com/akefadaka-git/aegis_one/actions/runs/45556857300/artifacts/14996495428)  
+**Artifact ZIP SHA-256:** `baafb4f11dc92d6b88f32e5e5c4c87df67b685a3d444c4f978e7daa079899a06`
+
+CI completed the following successfully:
+- Gitleaks v8.24.3 scanned 73 commits / approximately 266,810 bytes; no leaks found.
+- `./gradlew --no-daemon clean test lint assembleDebug cyclonedxBom` completed with `BUILD SUCCESSFUL`.
+- Unit-test tasks, Android lint, debug APK assembly and SBOM generation passed.
+- Evidence artifact upload passed.
+
+Artifact file evidence:
+- `build/reports/cyclonedx/bom.json`: 11,722 bytes; CycloneDX 1.6; SHA-256 `a86c0403d190a21364ab706ccafec4cc58abb343cb785361f9623fa5134002b5`.
+- Debug APK: 881,906 bytes; SHA-256 `b7417fdedafd2dd5c9ce333f9f7dfde6c913e94ffe3f3901b796f20cbbcc9031`.
+- Gitleaks SARIF: 45,825 bytes; SARIF 2.1.0; zero results; SHA-256 `f1cc1fc5bf34d5e9643655ac6480ff4681e27aa9c2c639f03067fc7ea8595e3d`.
+
+### 10.2 Aggregate SBOM graph findings
+
+The CycloneDX JSON parsed successfully. Direct graph inspection found:
+- 10 components; 6 dependency nodes; 7 dependency edges.
+- Zero missing dependency target references and zero cycles.
+- The metadata root is `pkg:maven/org.akefadaka.aegis/AEGIS-ONE@0.1.0?project_path=%3A`.
+- Only one dependency node was reachable from the metadata root; six dependency nodes were disconnected from it.
+- The component inventory contains the root, app, parent `:core` / `:platform`, five actual feature/platform modules, and two external libraries (`kotlin-stdlib`, `annotations`).
+- The app component is present but the aggregate dependency graph does not connect it to its declared project dependencies. The checked-in `app/build.gradle.kts` declares `:core:security-state`, `:core:policy`, `:core:offline-policy`, `:core:audit`, and `:platform:android-capabilities` as implementation project dependencies.
+- No unresolved dependency metadata markers were found. The narrower inventory no longer contains the earlier test-provider/compiler/build-tool over-inventory, but the missing app-to-project edges mean the aggregate BOM is under-inclusive and disconnected.
+- The document has two components with hash/license data; the eight project/module components do not carry external package hashes/licenses, which is expected for local project modules but reinforces that this aggregate is not a complete packaged-library inventory by itself.
+
+The CI log confirms CycloneDX warnings that root, app, `:core`, `:platform`, and `:platform:android-capabilities` were not found in the graph and were constructed as disconnected roots. The app's declared project dependency edges are therefore not represented in the aggregate BOM.
+
+### 10.3 Decision and corrective direction
+
+The regex-limited configuration removed the prior broad test/build-tool inventory, but did not yield a connected aggregate dependency graph. Do not treat the absence of unresolved markers or a green Gradle task as proof of SBOM completeness.
+
+Next bounded A3.0 correction: preserve each subproject's Direct CycloneDX BOM as separate CI evidence alongside the aggregate BOM, then inspect the app module's own debug BOM to determine whether it records the actual app-to-feature-module and external runtime/compile dependency relationships. If module-level BOMs are still disconnected or omit declared project dependencies, correct the generation/aggregation method rather than accepting the artifact. The CI evidence upload currently retains only the root aggregate JSON, APK and SARIF, so it is insufficient to perform that module-level reconciliation.
+
+### 10.4 Updated stage decision
+
+- A3.0: **PARTIAL** — build/test/lint/APK/Gitleaks pass; aggregate SBOM generated but disconnected and under-inclusive; module-level dependency reconciliation remains outstanding.
+- A3.1–A3.5: **VERIFIED-CLOSED as bounded scaffolds only**, with the implementation limits already recorded above.
+- Overall A3 first tranche: **PARTIAL / NOT CLOSED**.
+- A4: **NOT STARTED**.
+- A5: **NOT AUTHORIZED**.
+- Production readiness: **NOT ESTABLISHED**.
+
+Repository refs rechecked after run #45556857300: implementation branch remained at `d218df37618e9afdf7bb6b0e27aafaa751ac2f47` at the time of this report fetch; `main` remained `570b6fe5abfcf0d7b369af63e211ab937bfe4024`. No new branch, main modification, merge or deployment occurred.
