@@ -18,7 +18,7 @@ This register separates blockers that can be reduced through repository document
 | Offline policy | Signed, scoped, unexpired policy; P0/P1 up to 7 days and P2 up to 24 hours maximum; P3 remote actions denied absent a separately approved offline protocol; P4 disabled | Preserves local safety without extending remote authority | OWNER-APPROVED 2026-11-25; see A2-OD-05 |
 | Attestation failure | Unknown/unsupported → restricted trust state, not PASS; define blocking tiers after device/service capability validation | Avoids false assurance and avoids assuming every device supports identical evidence | PROPOSED TECHNICAL DEFAULT |
 | Consumer anti-removal | Do not promise prevention of uninstall; provide user-mediated account/device recovery and local tamper signals where available | Ordinary apps do not possess Device Owner authority | PLATFORM CONSTRAINT |
-| Enterprise management | Separate opt-in fully managed deployment profile; only use capabilities confirmed by actual provisioning | Separates enterprise privileges from consumer mode | OWNER APPROVAL REQUIRED |
+| Enterprise management | Opt-in fully managed Android Enterprise Device Owner profile; maximum documented supported APIs subject to tenant policy, transparency, least privilege, audit, and personal-vault separation | Separates enterprise privileges from consumer mode | OWNER-APPROVED 2026-11-25; see A2-OD-06 |
 | Command execution | Strict typed allowlist; no arbitrary shell/code/intent; P2–P4 cannot be approved by model output | Constrains remote execution and AI authority | PROPOSED TECHNICAL DEFAULT |
 
 ## 3. Physical-device evidence — cannot be inferred remotely
@@ -224,3 +224,34 @@ The recommended design is a two-path envelope-encryption model:
 **Scope and limits:** This decision approves offline policy and records the additional vault/early-boot/management requirements for A2 feasibility reconciliation. It does not authorize bootloader changes, root, firmware modification, custom OS, factory reset, enterprise enrollment, privileged system access, production key generation, merge, release, or deployment. Exact vault cryptography and implementation remain subject to technical design and independent security review. Existing OD-01 recovery and OD-02 no-escrow rules remain in force.
 
 **Evidence:** Owner approval and additional requirements in the AEGIS ONE project conversation dated 2026-11-25. Recorded on the documentation branch; no application code, device state, or `main` branch was changed.
+
+
+### A2-OD-06 — Enterprise management authority and capability policy
+
+**Decision:** APPROVED by the Owner on 2026-11-25.
+
+**Approved v1 enterprise baseline:**
+- AEGIS may use the maximum documented Android Enterprise Device Owner capabilities that are actually supported by the enrolled device, Android release, provisioning mode, and applicable APIs.
+- Enterprise management is a distinct, opt-in fully managed profile and may only be activated after eligible Android Enterprise provisioning and explicit organizational/device-owner authorization.
+- Device-wide configuration must be mediated by documented Android Enterprise/DevicePolicyManager APIs and a typed capability allowlist. No root, unrestricted system UID, bootloader access, firmware modification, privilege escalation, hidden control, or Android security bypass.
+- Enforce tenant-scoped roles, least privilege, separation of duties, explicit policy approval, employee transparency, audit records, revocation, and safe failure behavior.
+- Device capability discovery must precede policy activation. Unsupported controls must be reported as unsupported, not simulated or represented as enforced.
+- Enterprise policy must not silently change ownership of, decrypt, escrow, or gain access to an existing personal vault. OD-02 personal/enterprise cryptographic separation remains binding.
+- Family mode and consumer mode remain separate and do not inherit enterprise Device Owner privileges.
+- Remote management remains subject to OD-04 P3 human authorization and P4 disabled-in-v1 rules, and OD-05 offline policy.
+
+**Additional advancement recommendations included within this authorization:**
+1. Signed, versioned, tenant-scoped managed configuration with staged rollout, policy validation, rollback to last-known-good non-expired policy, and emergency safe-disable controls.
+2. Device compliance posture reporting with explicit evidence freshness and UNKNOWN/UNSUPPORTED states; no false PASS for unavailable attestation or management signals.
+3. Managed app configuration and per-capability policy adapters with runtime feature detection and OS-version compatibility tests.
+4. Work-profile/personal-profile boundary awareness where applicable; do not treat a work profile as equivalent to fully managed Device Owner.
+5. Administrator MFA/strong authentication, role separation, dual approval for high-impact administrative policy changes, and immutable-to-ordinary-admin audit export where technically supported.
+6. Enrollment/de-enrollment lifecycle, ownership disclosure, device reassignment/wipe semantics, and employee notice before any action that affects personal or enterprise data. Destructive P4 functions remain disabled in v1.
+7. Network controls such as always-on VPN and lockdown only where documented APIs, provisioning role, explicit tenant policy, user/legal notice, connectivity recovery, and failure testing support them.
+8. Central policy templates with safe defaults, drift detection, configuration diff/approval, staged deployment rings, and rollback safeguards.
+9. Security event monitoring, incident response hooks, key/certificate rotation planning, revocation propagation, and privacy-minimized retention.
+10. A capability matrix and automated negative tests for each supported Android/API/device management mode.
+
+**Scope and limits:** Owner authorization covers architecture, documentation, and subsequent A3 implementation planning/implementation of the approved enterprise management model and the listed recommendations, after A2 exit requirements are met. It does not authorize enrollment or changes to the Owner's handset, production tenant activation, root/system privileges, production key generation, merge, release, or deployment. Any feature requiring a new external service, paid dependency, OEM-only capability, or materially broader data collection must be separately assessed; it is not automatically authorized by the phrase "all advancements." A5 remains a separate gate.
+
+**Evidence:** Owner approval in the AEGIS ONE project conversation dated 2026-11-25, including request to include all recommended advancements. Recorded on the documentation branch; no application code, device state, or `main` branch was changed.
