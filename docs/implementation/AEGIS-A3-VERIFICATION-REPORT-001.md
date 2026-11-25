@@ -217,3 +217,18 @@ Next bounded A3.0 correction: preserve each subproject's Direct CycloneDX BOM as
 - Production readiness: **NOT ESTABLISHED**.
 
 Repository refs rechecked after run #45556857300: implementation branch remained at `d218df37618e9afdf7bb6b0e27aafaa751ac2f47` at the time of this report fetch; `main` remained `570b6fe5abfcf0d7b369af63e211ab937bfe4024`. No new branch, main modification, merge or deployment occurred.
+
+
+## 11. CI evidence collection correction (2026-11-25)
+
+Following the run #45556857300 graph review, commit `f8851fadcd5323f7fc1d9e42270df3d6b4732e7f` updates `.github/workflows/android-ci.yml` (blob `842d0fe16b42c3efa89c124b858b5104adb4294a`) so the CI artifact retains:
+- the root aggregate `build/reports/cyclonedx/bom.json`;
+- the app module's `app/build/reports/cyclonedx/bom.json`;
+- each core and platform subproject's `build/reports/cyclonedx/bom.json`;
+- the debug APK and Gitleaks SARIF.
+
+This is an evidence-collection change only; it does not claim to repair the aggregate graph. It is intended to allow direct reconciliation of each module's dependency graph against the app's declared project dependencies and the debug APK's resolved classpaths.
+
+**Follow-up CI:** [run #45560097035](https://github.com/akefadaka-git/aegis_one/actions/runs/45560097035), source commit `f8851fadcd5323f7fc1d9e42270df3d6b4732e7f`, was `in_progress` at the time of this report update. The expanded artifact has not yet been inspected. A3.0 remains **PARTIAL** pending completion and module-level SBOM review.
+
+Fetch-back verification of the workflow file succeeded at blob `842d0fe16b42c3efa89c124b858b5104adb4294a`. Branch ref advanced to `f8851fadcd5323f7fc1d9e42270df3d6b4732e7f`; `main` remained `570b6fe5abfcf0d7b369af63e211ab937bfe4024`. No new branch, merge, main modification or deployment occurred.
