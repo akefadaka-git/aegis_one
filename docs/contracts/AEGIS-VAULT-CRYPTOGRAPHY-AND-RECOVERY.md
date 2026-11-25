@@ -1,6 +1,6 @@
 # AEGIS ONE — Vault Cryptography and Recovery Contract
 
-**ID:** AEGIS-CONTRACT-VAULT-001 | **Version:** 1.0 | **Status:** A2 proposed contract; approval required
+**ID:** AEGIS-CONTRACT-VAULT-001 | **Version:** 1.0 | **Status:** A2 contract; recovery authority policy Owner-approved 2026-11-25; remaining design approval required
 
 ## 1. Security objectives
 Protect vault confidentiality and integrity at rest; prevent unauthorized key use; minimize plaintext lifetime; make recovery trade-offs explicit; avoid silent unrecoverable data loss.
@@ -29,7 +29,7 @@ BiometricPrompt is an authentication interface, not an encryption algorithm. Whe
 
 ## 5. Backup and recovery
 - Backup policy for vault ciphertext and key material must be explicit; no implicit cloud backup of wrapping keys.
-- Recovery must be designed before implementation: user-controlled recovery secret, organization escrow, or no-recovery mode are materially different choices.
+- **Owner-approved v1 recovery authority policy (2026-11-25):** use a user-controlled, high-entropy recovery secret; prohibit provider/operator recovery; disclose the permanent-loss risk clearly. Loss of both the recovery secret and relevant device/key material may make vault data permanently unrecoverable.
 - Recovery secrets must be high entropy, rate-limited, protected from server operators, and tested for phishing/brute force.
 - Enterprise escrow requires tenant-controlled ownership, dual control, auditable access, and employee disclosure.
 - Device replacement does not silently clone a hardware-bound private key.
@@ -43,6 +43,6 @@ Use app-private storage by default. External import/export is explicit and user-
 Ciphertext tampering/tag failure; nonce uniqueness; key invalidation; biometric enrollment change; authentication cancellation; process death during writes; interrupted rotation; backup/restore; device replacement; storage full; rollback; malformed/oversized imports; recovery abuse.
 
 ## 8. Open decisions
-Vault granularity/file format; user recovery vs no-recovery; enterprise escrow; backup/export/retention; biometric strength and credential fallback; data classification tiers.
+Vault granularity/file format; exact recovery-secret derivation, storage, rate limiting and abuse controls; enterprise escrow (not approved); backup/export/retention; biometric strength and credential fallback; data classification tiers.
 
 No cryptographic implementation or key generation is authorized by this contract.
