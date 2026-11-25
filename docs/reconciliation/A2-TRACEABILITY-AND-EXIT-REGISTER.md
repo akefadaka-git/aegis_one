@@ -13,7 +13,7 @@ Map A1 requirements and material threats to a contract, control boundary, and fu
 | Family/enterprise privilege separation | Roles, Consent and Policy Matrix | Governance/tenant policy | Cross-role and cross-tenant denial | CONTRACT DRAFTED; legal decisions OPEN |
 | Forged/replayed remote command | IROKA Mobile Command Contract | IROKA issuer + AEGIS local gate | Signature, nonce, audience, expiry, replay | CONTRACT DRAFTED; trust ceremony OPEN |
 | AI self-authorization | Command Contract + A1 threat model | AEGIS local gate / IROKA Kernel | Model output cannot trigger protected side effect | DESIGN REQUIREMENT |
-| Vault theft/tampering | Vault Cryptography and Recovery Contract | Local vault module | Ciphertext tamper, key invalidation, recovery | CONTRACT DRAFTED; algorithm review OPEN |
+| Vault theft/tampering | Vault Cryptography and Recovery Contract | Local vault module | Ciphertext tamper, key invalidation, recovery | RECOVERY POLICY OWNER-APPROVED 2026-11-25; crypto/design review OPEN |
 | Offline expiry/revocation | Offline Protection and Audit Contract | Local policy engine | Expired policy, clock rollback, reconnect | CONTRACT DRAFTED; TTL OPEN |
 | Audit alteration/gaps | Offline Protection and Audit Contract | Local audit/backend receipt | Chain tamper, sequence gap, receipt verification | CONTRACT DRAFTED; tests NOT RUN |
 | Device Owner overclaim | A2 Android/device reconciliation | Android management adapter | Consumer mode lacks Device Owner-only controls | PLATFORM CONSTRAINT CONFIRMED |
@@ -37,7 +37,7 @@ Map A1 requirements and material threats to a contract, control boundary, and fu
 
 ## 4. Remaining A2 blockers
 1. **Physical-device facts:** actual SM-A165F build fingerprint, Android/API, patch level, CSC/region, Knox status, StrongBox, hardware-backed Keystore, and boot integrity are UNKNOWN. No device inspection has occurred.
-2. **Owner decisions:** recovery model, family age/guardian/legal requirements, enterprise dual control, P3/P4 approval, offline TTL, vault recovery/escrow, and action allowlist remain undecided.
+2. **Owner decisions:** vault recovery authority model approved (A2-OD-01, 2026-11-25); family age/guardian/legal requirements, enterprise dual control, P3/P4 approval, offline TTL, enterprise escrow, and action allowlist remain undecided.
 3. **Independent technical review:** command signing, key lifecycle, vault cryptography, and local authorization contracts require security review before implementation.
 4. **Dependency/SBOM review:** NOT RUN because no app dependency graph exists.
 5. **Test environment:** contracts specify negative cases, but no implementation or tests exist.
@@ -54,3 +54,8 @@ This register does not authorize code, installation, enrollment, merge, or deplo
 ## 6. Evidence collection procedure
 
 See [A2 Evidence Collection Pack](A2-EVIDENCE-COLLECTION-PACK.md) for privacy-safe handset evidence collection, independent-review package requirements, and backend/IROKA accountability worksheet. The pack is documented; evidence has not yet been collected and independent review has not been performed.
+
+
+## 7. Owner decision evidence
+
+- **A2-OD-01 — Vault recovery:** APPROVED 2026-11-25. User-controlled high-entropy recovery secret; no provider/operator recovery; permanent-loss risk must be disclosed. See the Owner decision record in [A2 Blocker Resolution and Owner Decision Register](A2-BLOCKER-RESOLUTION-AND-OWNER-DECISIONS.md).
