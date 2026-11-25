@@ -4,6 +4,7 @@ on:
     branches: ["docs/a1-baseline-a2-reconciliation"]
     paths:
       - ".github/workflows/**"
+      - ".gitleaks.toml"
       - "*.gradle.kts"
       - "gradle/**"
       - "gradlew*"
@@ -15,6 +16,7 @@ on:
     branches: ["docs/a1-baseline-a2-reconciliation"]
     paths:
       - ".github/workflows/**"
+      - ".gitleaks.toml"
       - "*.gradle.kts"
       - "gradle/**"
       - "gradlew*"
