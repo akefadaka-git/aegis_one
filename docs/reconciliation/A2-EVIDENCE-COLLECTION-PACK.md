@@ -134,3 +134,17 @@ The Owner supplied the following values in conversation. These are recorded as *
 **Interpretation:** This is useful initial software-profile evidence, but it does not confirm that the handset is model SM-A165F because the model field was omitted. It also does not prove Knox configuration, hardware-backed key security, StrongBox, verified boot, or enterprise-management state.
 
 Next read-only evidence needed: exact model number from Settings → About phone, plus the service provider software version / CSC from Software information if the Owner is comfortable sharing it. Do not provide IMEI, serial number, phone number, account identifiers, or credentials.
+
+
+## 10. Owner-reported model number confirmation — 2026-11-25
+
+The Owner subsequently supplied the model number **Samsung Galaxy A16 SM-A165F/DS**. Record this as **OWNER-REPORTED**. This completes the previously missing model-number field and identifies the dual-SIM variant. It does not independently authenticate the handset or prove its firmware/CSC, Knox status, StrongBox, KeyMint security level, verified boot, or management enrollment.
+
+Combined Owner-reported profile:
+- Model: Samsung Galaxy A16 SM-A165F/DS
+- Android: 17 (API 37 derived from version)
+- One UI: 9.0
+- Build: `CP2A.260605.A165FXXUBEZJ7`
+- Security patch: 5 October 2026
+
+CSC/service-provider software remains UNKNOWN. Hardware security capability evidence remains NOT COLLECTED.
