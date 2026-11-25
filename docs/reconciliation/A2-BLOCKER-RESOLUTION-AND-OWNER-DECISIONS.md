@@ -288,3 +288,49 @@ The [A2 Independent Security Review Brief](../security/AEGIS-INDEPENDENT-SECURIT
 ### 11.4 Current stage decision
 
 A2 remains **OPEN — NOT ELIGIBLE FOR CLOSURE**. A3 remains **BLOCKED** pending resolution or explicit Owner risk disposition of A2 exit requirements and a separate stage transition. No code, handset change, enrollment, production key generation, service provisioning, merge, release or deployment is authorized by this status reconciliation. A5 remains a separate gate.
+
+
+---
+
+## 12. Controlled amendment — risk-based assurance and focused A2 exit assessment (2026-11-25)
+
+**Controlling amendment:** [AEGIS-A2-ADD-001 — Risk-Based Security Assurance and Exit Revision](AEGIS-A2-ADD-001-RISK-BASED-ASSURANCE-AND-EXIT-REVISION.md).
+
+This section supersedes conflicting timing and exit statements in Sections 4, 7, 8 and 11.4. Earlier wording is retained as historical record only.
+
+### 12.1 Revised assurance timing
+
+- A full independent implementation security assessment is a mandatory **A4 / frozen pre-release** gate before A5, not a universal A2 or A3 entry condition.
+- A targeted independent design consultation may occur earlier when a specific high-risk design question warrants it; it is optional and scoped.
+- Code review, static analysis, dependency scanning, SBOM generation, unit/negative tests and security regression testing begin progressively during A3 as code and dependencies are introduced.
+- Physical handset capability evidence is required before making or accepting device-specific enforcement claims; it is not a blanket prerequisite for platform-neutral foundations.
+- Named backend/IROKA operational owners and live trust services are required before live integration; mock interfaces and local modules may be developed earlier.
+- Legal/privacy review is required before real family/enterprise user or tenant activation; synthetic-only scaffolding remains bounded by OD-03/OD-06.
+
+### 12.2 Focused A2 exit disposition
+
+**A2 is PARTIALLY EXIT-READY, NOT CLOSED.** A bounded first A3 tranche can be planned. Safe foundations include project/build/test scaffolding, security status shell, mode/role policy representation, deterministic local policy evaluation, capability manifest, local audit schema, and offline policy/test harness. Typed command parsing, vault interfaces, Direct Boot bootstrap, family controls and enterprise adapters are conditional as specified in AEGIS-A2-ADD-001. Production vault cryptography, live remote command execution, attestation enforcement, live backend/IROKA integration, Device Owner activation, VPN/lockdown, real-user family/enterprise deployment and P3 activation remain gated. P4 remains disabled in v1.
+
+### 12.3 Corrected current blocker classification
+
+| Item | Current status | Controlling treatment |
+|---|---|---|
+| OD-01 through OD-06 | APPROVED | Binding policy baseline |
+| Reference handset details | PARTIAL — OWNER-REPORTED | Device-specific acceptance evidence only |
+| Knox / StrongBox / KeyMint / Verified Boot / management state | UNKNOWN / NOT COLLECTED | Feature-specific A3/A4 evidence |
+| Independent full implementation review | NOT PERFORMED | Mandatory A4/pre-release; optional targeted earlier design review |
+| Backend/IROKA operational ownership | UNRESOLVED | Blocks live integration, not mocks/local interfaces |
+| SBOM/dependency scan | NOT RUN — no dependency graph | Trigger at first dependency introduction and before release |
+| Legal review | NOT PERFORMED | Blocks real family/enterprise activation |
+| Threat-to-control-to-test mapping | PARTIAL | Complete first-tranche mapping before A2 closure; execution in A3/A4 |
+| A1 formal freeze | NOT CONFIRMED | Owner confirmation or scoped deferral required before A2 closure |
+| Implementation tests | NOT RUN — no app implementation | Correct; begin in A3 |
+
+### 12.4 Remaining A2 closure requirements
+
+1. Complete threat-to-control-to-test mapping for the proposed first A3 tranche.
+2. Owner confirms A1 as the controlling requirements baseline or records a scoped deferral.
+3. Reconcile the traceability register, evidence pack and security-review brief to AEGIS-A2-ADD-001.
+4. Owner explicitly accepts A2 closure and separately authorizes A3.
+
+This assessment does not authorize implementation, handset changes, enrollment, production keys, live service provisioning, merge, release or deployment. A5 remains a separate gate.
