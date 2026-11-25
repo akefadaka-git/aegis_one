@@ -128,3 +128,24 @@ This review brief does not authorize:
 - implementation, merge, release or deployment.
 
 **A2 remains OPEN. This brief is ready for an independent reviewer; it is not a review report or security certification.**
+
+
+---
+
+## 10. Controlled timing revision — AEGIS-A2-ADD-001 (2026-11-25)
+
+**Controlling amendment:** [AEGIS-A2-ADD-001 — Risk-Based Security Assurance and Exit Revision](../reconciliation/AEGIS-A2-ADD-001-RISK-BASED-ASSURANCE-AND-EXIT-REVISION.md).
+
+This brief is retained as a reusable reviewer scope and methodology document. Its original timing language in Sections 1 and 7 is superseded as follows:
+
+1. A full independent implementation security assessment is a mandatory **A4 / frozen pre-release** gate before A5, not a universal A2 closure or A3 entry requirement.
+2. The assessment must examine the actual implementation candidate, exact source/artifact hashes, architecture, cryptographic and protocol implementation, Android enforcement assumptions, privacy/authority boundaries, dependency/build evidence, negative tests and relevant device/API behavior.
+3. A targeted independent design consultation during A2/A3 is optional and risk-triggered for a specific unresolved high-risk question. It is not a full implementation audit and does not block unrelated A3 foundations.
+4. The reviewer must be independent of the implementation team, disclose qualifications/conflicts, identify the exact frozen commit, document methodology and limitations, classify findings, and verify remediation/retest.
+5. Critical findings must be resolved and independently retested before release. High findings must be resolved or explicitly risk-accepted by the Owner with rationale, scope, compensating controls and review date. Medium/Low findings require documented disposition.
+6. A2/A3 component development must maintain code review, automated negative tests, dependency controls and evidence incrementally; these do not replace the independent pre-release assessment.
+7. No review has been performed and no reviewer has been identified or engaged. This document remains a brief, not a report, audit opinion or certification.
+
+The review baseline SHA recorded in the original brief is historical. Any actual assessment must pin the exact frozen release-candidate commit and artifact hashes at the time of review.
+
+**Current status:** independent implementation review NOT PERFORMED; scheduled for A4/pre-release. A2 is PARTIALLY EXIT-READY but NOT CLOSED. A3 remains subject to explicit Owner stage authorization. A5 remains separate.
