@@ -1,34 +1,52 @@
-# AEGIS ONE — Powered by IROKA
+# AEGIS ONE — Cross-Platform Device Security
 
-**Intelligent Android Security. Powered by IROKA.**
+**Personal protection first. Enterprise security as a governed second mode.**
 
-AEGIS ONE is a dedicated Android security and protection platform. IROKA provides governed intelligence and security orchestration; AEGIS ONE remains the Android product and local enforcement boundary.
+AEGIS ONE is one cross-platform device-security product for personal phones, tablets and computers, with a separately governed Enterprise mode for authorized organizational device protection and management. IROKA is its governed intelligence/security backbone; AEGIS retains local enforcement and platform-specific authority boundaries.
 
-## Project status
+## Product direction
 
-- **A1:** Product and architecture baseline **VERIFIED-CLOSED / FROZEN** in [A1 Product and Architecture Baseline](docs/architecture/A1-PRODUCT-AND-ARCHITECTURE-BASELINE.md).
-- **A2:** **VERIFIED-CLOSED** under [A2 Owner Closure Record](docs/reconciliation/AEGIS-A2-CLOSE-001-OWNER-CLOSURE-RECORD.md); residual device, backend, legal and assurance items remain feature-specific or later-stage gates.
-- **A3:** Owner authorized bounded implementation **A3.0–A3.5** under [AEGIS-A3-PLAN-001](docs/implementation/AEGIS-A3-BOUNDED-IMPLEMENTATION-PLAN.md). Initial foundation is committed on the existing implementation branch; build/test verification is pending.
-- **A3.6–A3.9:** Not included in the current authorization.
+- **One product:** Personal and Enterprise modes share a product identity, while keeping authority, data, keys and policy boundaries separate.
+- **Primary focus:** Personal device security.
+- **Secondary focus:** Enterprise endpoint and managed-device security.
+- **Cross-platform by design:** Android, iOS/iPadOS, Windows, macOS and Linux are included in the target architecture from inception.
+- **Family protection:** a distinct, transparent, least-privilege Personal policy context; not an Enterprise mode.
+- **Android reference:** Samsung Galaxy A16 SM-A165F remains the Android reference device, not the sole target platform.
+
+Cross-platform architecture does not imply feature parity. Each OS exposes different security APIs, permissions, entitlements, enrollment models and enforcement limits. AEGIS must report only verified capabilities and must not claim unrestricted antivirus scanning, device-wide control or management authority where the OS does not provide it.
+
+## Architecture
+
+- Preserve PMSS Architecture v1.2 as the existing architecture designation.
+- Retain the native Kotlin Android client and existing platform-neutral core boundaries.
+- Add native platform adapters/clients and common versioned domain/security contracts.
+- Keep local protection useful when IROKA or network services are unavailable.
+- IROKA and AI models may analyze and propose; they cannot self-authorize or override local policy or OS controls.
+- Preserve explicit Personal, Family and Enterprise authority boundaries.
+- The shared-core technology and non-Android client technologies remain OPEN pending a comparative architecture decision record and feasibility evidence.
+
+## Project governance and status
+
+- **A1:** `AEGIS-A1-BASE-001 v1.0` remains preserved and historically VERIFIED-CLOSED / FROZEN.
+- **A1 amendment:** `AEGIS-A1-AMD-001` records the Owner's 2026-11-26 product-direction decisions.
+- **A2:** Original closure record `AEGIS-A2-CLOSE-001` is preserved as the historical 2026-11-25 closure. A2 is now **REOPENED FOR THE SCOPED CROSS-PLATFORM REVISION** under `AEGIS-A2-AMD-002`.
+- **A3:** The existing Android-focused plan must be reconciled against the revised cross-platform requirements before it governs expanded implementation. No new cross-platform A3 work is authorized by the A2 revision.
 - **A4:** Not started. Independent implementation security assessment remains an A4/pre-release gate.
 - **A5:** Not authorized; merge, release and deployment remain separate Owner approval gates.
 
-## Architecture and scope
+## Preserved security decisions
 
-- Native Android application, Kotlin.
-- PMSS Architecture v1.2.
-- Initial reference device: Samsung Galaxy A16 SM-A165F.
-- Separate consumer, family and fully managed enterprise modes with explicit identity boundaries.
-- Local protection must remain useful when IROKA is unavailable.
-- IROKA models and agents may analyze and propose; they cannot self-authorize or override Android controls.
-- OEM integration, custom OS, rooting, and bootloader modification are out of scope.
+OD-01 through OD-06 remain binding: user-controlled vault recovery; no enterprise vault escrow in v1; transparent least-privilege family protection; human-authorized P3 and disabled-by-default P4 actions; bounded offline authority; and platform-valid enterprise management enrollment. Per-installation identity, monotonic revocation, signed/scoped/replay-protected IROKA commands, local authorization, tamper-evident audit and personal/enterprise data separation are retained.
 
 ## Current constraints
 
-No device enrollment, application installation on the reference handset, production key generation, merge, release or deployment is authorized by the current A3 implementation approval. Device Owner capabilities are conditional on valid Android Enterprise provisioning and are not assumed in ordinary consumer mode.
+No factory reset, enrollment, installation on the Owner's reference handset, production key generation, live service provisioning, merge, release or deployment is authorized by this documentation revision. Android Device Owner capabilities require valid Android Enterprise provisioning. Other platforms require their own supported enrollment/entitlement model.
 
-## Repository governance
+The repository is public. No open-source license has been selected; public visibility does not itself grant permission to reuse or redistribute project materials. Do not commit credentials, signing keys, private user data or production secrets.
 
-This repository is public. No open-source license has been selected; public visibility does not itself grant permission to reuse or redistribute project materials. Do not commit credentials, signing keys, private user data, or production secrets.
+## Revision documents
 
-A1 remains frozen and A2 remains closed. Current A3 authorization is limited to A3.0–A3.5 on `docs/a1-baseline-a2-reconciliation`; do not create a branch, modify `main`, merge or deploy. A5 is a separate Owner authorization gate.
+- [A1 controlled product-direction amendment](docs/architecture/AEGIS-A1-AMD-001-CROSS-PLATFORM-PRODUCT-DIRECTION.md)
+- [A2 cross-platform product requirements and architecture](docs/reconciliation/AEGIS-A2-AMD-002-CROSS-PLATFORM-REQUIREMENTS-AND-ARCHITECTURE.md)
+
+---
