@@ -11,3 +11,8 @@ dependencies {
  implementation(project(":platform:android-capabilities"))
  testImplementation("junit:junit:4.13.2")
 }
+tasks.named<org.cyclonedx.gradle.CyclonedxDirectTask>("cyclonedxDirectBom") {
+ // Exact Android variant configurations used by the CI debug APK.
+ includeConfigs = listOf("debugCompileClasspath", "debugRuntimeClasspath")
+ failOnUnresolvedDependencies = true
+}

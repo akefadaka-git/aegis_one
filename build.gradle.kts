@@ -9,13 +9,8 @@ allprojects {
  group="org.akefadaka.aegis"
  version="0.1.0"
  tasks.named<org.cyclonedx.gradle.CyclonedxDirectTask>("cyclonedxDirectBom") {
-  // Scope the aggregate SBOM to dependency classpaths that describe shipped code.
-  // Android modules are variant-aware; the CI artifact is the debug APK.
-  includeConfigs = if (path == ":app" || path == ":platform:android-capabilities") {
-   listOf("^debug(Compile|Runtime)Classpath$")
-  } else {
-   listOf("^(compile|runtime)Classpath$")
-  }
   failOnUnresolvedDependencies = true
+  // These implicit Gradle parent projects contain no shipped code or dependencies.
+  if (project.path == ":core" || project.path == ":platform") enabled = false
  }
 }
