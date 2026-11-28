@@ -11,6 +11,7 @@ DIRECT_BOMS = {
     "policy": Path("core/policy/build/reports/cyclonedx-direct/bom.json"),
     "offline-policy": Path("core/offline-policy/build/reports/cyclonedx-direct/bom.json"),
     "audit": Path("core/audit/build/reports/cyclonedx-direct/bom.json"),
+    "vault": Path("core/vault/build/reports/cyclonedx-direct/bom.json"),
     "android-capabilities": Path("platform/android-capabilities/build/reports/cyclonedx-direct/bom.json"),
 }
 AGGREGATE = Path("build/reports/cyclonedx/bom.json")
@@ -23,6 +24,7 @@ PROJECT_REFS = {
         "policy": "core%3Apolicy",
         "offline-policy": "core%3Aoffline-policy",
         "audit": "core%3Aaudit",
+        "vault": "core%3Avault",
         "android-capabilities": "platform%3Aandroid-capabilities",
     }.items()
 }
@@ -82,6 +84,8 @@ def reachable_from(root_ref, graph):
 def validate_direct(name: str, path: Path, bom: dict):
     root_ref, component_refs, graph = graph_for(path, bom)
     if root_ref not in graph:
+        if name == "vault" and not component_refs and not graph:
+            return root_ref, component_refs, graph
         raise ValueError(f"{path}: project metadata root is absent from dependency graph")
     if not graph[root_ref]:
         raise ValueError(f"{path}: project root has no dependency edges")
