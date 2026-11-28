@@ -2,7 +2,7 @@
 
 **Authorization:** Owner authorization received 2026-11-25 for A3.0–A3.5 under AEGIS-A3-PLAN-001.  
 **Implementation branch:** `docs/a1-baseline-a2-reconciliation`  
-**Current branch head:** `133bb5555433a20110eeb2de03ef149a57950331`  
+**Current branch head:** `89bda0fef0e9202a90bb2c9d75d4f9d939f80ecf`  
 **Implementation commits:** `bfeb1a0273f504c28b8f469bca180c99923f05d0`, `770037f55d762906172bd4b234e12f9e068b1f39`, `fc7ad0fff3ffb3a9e03755b6d0b38b42c82ca968`, `0c607b70a6c3e7f4ebd39b5682146642767730e3`, `54354f1a6d794eb764d60db4194e617b44764163`, `ecbf2cf423f1d002af997adde96b4da65893cea5`, `133bb5555433a20110eeb2de03ef149a57950331`.  
 **Constraints:** No new branch, no `main` modification, no merge, release, deployment or handset mutation.
 
@@ -109,8 +109,16 @@ A3.0–A3.5 source foundation is **IMPLEMENTED / PARTIAL VERIFICATION**. Do not 
 
 **Security boundary:** The scaffold contains no API to export, unwrap, reset, recover, or escrow key material. Operator recovery and Enterprise escrow configurations fail construction. Capability values marked unknown, unsupported or available-unverified cannot make the vault usable. The native custody interface reports capability only; key custody remains unimplemented and platform-native.
 
-**Verification:** Exact-SHA CI, all-target compilation, complete workspace tests, lint, artifact/SBOM inspection and secret scan are **PENDING**. No test or build result is claimed from the source-write responses. No merge, deployment, production mutation, key generation, or handset interaction occurred.
+**Verification — exact implementation SHA:** `2f5da6691a5a798168774e37eb1906f858c5b6b6`.
+- Shared-core portability run [#46168750737](https://github.com/akefadaka-git/aegis_one/actions/runs/46168750737): **SUCCESS**; all five jobs passed on this SHA (iOS, Android, Windows JVM, macOS JVM, Ubuntu JVM).
+- iOS job #141052121627: **SUCCESS**. Exact checkout SHA confirmed in the decoded log. iOS ARM64 compilation passed for security-state, policy, offline-policy, audit and vault; iOS Simulator ARM64 tests passed for all five modules. Gradle reported `BUILD SUCCESSFUL`, 32 actionable tasks executed.
+- Android foundation run [#46168750745](https://github.com/akefadaka-git/aegis_one/actions/runs/46168750745): **SUCCESS** on the same SHA; Android build/tests, lint, APK assembly, SBOM validation and full-history Gitleaks scan passed.
+- Android evidence artifact ID `15273151015`, 946,207 bytes, SHA-256 `4e4ee081dba95e0d298b4bd0f63e70b32782d60aa28cfc16523117275da95f2d`; artifact metadata binds it to run #46168750745 and the exact SHA. Archive inspection: aggregate SBOM 9 components/10 dependency entries, no unresolved references, Gitleaks SARIF zero findings, APK manifest present with six DEX files.
+- The portability workflow published no separate artifact; run/job records and the decoded iOS log were inspected.
+- No remediation was required after the common-compatible identifier correction at `2f5da6691a5a798168774e37eb1906f858c5b6b6`.
 
-**Status:** A3.08 IMPLEMENTED / VERIFICATION PENDING. A3.08 is not accepted until exact-SHA verification passes and the source is fetched back. Production readiness NOT ESTABLISHED.
+**Status:** A3.08 **ACCEPTED — BOUNDED SCAFFOLD ONLY**. CI acceptance does not implement or verify cryptographic key custody, production storage, backup/recovery, biometrics, native adapters, or device integration. Production readiness NOT ESTABLISHED.
 
-**Immediate next step:** Run the existing Android and portability workflows on the final implementation SHA; inspect all actual job results and artifacts, remediate failures, and rerun against the corrected SHA.
+**Repository controls:** Branch `docs/a1-baseline-a2-reconciliation` contains the implementation and verification record. `main` remains `570b6fe5abfcf0d7b369af63e211ab937bfe4024`. No merge, release, deployment, production mutation, key generation, or handset interaction occurred.
+
+**Immediate next gate:** A3.09/A3.10 remain conditional workstreams. Real vault cryptography and platform-native custody require a separate design gate; A3.08 acceptance does not authorize them.
