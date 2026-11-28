@@ -114,3 +114,33 @@ For each authorized A3 increment, report repository, branch, base/head SHA, chan
 **Production readiness:** NOT ESTABLISHED.
 
 **Immediate next gate:** Owner explicitly authorizes A3 transition and identifies/affirms the existing implementation branch. Until then, this plan remains documentation only.
+
+
+---
+
+## 10. Owner-authorized A3 roadmap addendum — A3.06 cross-platform technology (2026-11-28)
+
+This addendum supersedes conflicting A3 numbering and authorization-status statements in Sections 1, 3, 7 and 9 of the original 2026-11-25 plan. It does not alter A1/A2 security invariants or authorize production operations.
+
+**Owner instruction:** Execute A3.06 cross-platform technology ADR, reconciling Android, iOS/iPadOS, Windows, macOS and Linux technology choices against the accepted security-state, identity, policy, offline-policy and audit contracts. Preserve the existing implementation branch and keep `main` unchanged.
+
+**A3.06 result:** Architecture decision recorded in `docs/architecture/AEGIS-A3-ADR-006-CROSS-PLATFORM-TECHNOLOGY.md`, version 1.0. The selected target is Kotlin Multiplatform for shared pure domain logic, native security adapters, Jetpack Compose on Android, SwiftUI on iOS/iPadOS, and Compose Multiplatform Desktop on Windows/macOS/Linux. Native helpers and privileged integrations remain conditional and separately gated.
+
+**Renumbered sequence:**
+
+| Workstream | Scope | Status / gate |
+|---|---|---|
+| A3.00–A3.05 | Existing bounded foundation, security state, identity, policy, offline policy and audit | Accepted individually as bounded scaffolds on exact-SHA evidence |
+| A3.06 | Cross-platform technology ADR | ARCHITECTURE DECISION ACCEPTED; no migration or adapter implementation |
+| A3.07 | Vault scaffolding | Conditional; no live cryptography/recovery until feature-specific design gate |
+| A3.08 | Direct Boot boundary | Conditional; Android-specific feasibility and device/API validation |
+| A3.09 | Family and enterprise scaffolding | Conditional; synthetic data only until legal, consent and enrollment gates |
+| A3.10 | Remote command parser only | Conditional; no dispatch/execution; issuer trust and execution remain separately gated |
+
+The subsequent VPN, gateway, cross-platform adapter, IROKA and release-candidate workstreams require their own approved scope, dependency gates and evidence. The original plan's A3.6 parser numbering is retired; it is now A3.10.
+
+**Authorization status:** A3 implementation has been authorized incrementally. A3.06 is complete as an architecture decision. This does not authorize KMP source migration, platform application creation, privileged helpers, native key stores, VPN integration, device enrollment, production keys/services, merge, release, deployment, A4 or A5.
+
+**Repository controls:** Continue on `docs/a1-baseline-a2-reconciliation`; do not create a branch. Keep `main` at `570b6fe5abfcf0d7b369af63e211ab937bfe4024`. No production mutation or device interaction.
+
+**Immediate next gate:** A3.07 is the next numbered workstream in the superseding roadmap, but it remains conditional and must not be inferred as authorized by completion of A3.06.
