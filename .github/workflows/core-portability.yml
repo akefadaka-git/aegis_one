@@ -36,6 +36,7 @@ jobs:
           distribution: temurin
           java-version: "17"
       - name: Run shared and JVM conformance suites
+        shell: bash
         run: ./gradlew --no-daemon :core:security-state:jvmTest :core:policy:jvmTest :core:offline-policy:jvmTest :core:audit:jvmTest
   android:
     runs-on: ubuntu-latest
