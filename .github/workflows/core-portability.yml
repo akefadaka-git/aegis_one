@@ -45,7 +45,6 @@ jobs:
         with:
           distribution: temurin
           java-version: "17"
-      - uses: android-actions/setup-android@v3
       - name: Compile Android variants of all shared modules
         run: ./gradlew --no-daemon :core:security-state:compileDebugKotlinAndroid :core:policy:compileDebugKotlinAndroid :core:offline-policy:compileDebugKotlinAndroid :core:audit:compileDebugKotlinAndroid
   ios:
