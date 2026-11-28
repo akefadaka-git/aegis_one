@@ -1,6 +1,6 @@
 # AEGIS ONE — A3.08 Vault Scaffolding
 
-**Status:** IMPLEMENTED; EXACT-SHA VERIFICATION PENDING  
+**Status:** ACCEPTED — BOUNDED SCAFFOLD; PRODUCTION READINESS NOT ESTABLISHED  
 **Repository:** `akefadaka-git/aegis_one`  
 **Branch:** `docs/a1-baseline-a2-reconciliation`  
 **Base:** `f80b24c83a59f3abc4b07a5329838c5b6d60ba14`
