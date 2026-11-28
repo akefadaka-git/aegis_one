@@ -38,7 +38,7 @@ jobs:
           java-version: "17"
       - name: Run shared and JVM conformance suites
         shell: bash
-        run: ./gradlew --no-daemon :core:security-state:jvmTest :core:policy:jvmTest :core:offline-policy:jvmTest :core:audit:jvmTest
+        run: ./gradlew --no-daemon :core:security-state:jvmTest :core:policy:jvmTest :core:offline-policy:jvmTest :core:audit:jvmTest :core:vault:jvmTest
   android:
     runs-on: ubuntu-latest
     steps:
@@ -48,7 +48,7 @@ jobs:
           distribution: temurin
           java-version: "17"
       - name: Compile Android variants of all shared modules
-        run: ./gradlew --no-daemon :core:security-state:compileDebugKotlinAndroid :core:policy:compileDebugKotlinAndroid :core:offline-policy:compileDebugKotlinAndroid :core:audit:compileDebugKotlinAndroid :core:security-state:testDebugUnitTest :core:policy:testDebugUnitTest :core:offline-policy:testDebugUnitTest :core:audit:testDebugUnitTest
+        run: ./gradlew --no-daemon :core:security-state:compileDebugKotlinAndroid :core:policy:compileDebugKotlinAndroid :core:offline-policy:compileDebugKotlinAndroid :core:audit:compileDebugKotlinAndroid :core:vault:compileDebugKotlinAndroid :core:security-state:testDebugUnitTest :core:policy:testDebugUnitTest :core:offline-policy:testDebugUnitTest :core:audit:testDebugUnitTest :core:vault:testDebugUnitTest
   ios:
     runs-on: macos-15
     steps:
@@ -60,4 +60,4 @@ jobs:
       - name: Verify Xcode toolchain
         run: xcodebuild -version
       - name: Compile iOS device target and run simulator common tests
-        run: ./gradlew --no-daemon :core:security-state:compileKotlinIosArm64 :core:policy:compileKotlinIosArm64 :core:offline-policy:compileKotlinIosArm64 :core:audit:compileKotlinIosArm64 :core:security-state:iosSimulatorArm64Test :core:policy:iosSimulatorArm64Test :core:offline-policy:iosSimulatorArm64Test :core:audit:iosSimulatorArm64Test
+        run: ./gradlew --no-daemon :core:security-state:compileKotlinIosArm64 :core:policy:compileKotlinIosArm64 :core:offline-policy:compileKotlinIosArm64 :core:audit:compileKotlinIosArm64 :core:vault:compileKotlinIosArm64 :core:security-state:iosSimulatorArm64Test :core:policy:iosSimulatorArm64Test :core:offline-policy:iosSimulatorArm64Test :core:audit:iosSimulatorArm64Test :core:vault:iosSimulatorArm64Test
