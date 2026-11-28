@@ -52,7 +52,7 @@ jobs:
       - name: Scan full Git history for secrets
         run: gitleaks detect --source . --config .gitleaks.toml --redact --verbose --exit-code 2 --report-format sarif --report-path gitleaks.sarif --log-opts="--all"
       - name: Build, test, lint, assemble and generate aggregate and direct SBOMs
-        run: ./gradlew --no-daemon clean test lint assembleDebug cyclonedxBom
+        run: ./gradlew --no-daemon clean test lint assembleDebug cyclonedxBom :core:vault:compileDebugKotlinAndroid :core:vault:testDebugUnitTest
       - name: Validate SBOM coverage and dependency references
         run: python3 .github/scripts/validate_sbom.py
       - name: Preserve CI evidence
@@ -75,6 +75,8 @@ jobs:
             core/offline-policy/build/reports/cyclonedx-direct/bom.xml
             core/audit/build/reports/cyclonedx-direct/bom.json
             core/audit/build/reports/cyclonedx-direct/bom.xml
+            core/vault/build/reports/cyclonedx-direct/bom.json
+            core/vault/build/reports/cyclonedx-direct/bom.xml
             platform/android-capabilities/build/reports/cyclonedx-direct/bom.json
             platform/android-capabilities/build/reports/cyclonedx-direct/bom.xml
             app/build/outputs/apk/debug/app-debug.apk
