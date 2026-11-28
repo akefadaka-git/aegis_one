@@ -1,8 +1,7 @@
 package org.akefadaka.aegis.security
 
 /** Opaque installation-scoped identity; never an IMEI, MAC, serial or advertising identifier. */
-@JvmInline
-value class InstallationId(val value:String) {
+data class InstallationId(val value:String) {
  init { require(value.isNotBlank()) }
 }
 

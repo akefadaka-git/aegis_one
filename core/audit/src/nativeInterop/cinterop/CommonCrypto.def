@@ -1,0 +1,2 @@
+headers = CommonCrypto/CommonDigest.h
+package = org.akefadaka.aegis.audit.commoncrypto

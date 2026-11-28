@@ -19,5 +19,6 @@ android {
  defaultConfig { minSdk = 26 }
 }
 tasks.named<org.cyclonedx.gradle.CyclonedxDirectTask>("cyclonedxDirectBom") {
+ includeConfigs = listOf("jvmCompileClasspath", "jvmRuntimeClasspath", "androidDebugCompileClasspath", "androidDebugRuntimeClasspath")
  failOnUnresolvedDependencies = true
 }

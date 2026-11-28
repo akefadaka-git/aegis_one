@@ -47,7 +47,7 @@ jobs:
           distribution: temurin
           java-version: "17"
       - name: Compile Android variants of all shared modules
-        run: ./gradlew --no-daemon :core:security-state:compileDebugKotlinAndroid :core:policy:compileDebugKotlinAndroid :core:offline-policy:compileDebugKotlinAndroid :core:audit:compileDebugKotlinAndroid
+        run: ./gradlew --no-daemon :core:security-state:compileDebugKotlinAndroid :core:policy:compileDebugKotlinAndroid :core:offline-policy:compileDebugKotlinAndroid :core:audit:compileDebugKotlinAndroid :core:security-state:testDebugUnitTest :core:policy:testDebugUnitTest :core:offline-policy:testDebugUnitTest :core:audit:testDebugUnitTest
   ios:
     runs-on: macos-15
     steps:
