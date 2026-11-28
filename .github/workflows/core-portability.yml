@@ -7,6 +7,7 @@ on:
       - "build.gradle.kts"
       - "settings.gradle.kts"
       - "gradle/**"
+      - "gradle.properties"
       - "core/**"
   pull_request:
     branches: ["docs/a1-baseline-a2-reconciliation"]
