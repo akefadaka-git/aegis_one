@@ -4,16 +4,14 @@ package org.akefadaka.aegis.vault
  * Non-sensitive identifier for a Personal vault. The value must be an opaque,
  * caller-generated digest-shaped reference; it is not a key or recovery secret.
  */
-@JvmInline
-value class VaultId(val value: String) {
+data class VaultId(val value: String) {
     init {
         require(value.matches(Regex("[a-f0-9]{64}"))) { "VaultId must be an opaque 64-character lowercase hex reference" }
     }
 }
 
 /** Opaque reference to the owning installation; never a user identifier. */
-@JvmInline
-value class VaultOwnerRef(val value: String) {
+data class VaultOwnerRef(val value: String) {
     init {
         require(value.matches(Regex("[a-f0-9]{64}"))) { "VaultOwnerRef must be an opaque 64-character lowercase hex reference" }
     }
