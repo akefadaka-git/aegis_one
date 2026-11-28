@@ -256,3 +256,11 @@ This document does not authorize source-code changes, device installation, enrol
 
 ---
 **End of A2 cross-platform product and architecture amendment.**
+
+
+## 10. Controlled VPN architecture amendment — 2026-11-28
+
+The Owner's VPN decisions are recorded in [AEGIS-A2-AMD-003 — VPN Requirements and Architecture](AEGIS-A2-AMD-003-VPN-REQUIREMENTS-AND-ARCHITECTURE.md): one integrated AEGIS ONE product with both Personal and Enterprise VPN; hybrid AEGIS-operated, approved partner-operated and customer-operated gateway classes; WireGuard as the initial protocol using maintained implementations.
+
+AEGIS-A2-AMD-003 supplements this amendment. It does not rewrite the historical A1 baseline, revoke OD-01 through OD-06, authorize VPN implementation, provision gateways, authorize paid infrastructure, or authorize production service activation. VPN feature-specific A2 design and threat/test traceability remain open.
+
