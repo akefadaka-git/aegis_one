@@ -264,3 +264,38 @@ The Owner's VPN decisions are recorded in [AEGIS-A2-AMD-003 — VPN Requirements
 
 AEGIS-A2-AMD-003 supplements this amendment. It does not rewrite the historical A1 baseline, revoke OD-01 through OD-06, authorize VPN implementation, provision gateways, authorize paid infrastructure, or authorize production service activation. VPN feature-specific A2 design and threat/test traceability remain open.
 
+
+
+## 10. Controlled VPN engineering reconciliation — AEGIS-A2-VPN-ENG-001
+
+**Status:** VPN DOMAIN / CONTROL-PLANE / GATEWAY / KEY-LIFECYCLE / ROUTING CONTRACTS DEFINED; PLATFORM AND OPERATIONAL ADR GATES REMAIN OPEN.
+
+The detailed engineering contract is recorded in [AEGIS-A2-VPN-ENG-001](AEGIS-A2-VPN-ENG-001-ENGINEERING-CONTRACTS.md). It is subordinate to this cross-platform architecture and AEGIS-A2-AMD-003. It resolves the VPN-specific architecture boundary as follows:
+
+- Shared domain contracts define authority context, profiles, gateway descriptors, tunnel state, capability evidence and typed errors. Native adapters alone invoke OS tunnel APIs.
+- A deterministic local policy check revalidates principal, device, Personal/Enterprise context, tenant membership version, policy/revocation version, consent, capability and expiry immediately before protected operations.
+- The control plane performs authenticated registration, gateway discovery, peer provisioning, rotation, revocation and health receipt. It never receives endpoint private keys or traffic content.
+- The gateway registry is provider-neutral and versioned. Gateway admission requires verified operator, region/jurisdiction, service mode, trust evidence, privacy/retention profile and current status. Partner/customer substitution is never silent.
+- Personal full/split tunnel and Enterprise private-route semantics are distinct. Personal traffic cannot flow through a customer Enterprise gateway; Enterprise routes cannot silently use a Personal gateway.
+- Failure mode, DNS/IP behavior, IPv6 treatment, kill-switch consent, recovery and OS capability evidence are explicit profile/adapter contracts.
+- The existing Kotlin Android foundation remains the Android path. Shared-core selection remains an ADR; no cross-platform rewrite is presumed.
+- OD-01 through OD-06 remain binding. VPN keys are not vault recovery keys; Enterprise VPN peer administration does not grant Personal vault access or escrow.
+
+### 10.1 Reconciled A2 status
+
+| Area | Status |
+|---|---|
+| Product direction and platform scope | OWNER-DECIDED / PRESERVED |
+| VPN service model, hybrid gateway classes and WireGuard-first | OWNER-DECIDED |
+| VPN domain, authority, API, key/peer, gateway, route/DNS, failure and adapter contracts | CONTRACT-DEFINED in AEGIS-A2-VPN-ENG-001 |
+| Cross-platform shared-core technology | OPEN ADR |
+| Exact WireGuard engine/library per OS, license and provenance | OPEN ADR |
+| OS/API/entitlement/enrollment capability evidence | OPEN platform matrix |
+| Existing repository/build/dependency reconciliation | A3.0 exact-SHA inventory gate |
+| Backend transport/auth owner and production trust roots | OPEN; no live integration |
+| Jurisdiction, provider terms, retention, incident and cost model | OPEN before live gateway operations |
+
+The VPN-specific A2 engineering contract is sufficiently specified to consolidate the A3 implementation plan. This is not a claim that every platform/library/provider decision is closed or that the full cross-platform A2 program is closed. Remaining items are explicit workstream gates in the consolidated A3 plan and pre-live-service gates.
+
+---
+**End of controlled VPN engineering reconciliation.**
