@@ -144,3 +144,48 @@ The subsequent VPN, gateway, cross-platform adapter, IROKA and release-candidate
 **Repository controls:** Continue on `docs/a1-baseline-a2-reconciliation`; do not create a branch. Keep `main` at `570b6fe5abfcf0d7b369af63e211ab937bfe4024`. No production mutation or device interaction.
 
 **Immediate next gate:** A3.07 is the next numbered workstream in the superseding roadmap, but it remains conditional and must not be inferred as authorized by completion of A3.06.
+
+
+---
+
+## 11. Owner-authorized A3.07 portability addendum — superseding sequence (2026-11-28)
+
+This section supersedes the A3.07-and-later numbering and status in Section 10. It does not change A1/A2 security invariants or authorize production deployment.
+
+**Owner instruction:** Execute the bounded shared-core portability proof-of-concept: compile security-state, identity and policy contracts across Android/JVM, iOS/Native and desktop/JVM; prove audit canonical serialization and digest-provider portability.
+
+**A3.07 result:** ACCEPTED as a bounded proof-of-concept. Evidence is recorded in `docs/implementation/AEGIS-A3-07-SHARED-CORE-PORTABILITY-POC.md`. Implementation SHA `b6346906ea453ef1d75410e40893845d5c9d9913`; portability run #46152135064 passed all five jobs; Android foundation run #46152134992 passed and its actual artifact was inspected.
+
+**Superseding A3 sequence:**
+
+| Workstream | Scope | Status / gate |
+|---|---|---|
+| A3.00–A3.05 | Existing bounded foundation, security state, identity, policy, offline policy and audit | Accepted individually on exact-SHA evidence |
+| A3.06 | Cross-platform technology ADR | ACCEPTED; architecture only |
+| A3.07 | Shared-core portability proof-of-concept | ACCEPTED; compile and deterministic conformance proven for Android/JVM, iOS/Native and desktop/JVM |
+| A3.08 | Vault scaffolding | Conditional; no production vault cryptography or recovery until its feature-specific design gate |
+| A3.09 | Android Direct Boot boundary | Conditional; Android-specific feasibility and device/API validation |
+| A3.10 | Family and Enterprise scaffolding | Conditional; synthetic data only until legal, consent and enrollment gates |
+| A3.11 | Remote command parser only | Conditional; parser only, no dispatch/execution; issuer trust and execution remain separately gated |
+| A3.12 | VPN domain/state integration | Separate scope and security gate |
+| A3.13 | WireGuard dependency/license/provenance gate | Required before any VPN engine integration |
+| A3.14 | Android VPN adapter | Conditional on prior gates |
+| A3.15 | Synthetic VPN control plane | Non-production only |
+| A3.16 | Local gateway reference environment | Non-production only |
+| A3.17 | Network safety controls | Conditional |
+| A3.18 | Personal VPN | Conditional |
+| A3.19 | Enterprise VPN | Conditional |
+| A3.20 | Apple VPN adapters | Conditional on entitlement and provider gates |
+| A3.21 | Windows VPN adapter | Conditional |
+| A3.22 | macOS/Linux VPN adapters | Conditional |
+| A3.23 | Hybrid gateway operations | Non-production first |
+| A3.24 | IROKA advisory/cross-domain integration | Advisory only; no self-authorization |
+| A3.25 | Integration hardening/release candidate | Requires exact-SHA evidence and separate release authorization |
+
+The roadmap now contains 26 workstreams (A3.00–A3.25). A3.00–A3.07 are complete: 8/26 (30.8%). A3.08 and later remain separately gated; A3.07 acceptance does not authorize them automatically.
+
+**Authorization status:** A3.07 is complete as a bounded portability proof. It does not authorize production vault storage, native application distribution, device enrollment, privileged helpers, VPN integration, production keys/services, merge, release, deployment, A4 or A5.
+
+**Repository controls:** Continue on `docs/a1-baseline-a2-reconciliation`; do not create a branch. Keep `main` at `570b6fe5abfcf0d7b369af63e211ab937bfe4024`. No production mutation or device interaction.
+
+**Immediate next gate:** A3.08 vault scaffolding remains conditional and requires its own bounded scope and security gate.
