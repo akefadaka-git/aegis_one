@@ -196,18 +196,19 @@ class AuditLedgerTest {
         val jwt = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyIn0.signature"
         val privateKey = "-----BEGIN PRIVATE KEY-----\nprivate-material\n-----END PRIVATE KEY-----"
         val input = "password=hunter2 api_key=key-123 Authorization=Bearer abc.def.ghi " +
-            "token=tok-456 otp=123456 jwt=$jwt $privateKey"
+            "standalone Bearer standalone.token.value token=tok-456 otp=123456 jwt=$jwt $privateKey"
 
         val redacted = AuditSecretRedactor.redact(input)
 
         assertTrue(redacted.contains("password=[REDACTED]"))
         assertTrue(redacted.contains("api_key=[REDACTED]"))
+        assertTrue(redacted.contains("Authorization=[REDACTED]"))
         assertTrue(redacted.contains("Bearer [REDACTED]"))
         assertTrue(redacted.contains("token=[REDACTED]"))
         assertTrue(redacted.contains("otp=[REDACTED]"))
         assertTrue(redacted.contains("[REDACTED_JWT]"))
         assertTrue(redacted.contains("[REDACTED_PRIVATE_KEY]"))
-        listOf("hunter2", "key-123", "abc.def.ghi", "tok-456", "123456", jwt, "private-material")
+        listOf("hunter2", "key-123", "abc.def.ghi", "standalone.token.value", "tok-456", "123456", jwt, "private-material")
             .forEach { assertFalse("secret leaked: $it", redacted.contains(it)) }
     }
 
