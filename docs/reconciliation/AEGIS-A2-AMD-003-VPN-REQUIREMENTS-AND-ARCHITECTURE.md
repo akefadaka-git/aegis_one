@@ -182,3 +182,15 @@ No main-branch change, source implementation, paid dependency/service, server pr
 
 ---
 **End of A2 VPN architecture amendment.**
+
+
+## 11. Controlled VPN engineering contract reference — AEGIS-A2-VPN-ENG-001
+
+The detailed VPN engineering contracts are now recorded in [AEGIS-A2-VPN-ENG-001](AEGIS-A2-VPN-ENG-001-ENGINEERING-CONTRACTS.md). This amendment remains the controlling VPN product/security architecture; the engineering contract makes its interfaces testable without changing the Owner's decisions.
+
+**Reconciled status:** Personal + Enterprise service model, hybrid AEGIS/partner/customer gateway classes and WireGuard-first are OWNER-DECIDED. Domain and authority context, VpnProfile, GatewayDescriptor, tunnel state machine, capability evidence, typed errors, control-plane logical API, endpoint key/peer lifecycle, routing/DNS/failure semantics, privacy/retention boundaries and native adapter contract are CONTRACT-DEFINED. Exact engine/library per OS, API transport/auth provider, OS entitlement/capability evidence, backend ownership and production provider/operational decisions remain OPEN and gated.
+
+The contract does not authorize source implementation, live peer provisioning, production key issuance, paid infrastructure or deployment. A3.0 must first reconcile the actual repository foundation and exact SHA; A3.12 onward cannot bypass the library, platform and security gates.
+
+---
+**End of VPN architecture amendment with engineering-contract reference.**
