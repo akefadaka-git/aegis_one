@@ -52,3 +52,37 @@ A3.0–A3.5 source foundation is **IMPLEMENTED / PARTIAL VERIFICATION**. Do not 
 **Status:** A3.06 ARCHITECTURE DECISION ACCEPTED. KMP migration, native adapters, cross-platform builds and device testing are NOT STARTED / NOT RUN. Production readiness NOT ESTABLISHED.
 
 **Next gate:** A3.07 remains conditional; A3.06 completion does not authorize it automatically.
+
+
+---
+
+## A3.07 implementation log — shared-core portability proof-of-concept (2026-11-28)
+
+**Owner authorization:** Explicitly supplied in chat for A3.07.  
+**Implementation branch:** `docs/a1-baseline-a2-reconciliation`.  
+**Implementation SHA tested:** `b6346906ea453ef1d75410e40893845d5c9d9913`.
+
+**Implementation completed:**
+- Converted `core:security-state`, `core:policy`, `core:offline-policy` and `core:audit` to Kotlin Multiplatform targets: Android, JVM, iOS ARM64 and iOS Simulator ARM64.
+- Moved existing shared production code into `commonMain`, existing JUnit suites into `jvmTest`, and added common conformance tests.
+- Replaced the JVM-only `InstallationId` inline value class representation with a common Kotlin data class while retaining its validated value/equality behavior.
+- Extracted `AuditCanonicalEncoder`, preserving the original version-1 Java DataOutputStream-compatible canonical byte format.
+- Added SHA-256 platform actuals: JCA for JVM/Android and Apple CommonCrypto via a narrow typed C-interop wrapper for iOS.
+- Enabled iOS C-interop commonization for the shared Apple source set.
+- Added cross-platform CI matrix for Ubuntu/Windows/macOS JVM, Android unit tests, iOS device compilation and iOS Simulator common tests.
+
+**Deterministic proof:** Common tests exercise identity scope/tenant/authority rules, P3/P4 policy behavior, offline time/tier rejection, and the 331-byte audit canonical golden vector with SHA-256 `c7663b649b20ae6b39cea6a826705a867dbd6d4ea70abdf18f9684060dc5aff7`.
+
+**Verification:**
+- Shared-core portability run #46152135064: SUCCESS, all five jobs (Android, iOS, Windows JVM, macOS JVM, Ubuntu JVM) passed on exact implementation SHA.
+- Android foundation run #46152134992: SUCCESS on the same SHA; build, tests, lint, debug APK assembly, aggregate/direct SBOM generation and SBOM validation passed.
+- Android artifact ID `15265774790`; archive SHA-256 `03b10e3a159ca755a09cd05b7df6289bab1cdbbfb8d80e14026256c69f3e2607`.
+- Actual artifact inspection: six module direct SBOMs have zero unresolved dependency references; aggregate SBOM has 8 components and 21 dependency edges; all eight XML BOMs parse; APK manifest and six DEX files present; Gitleaks SARIF contains zero findings.
+
+**Corrections recorded:** Initial Android build exposed duplicate legacy/KMP source-set layout; sources/tests were moved into canonical KMP directories. Initial iOS build exposed missing CommonCrypto visibility; C-interop commonization and a typed C wrapper resolved it. Failed runs #46151094348, #46151283310, #46151571475 and #46151897908 were not accepted; the successful final run #46152135064 verifies the corrected exact implementation SHA.
+
+**Status:** A3.07 ACCEPTED — BOUNDED PORTABILITY PROOF ONLY. No production protected storage, trusted-time provider, identity authority, key custody, app distribution, device tests or VPN enforcement was implemented. Production readiness NOT ESTABLISHED.
+
+**Repository controls:** No merge or deployment. `main` remains `570b6fe5abfcf0d7b369af63e211ab937bfe4024`. The implementation source SHA above is the exact SHA verified by the successful CI runs; subsequent commits in this branch are documentation-only records.
+
+**Next gate:** A3.08 vault scaffolding remains conditional and separately gated.
