@@ -89,7 +89,11 @@ data class SecurityPosture(val capabilities:Map<String,CapabilityEvidence>) {
 }
 
 enum class OperatingMode { CONSUMER, FAMILY, ENTERPRISE }
-enum class PrincipalKind { ACCOUNT_OWNER, FAMILY_GUARDIAN, FAMILY_MEMBER, ENTERPRISE_ADMIN, EMPLOYEE, SYSTEM_SERVICE, AI_AGENT }
+enum class PrincipalKind {
+ ACCOUNT_OWNER, FAMILY_GUARDIAN, FAMILY_MEMBER,
+ ENTERPRISE_TENANT_OWNER, ENTERPRISE_ADMIN, EMPLOYEE, SUPPORT_OPERATOR,
+ SYSTEM_SERVICE, IROKA_KERNEL, AI_AGENT
+}
 enum class SecurityTier { P0, P1, P2, P3, P4 }
 data class Principal(val id:String,val kind:PrincipalKind,val tenantId:String?=null) { init { require(id.isNotBlank()) } }
 data class ResourceScope(val resourceType:String,val resourceId:String,val tenantId:String?=null) {

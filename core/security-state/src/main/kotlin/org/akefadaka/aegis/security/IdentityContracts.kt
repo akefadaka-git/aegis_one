@@ -125,7 +125,8 @@ class IdentityContextValidator {
   if(membership.principalId!=principal.id || membership.mode!=context.mode)
    return IdentityDecision.DENY_IDENTITY_MISMATCH
   if(membership.tenantId!=principal.tenantId) return IdentityDecision.DENY_TENANT_MISMATCH
-  if(principal.kind==PrincipalKind.AI_AGENT) return IdentityDecision.DENY_UNSUPPORTED_PRINCIPAL
+  if(principal.kind==PrincipalKind.AI_AGENT || principal.kind==PrincipalKind.IROKA_KERNEL)
+   return IdentityDecision.DENY_UNSUPPORTED_PRINCIPAL
   if(!context.modeAllows(principal.kind)) return IdentityDecision.DENY_PRINCIPAL_MODE
 
   if(context.installationId!=context.device.installationId) return IdentityDecision.DENY_INSTALLATION_BINDING
@@ -166,7 +167,8 @@ class IdentityContextValidator {
  private fun IdentityContext.modeAllows(kind:PrincipalKind):Boolean=when(mode) {
   OperatingMode.CONSUMER -> kind==PrincipalKind.ACCOUNT_OWNER || kind==PrincipalKind.SYSTEM_SERVICE
   OperatingMode.FAMILY -> kind==PrincipalKind.FAMILY_GUARDIAN || kind==PrincipalKind.FAMILY_MEMBER || kind==PrincipalKind.SYSTEM_SERVICE
-  OperatingMode.ENTERPRISE -> kind==PrincipalKind.ENTERPRISE_ADMIN || kind==PrincipalKind.EMPLOYEE || kind==PrincipalKind.SYSTEM_SERVICE
+  OperatingMode.ENTERPRISE -> kind==PrincipalKind.ENTERPRISE_TENANT_OWNER || kind==PrincipalKind.ENTERPRISE_ADMIN ||
+   kind==PrincipalKind.EMPLOYEE || kind==PrincipalKind.SUPPORT_OPERATOR || kind==PrincipalKind.SYSTEM_SERVICE
  }
 
  private fun expectedRole(mode:OperatingMode,kind:PrincipalKind):AuthorityRole?=when(mode to kind) {
@@ -175,8 +177,10 @@ class IdentityContextValidator {
   OperatingMode.FAMILY to PrincipalKind.FAMILY_GUARDIAN -> AuthorityRole.FAMILY_GUARDIAN
   OperatingMode.FAMILY to PrincipalKind.FAMILY_MEMBER -> AuthorityRole.FAMILY_MEMBER
   OperatingMode.FAMILY to PrincipalKind.SYSTEM_SERVICE -> AuthorityRole.AEGIS_SERVICE
+  OperatingMode.ENTERPRISE to PrincipalKind.ENTERPRISE_TENANT_OWNER -> AuthorityRole.ENTERPRISE_TENANT_OWNER
   OperatingMode.ENTERPRISE to PrincipalKind.ENTERPRISE_ADMIN -> AuthorityRole.ENTERPRISE_ADMIN
   OperatingMode.ENTERPRISE to PrincipalKind.EMPLOYEE -> AuthorityRole.EMPLOYEE
+  OperatingMode.ENTERPRISE to PrincipalKind.SUPPORT_OPERATOR -> AuthorityRole.SUPPORT_OPERATOR
   OperatingMode.ENTERPRISE to PrincipalKind.SYSTEM_SERVICE -> AuthorityRole.AEGIS_SERVICE
   else -> null
  }

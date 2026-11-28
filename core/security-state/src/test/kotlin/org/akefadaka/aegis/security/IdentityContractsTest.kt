@@ -28,12 +28,13 @@ class IdentityContractsTest {
  private fun enterpriseContext(
   tenantId:String="tenant-1",
   membershipVersion:Long=4,
+  principalKind:PrincipalKind=PrincipalKind.EMPLOYEE,
   grantRole:AuthorityRole=AuthorityRole.EMPLOYEE,
   grantScope:ResourceScope=ResourceScope("device","device-1","tenant-1"),
   grantVersion:Long=4
  ):IdentityContext {
   val installation=InstallationId("install-enterprise-opaque-01")
-  val principal=Principal("employee-1",PrincipalKind.EMPLOYEE,tenantId)
+  val principal=Principal("enterprise-principal-1",principalKind,tenantId)
   val membership=MembershipSnapshot(principal.id,OperatingMode.ENTERPRISE,tenantId,membershipVersion,
    MembershipStatus.ACTIVE,900,2_000)
   val grant=RoleGrant("grant-enterprise-1",principal.id,grantRole,OperatingMode.ENTERPRISE,
@@ -122,18 +123,38 @@ class IdentityContractsTest {
   assertEquals(IdentityDecision.DENY_ROLE_EXPIRED,validator.validate(expired,scope,now,3))
  }
 
- @Test fun enterpriseRoleMustMatchPrincipalAndTenantExactly() {
+ @Test fun employeeCannotInheritTenantOwnerRole() {
   val context=enterpriseContext(grantRole=AuthorityRole.ENTERPRISE_TENANT_OWNER)
   assertEquals(IdentityDecision.DENY_NO_EXPLICIT_ROLE,
    validator.validate(context,ResourceScope("device","device-1","tenant-1"),now,4))
  }
 
- @Test fun aiAgentCannotBecomeIdentityAuthority() {
+ @Test fun tenantOwnerAndSupportOperatorRequireTheirOwnExplicitRoles() {
+  val tenantOwner=enterpriseContext(
+   principalKind=PrincipalKind.ENTERPRISE_TENANT_OWNER,
+   grantRole=AuthorityRole.ENTERPRISE_TENANT_OWNER
+  )
+  assertEquals(IdentityDecision.ALLOW,
+   validator.validate(tenantOwner,ResourceScope("device","device-1","tenant-1"),now,4))
+  val support=enterpriseContext(
+   principalKind=PrincipalKind.SUPPORT_OPERATOR,
+   grantRole=AuthorityRole.SUPPORT_OPERATOR
+  )
+  assertEquals(IdentityDecision.ALLOW,
+   validator.validate(support,ResourceScope("device","device-1","tenant-1"),now,4))
+ }
+
+ @Test fun aiAgentAndIrokaKernelCannotBecomeIdentityAuthorities() {
   val base=consumerContext()
   val ai=base.copy(
    principal=Principal("agent",PrincipalKind.AI_AGENT),
    membership=base.membership.copy(principalId="agent")
   )
+  val iroka=base.copy(
+   principal=Principal("iroka-kernel",PrincipalKind.IROKA_KERNEL),
+   membership=base.membership.copy(principalId="iroka-kernel")
+  )
   assertEquals(IdentityDecision.DENY_UNSUPPORTED_PRINCIPAL,validator.validate(ai,scope,now,3))
+  assertEquals(IdentityDecision.DENY_UNSUPPORTED_PRINCIPAL,validator.validate(iroka,scope,now,3))
  }
 }
