@@ -141,6 +141,9 @@ class AuditLedger(private val storage: ProtectedAuditStorage) {
             return AuditAppendResult(AuditFailureState.STORAGE_UNAVAILABLE)
         }
 
+        if (rows.any { it.event.eventId == event.eventId }) {
+            return AuditAppendResult(AuditFailureState.APPEND_CONFLICT)
+        }
         val lastSequence = rows.lastOrNull()?.sequence ?: 0L
         if (lastSequence != verification.lastVerifiedSequence) {
             return AuditAppendResult(AuditFailureState.APPEND_CONFLICT)
@@ -242,8 +245,8 @@ object AuditSecretRedactor {
     )
 
     fun redact(input: String): String {
-        var result = assignment.replace(input) { match -> "${match.groupValues[1]}=[REDACTED]" }
-        result = bearer.replace(result, "Bearer [REDACTED]")
+        var result = bearer.replace(input, "Bearer [REDACTED]")
+        result = assignment.replace(result) { match -> "${match.groupValues[1]}=[REDACTED]" }
         result = jwt.replace(result, "[REDACTED_JWT]")
         result = privateKeyBlock.replace(result, "[REDACTED_PRIVATE_KEY]")
         return result
