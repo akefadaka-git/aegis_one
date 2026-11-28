@@ -98,7 +98,7 @@ class PolicyEvaluatorTest {
   assertEquals(PolicyDecision.DENY,evaluator.evaluate(request,context(capabilityManifest=manifest(status=CapabilityStatus.UNKNOWN))))
   assertEquals(PolicyDecision.DENY,evaluator.evaluate(request,context(capabilityManifest=manifest(source=EvidenceSource.TEST_FIXTURE))))
   assertEquals(PolicyDecision.DENY,evaluator.evaluate(request,context(capabilityManifest=manifest(observedAt=1_000))))
-  assertEquals(PolicyDecision.DENY,evaluator.evaluate(request,context(capabilityManifest=manifest(observedAt=10_001))))
+  assertEquals(PolicyDecision.DENY,evaluator.evaluate(request,context(capabilityManifest=manifest(observedAt=10_001,generatedAt=10_002))))
   assertEquals(PolicyDecision.DENY,evaluator.evaluate(request,context(capabilityManifest=manifest(generatedAt=10_001))))
  }
 
