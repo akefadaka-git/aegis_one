@@ -4,6 +4,7 @@ on:
     branches: ["docs/a1-baseline-a2-reconciliation"]
     paths:
       - ".github/workflows/**"
+      - ".github/scripts/**"
       - ".gitleaks.toml"
       - "*.gradle.kts"
       - "gradle/**"
@@ -16,6 +17,7 @@ on:
     branches: ["docs/a1-baseline-a2-reconciliation"]
     paths:
       - ".github/workflows/**"
+      - ".github/scripts/**"
       - ".gitleaks.toml"
       - "*.gradle.kts"
       - "gradle/**"
@@ -49,8 +51,10 @@ jobs:
           sudo tar -xzf /tmp/gitleaks.tar.gz -C /usr/local/bin gitleaks
       - name: Scan full Git history for secrets
         run: gitleaks detect --source . --config .gitleaks.toml --redact --verbose --exit-code 2 --report-format sarif --report-path gitleaks.sarif --log-opts="--all"
-      - name: Build, test, lint, assemble and generate SBOM
+      - name: Build, test, lint, assemble and generate aggregate and direct SBOMs
         run: ./gradlew --no-daemon clean test lint assembleDebug cyclonedxBom
+      - name: Validate SBOM coverage and dependency references
+        run: python3 .github/scripts/validate_sbom.py
       - name: Preserve CI evidence
         if: always()
         uses: actions/upload-artifact@v4
@@ -58,9 +62,21 @@ jobs:
           name: aegis-one-ci-evidence-${{ github.sha }}
           path: |
             build/reports/cyclonedx/bom.json
-            app/build/reports/cyclonedx/bom.json
-            core/**/build/reports/cyclonedx/bom.json
-            platform/**/build/reports/cyclonedx/bom.json
+            build/reports/cyclonedx/bom.xml
+            build/reports/cyclonedx-direct/bom.json
+            build/reports/cyclonedx-direct/bom.xml
+            app/build/reports/cyclonedx-direct/bom.json
+            app/build/reports/cyclonedx-direct/bom.xml
+            core/security-state/build/reports/cyclonedx-direct/bom.json
+            core/security-state/build/reports/cyclonedx-direct/bom.xml
+            core/policy/build/reports/cyclonedx-direct/bom.json
+            core/policy/build/reports/cyclonedx-direct/bom.xml
+            core/offline-policy/build/reports/cyclonedx-direct/bom.json
+            core/offline-policy/build/reports/cyclonedx-direct/bom.xml
+            core/audit/build/reports/cyclonedx-direct/bom.json
+            core/audit/build/reports/cyclonedx-direct/bom.xml
+            platform/android-capabilities/build/reports/cyclonedx-direct/bom.json
+            platform/android-capabilities/build/reports/cyclonedx-direct/bom.xml
             app/build/outputs/apk/debug/app-debug.apk
             gitleaks.sarif
-          if-no-files-found: warn
+          if-no-files-found: error
