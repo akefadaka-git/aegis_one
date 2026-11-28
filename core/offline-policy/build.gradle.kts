@@ -8,15 +8,9 @@ kotlin {
  iosArm64()
  iosSimulatorArm64()
  sourceSets {
-  commonMain {
-   kotlin.srcDir("src/main/kotlin")
-   dependencies { implementation(project(":core:security-state")) }
-  }
+  commonMain { dependencies { implementation(project(":core:security-state")) } }
   commonTest { dependencies { implementation(kotlin("test")) } }
-  jvmTest {
-   kotlin.srcDir("src/test/kotlin")
-   dependencies { implementation("junit:junit:4.13.2") }
-  }
+  jvmTest { dependencies { implementation("junit:junit:4.13.2") } }
  }
 }
 android {
