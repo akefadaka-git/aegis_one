@@ -1,10 +1,5 @@
 package org.akefadaka.aegis.audit
 
-import java.io.ByteArrayOutputStream
-import java.io.DataOutputStream
-import java.nio.charset.StandardCharsets
-import java.security.MessageDigest
-
 enum class AuditEventType {
     POLICY_DECISION,
     CAPABILITY_CHANGE,
@@ -130,7 +125,6 @@ data class AuditAppendResult(
  * Atomicity across processes/devices is the storage adapter's responsibility.
  */
 class AuditLedger(private val storage: ProtectedAuditStorage) {
-    @Synchronized
     fun append(event: AuditEvent): AuditAppendResult {
         val verification = verify()
         if (!verification.isIntact) return AuditAppendResult(verification.state)
@@ -172,7 +166,6 @@ class AuditLedger(private val storage: ProtectedAuditStorage) {
         }
     }
 
-    @Synchronized
     fun verify(): AuditVerification {
         val rows = try {
             storage.readSnapshot()
@@ -201,27 +194,10 @@ class AuditLedger(private val storage: ProtectedAuditStorage) {
     }
 
     private fun digest(sequence: Long, event: AuditEvent, previousDigest: String): String {
-        // Length-prefixed UTF-8 fields avoid delimiter ambiguity in the canonical encoding.
-        val bytes = ByteArrayOutputStream()
-        DataOutputStream(bytes).use { out ->
-            out.writeInt(DIGEST_FORMAT_VERSION)
-            out.writeLong(sequence)
-            out.writeUTF(event.eventId)
-            out.writeInt(event.schemaVersion)
-            out.writeUTF(event.eventType.name)
-            out.writeUTF(event.actorRef)
-            out.writeBoolean(event.subjectRef != null)
-            event.subjectRef?.let(out::writeUTF)
-            out.writeBoolean(event.correlationRef != null)
-            event.correlationRef?.let(out::writeUTF)
-            out.writeUTF(event.outcome.name)
-            out.writeUTF(event.reason.name)
-            out.writeLong(event.occurredAtEpochMillis)
-            out.writeUTF(previousDigest)
-        }
-        return MessageDigest.getInstance("SHA-256")
-            .digest(bytes.toByteArray())
-            .joinToString("") { "%02x".format(it) }
+        val canonical = AuditCanonicalEncoder.encode(sequence, event, previousDigest)
+        val result = platformSha256(canonical)
+        require(result.size == 32) { "SHA-256 provider returned an invalid digest length" }
+        return result.toLowerHex()
     }
 
     companion object {

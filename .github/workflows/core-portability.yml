@@ -1,0 +1,62 @@
+name: Shared-core portability proof
+on:
+  push:
+    branches: ["docs/a1-baseline-a2-reconciliation"]
+    paths:
+      - ".github/workflows/core-portability.yml"
+      - "build.gradle.kts"
+      - "settings.gradle.kts"
+      - "gradle/**"
+      - "core/**"
+  pull_request:
+    branches: ["docs/a1-baseline-a2-reconciliation"]
+    paths:
+      - ".github/workflows/core-portability.yml"
+      - "build.gradle.kts"
+      - "settings.gradle.kts"
+      - "gradle/**"
+      - "core/**"
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: aegis-core-portability-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  desktop-jvm:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: "17"
+      - name: Run shared and JVM conformance suites
+        run: ./gradlew --no-daemon :core:security-state:jvmTest :core:policy:jvmTest :core:offline-policy:jvmTest :core:audit:jvmTest
+  android:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: "17"
+      - uses: android-actions/setup-android@v3
+      - name: Compile Android variants of all shared modules
+        run: ./gradlew --no-daemon :core:security-state:compileDebugKotlinAndroid :core:policy:compileDebugKotlinAndroid :core:offline-policy:compileDebugKotlinAndroid :core:audit:compileDebugKotlinAndroid
+  ios:
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: "17"
+      - name: Verify Xcode toolchain
+        run: xcodebuild -version
+      - name: Compile iOS device target and run simulator common tests
+        run: ./gradlew --no-daemon :core:security-state:compileKotlinIosArm64 :core:policy:compileKotlinIosArm64 :core:offline-policy:compileKotlinIosArm64 :core:audit:compileKotlinIosArm64 :core:security-state:iosSimulatorArm64Test :core:policy:iosSimulatorArm64Test :core:offline-policy:iosSimulatorArm64Test :core:audit:iosSimulatorArm64Test
