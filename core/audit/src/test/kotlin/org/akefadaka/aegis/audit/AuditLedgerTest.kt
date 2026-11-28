@@ -211,6 +211,19 @@ class AuditLedgerTest {
             .forEach { assertFalse("secret leaked: $it", redacted.contains(it)) }
     }
 
+
+    @Test
+    fun rejectsDuplicateEventIdentifiersAsReplay() {
+        val store = Store()
+        val ledger = AuditLedger(store)
+        assertTrue(ledger.append(event()).appended)
+
+        val replay = ledger.append(event(time = 11))
+
+        assertEquals(AuditFailureState.APPEND_CONFLICT, replay.state)
+        assertEquals(1, store.rows.size)
+    }
+
     @Test
     fun redactorLeavesNonSecretDiagnosticTextReadable() {
         val input = "policy decision denied: POLICY_STALE; capability unavailable"
