@@ -215,3 +215,107 @@ No A4 pass may be inferred from a successful build alone. No production readines
 
 ---
 **End of A3 controlled roadmap addendum.**
+
+
+---
+
+## 11. Consolidated cross-platform A3 implementation baseline — 2026-11-28
+
+**Baseline ID:** AEGIS-A3-CONSOLIDATED-001  
+**Status:** CONSOLIDATED PLAN FOR SEPARATE OWNER A3 TRANSITION DECISION  
+**Controlling architecture:** AEGIS-A2-AMD-002 + AEGIS-A2-AMD-003 + AEGIS-A2-VPN-ENG-001  
+**Preserved main baseline:** 570b6fe5abfcf0d7b369af63e211ab937bfe4024  
+**Planning branch:** docs/a2-cross-platform-product-revision
+
+This section is the current integrated A3 plan. It supersedes earlier sequencing tables for forward planning only; it does not delete their historical record or change frozen A1/A2 approvals. It integrates the original Android security foundation, cross-platform architecture and the VPN workstreams into one dependency-ordered delivery plan. A3 implementation is still NOT AUTHORIZED until the Owner's separate stage-transition decision.
+
+### 11.1 Binding delivery rules
+
+1. Preserve the current main baseline and existing Android source foundation. A3.00 is read-only inventory/reconciliation before any code change.
+2. Use the Owner-designated existing implementation branch. Do not create a branch, change main, merge or deploy without separate direction.
+3. Keep all implementation synthetic/local by default. No production credentials, production keys, live tenant data, paid services, public gateway capacity, user enrollment or production provisioning.
+4. Preserve OD-01 through OD-06, Personal/Family/Enterprise separation, monotonic revocation, deny-by-default and local enforcement authority.
+5. A3 implements one bounded workstream at a time. Each workstream has exact base/head SHA, changed paths, build/test/CI evidence, dependency/SBOM status, security findings and explicit NOT RUN status for unexecuted checks.
+6. Security-sensitive tests assert both the denial and absence of side effects. Build success alone is not acceptance.
+7. IROKA remains advisory; no AI action may bypass current local authorization.
+8. Platform parity is not assumed. Every adapter publishes current capability evidence and limitations.
+9. No production gateway or service operation is implied by local WireGuard test infrastructure.
+10. A4 exact-SHA security assessment and regression precede any A5 deployment decision. A5 remains separate.
+
+### 11.2 Integrated ordered workstreams
+
+| Order | Workstream | Scope | Exit evidence / dependency |
+|---|---|---|---|
+| A3.00 | Repository and baseline reconciliation | Read-only inventory of main and designated implementation branch; app/core modules, Gradle, CI, dependencies, tests, current Android foundation, prior evidence and open changes | Exact baseline SHA; file/module inventory; build/test baseline; dependency/SBOM state; no unrelated changes |
+| A3.01 | Security state and capability contracts | Typed evidence states, provenance/freshness, capability manifest and common error model | Unit/conformance tests prove UNKNOWN/UNSUPPORTED/DEGRADED never count as enforced |
+| A3.02 | Shared identity and mode contracts | Per-installation identity; Personal/Family/Enterprise context; principal, role, tenant, membership version and device binding | Cross-mode, cross-tenant, stale-membership and revoked-identity negative tests |
+| A3.03 | Deterministic local policy engine | Deny-by-default decision model; consent, scope, policy freshness, revocation, capability and risk gates | ALLOW/DENY/REQUIRE_APPROVAL/ESCALATE vectors; no-side-effect tests; AI cannot self-authorize |
+| A3.04 | Offline policy state machine | Signed/scoped policy, expiry, rollback, replay protection, time confidence and OD-05 limits | Stale/expired/replayed/uncertain-clock tests; P0/P1 7-day, P2 24-hour, P3/P4 rules retained |
+| A3.05 | Local audit foundation | Minimized typed events, protected storage interface, sequence/integrity states and redaction | Secret/content exclusion, tamper/gap detection and audit failure tests |
+| A3.06 | Cross-platform technology ADR | Compare KMP/Rust/narrow shared core/native options; retain Kotlin Android path; define platform build and conformance strategy | Comparative decision record, small non-production feasibility evidence, licenses/security/build reproducibility; no rewrite by assumption |
+| A3.07 | Vault domain scaffolding (conditional) | Non-sensitive interfaces, synthetic fixtures and storage abstraction only | No secret/plaintext persistence; crypto engine remains gated by separate cryptographic design |
+| A3.08 | Android Direct Boot boundary (conditional) | Minimal bootstrap contract and tests; no vault/recovery secrets | Device-protected storage tests; physical-device evidence before any enforcement claim |
+| A3.09 | Family and Enterprise security scaffolding | Synthetic relationship/tenant policies, enrollment/capability adapters and offboarding boundaries | Guardian cannot access private vault; work profile != Device Owner; cross-tenant denial |
+| A3.10 | Remote command parser only (conditional) | Strict typed envelope, canonical schema, allowlist and parser; no dispatch or live execution | Malformed, oversized, replayed, wrong-scope and unknown-action denial; execution remains separately gated |
+| A3.11 | VPN domain and state contract integration | Implement the A2-ENG-001 domain types, AuthorityContext, VpnProfile, GatewayDescriptor, TunnelState, typed errors and capability evidence | Contract tests, valid/invalid transition tests and VPN-TH traceability |
+| A3.12 | WireGuard engine/dependency gate | Select maintained integration per OS; evaluate license, maintenance, supported versions, provenance, vulnerability history and reproducible builds; pin exact versions | Approved per-platform ADR, SBOM, license/provenance/vulnerability evidence; no custom crypto |
+| A3.13 | Android VPN adapter | VpnService, consent, foreground lifecycle, tunnel start/stop, state/health and supported always-on/lockdown reporting | Android unit/instrumentation tests, lifecycle/recovery and capability evidence; no false support claims |
+| A3.14 | VPN control plane — synthetic first | Mock/local registration, gateway discovery, peer provisioning, rotation, revocation and health receipt API | Auth/scope/tenant/replay/idempotency/expiry tests; private key absent from all requests/logs; no production credentials |
+| A3.15 | Local gateway reference environment | Reproducible local/test WireGuard gateways, registry fixtures, peer lifecycle, health and teardown | Synthetic/local integration tests, isolation and cleanup; no paid/production gateway |
+| A3.16 | Network safety controls | DNS policy, IPv4/IPv6, MTU, route enforcement, reconnect, captive portal, split-tunnel where supported, kill-switch/lockdown only with consent | Packet-capture and DNS/IP leak matrix; fail-open/fail-closed recovery; OS-specific capability evidence |
+| A3.17 | Personal VPN policy and UX | Consent, eligible gateway selection, full/split routing, public Wi-Fi rules, diagnostics and privacy notice | Personal-mode route/key/gateway isolation and privacy tests |
+| A3.18 | Enterprise VPN policy and UX | Tenant profiles, private routes, enrollment, BYOD/corporate-owned boundaries, admin assignment and offboarding | Cross-tenant denial; Personal/Enterprise route/key/log separation; authorization and offboarding tests |
+| A3.19 | Apple VPN adapters | iOS/iPadOS Network Extension and supported maintained engine | Entitlement/provisioning feasibility, signing/distribution constraints, OS tests and capability manifest |
+| A3.20 | Windows VPN adapter | Supported WireGuard integration and least-privilege service lifecycle | Service privilege, signing/provenance, install/update/uninstall and tunnel/recovery tests |
+| A3.21 | macOS and Linux VPN adapters | Native supported integration and per-OS routing/privilege boundaries | Supported OS/distribution matrix, entitlement/kernel tests, conformance and safe teardown |
+| A3.22 | Hybrid gateway operations (non-production first) | Provider registry lifecycle, operator/region trust, customer tenant binding, partner due diligence, abuse/incident and retention controls | Test provider admission/revocation drills and audit evidence; production approval/cost/legal gates remain separate |
+| A3.23 | IROKA and cross-domain integration | Advisory-only threat/risk recommendations; local authorization remains mandatory; integrate audit, policy, identity and status | Malicious/stale AI recommendation cannot cause protected side effect; regression of existing security domains |
+| A3.24 | Integrated hardening and release candidate | Full regression, cross-platform conformance, privacy review, SBOM, dependency and operational evidence; freeze exact candidate | All applicable requirements trace to tests/evidence on exact SHA; zero unresolved critical/high security findings; A4 handoff package |
+
+### 11.3 Dependencies and tranche boundaries
+
+- **Foundation tranche:** A3.00–A3.06. No feature work proceeds until the existing repository baseline is reconciled, security authority contracts are testable and the shared-core/native strategy is recorded.
+- **Conditional security scaffolding:** A3.07–A3.10. These are not permission to implement vault cryptography, remote command execution, destructive anti-theft, P3 or P4 actions. Each remains behind its own approved design/authorization gate.
+- **VPN domain and Android reference tranche:** A3.11–A3.16. A3.12 must pass before any platform VPN adapter consumes a WireGuard engine. Control-plane and gateway work stays mock/local/synthetic. Packet/leak evidence is mandatory before a feature is represented as protective.
+- **Product and remaining platform tranche:** A3.17–A3.22. Personal and Enterprise remain separate; Apple/Windows/macOS/Linux adapters follow their platform feasibility and entitlement gates. Production provider onboarding is not included.
+- **Integration/hardening tranche:** A3.23–A3.24. IROKA cannot authorize actions. Full regression includes OD-01–OD-06 and existing Android foundation. A4 is not folded into A3.
+
+A later workstream may be developed in parallel only after its upstream contracts and dependency selection are frozen and the exact file/module ownership is conflict-free. Do not parallelize edits to the same files or bypass a gate for schedule convenience.
+
+### 11.4 Cross-platform acceptance and A4 evidence
+
+For each OS, record OS/API version, engine/library version, permission/entitlement/enrollment state, key-storage capability, tunnel lifecycle, routing semantics, DNS/IPv4/IPv6 behavior, failure/recovery behavior and unsupported features. Required A4 evidence on exact frozen candidate SHA includes:
+
+- Independent security assessment, findings, remediation and retest.
+- Dependency/license/provenance/vulnerability/SBOM review.
+- Key generation/storage/rotation/revocation and peer cleanup.
+- Forged/stale gateway and cross-tenant/mode authorization denial.
+- Packet-capture DNS/IP leak, IPv4/IPv6, tunnel-drop, reconnect, roaming, sleep/resume and reboot evidence.
+- Kill-switch/lockdown recovery only on platforms where it is claimed and supported.
+- Personal/Family/Enterprise route, key, data and audit separation.
+- Gateway operational security, privacy/retention, abuse and incident response evidence.
+- Platform permissions, entitlements, enrollment and unsupported-state verification.
+- Full regression of the existing Android foundation and OD-01 through OD-06.
+
+### 11.5 Consolidated status and decision request
+
+| Item | Status |
+|---|---|
+| A1 v1.0 / OD-01–OD-06 | FROZEN / PRESERVED |
+| A2 cross-platform product direction | RECORDED |
+| A2 VPN service/protocol/infrastructure decisions | OWNER-DECIDED |
+| A2 VPN engineering contracts | DOCUMENTED in AEGIS-A2-VPN-ENG-001 |
+| Exact engine/library and OS capability ADRs | OPEN / gated before platform integration |
+| Repository implementation baseline | A3.00 READ-ONLY RECONCILIATION REQUIRED |
+| A3 plan | CONSOLIDATED; presented for separate Owner decision |
+| A3 implementation | NOT AUTHORIZED / NOT STARTED by this document |
+| A4 | NOT STARTED |
+| A5 | NOT AUTHORIZED |
+| Production VPN / gateway readiness | NOT ESTABLISHED |
+
+**Separate decision requested:** whether to authorize A3 transition under AEGIS-A3-CONSOLIDATED-001, beginning with read-only A3.00 reconciliation on the existing implementation branch. Authorization to begin A3.00 does not authorize production services, live keys, user enrollment, merge, release or deployment; those remain separately gated.
+
+**Immediate next step:** Owner's separate A3 transition decision. If authorized, execute A3.00 first and report its exact baseline SHA and inventory before source changes.
+
+---
+**End of consolidated A3 baseline.**
