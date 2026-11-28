@@ -2,7 +2,7 @@
 
 **Authorization:** Owner authorization received 2026-11-25 for A3.0–A3.5 under AEGIS-A3-PLAN-001.  
 **Implementation branch:** `docs/a1-baseline-a2-reconciliation`  
-**Current branch head:** `89bda0fef0e9202a90bb2c9d75d4f9d939f80ecf`  
+**Verified A3.08 implementation SHA:** `2f5da6691a5a798168774e37eb1906f858c5b6b6`  
 **Implementation commits:** `bfeb1a0273f504c28b8f469bca180c99923f05d0`, `770037f55d762906172bd4b234e12f9e068b1f39`, `fc7ad0fff3ffb3a9e03755b6d0b38b42c82ca968`, `0c607b70a6c3e7f4ebd39b5682146642767730e3`, `54354f1a6d794eb764d60db4194e617b44764163`, `ecbf2cf423f1d002af997adde96b4da65893cea5`, `133bb5555433a20110eeb2de03ef149a57950331`.  
 **Constraints:** No new branch, no `main` modification, no merge, release, deployment or handset mutation.
 
