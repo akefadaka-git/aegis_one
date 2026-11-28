@@ -31,3 +31,24 @@ No live vault cryptography/recovery, production keys or trust roots, remote comm
 ## Current status
 
 A3.0–A3.5 source foundation is **IMPLEMENTED / PARTIAL VERIFICATION**. Do not mark any workstream VERIFIED-CLOSED until the CI build, tests, lint and secret scan pass and the relevant security acceptance checks are reviewed. A4 and A5 remain separate stages.
+
+
+---
+
+## A3.06 implementation log addendum — cross-platform technology ADR (2026-11-28)
+
+**Workstream:** A3.06 — cross-platform technology architecture decision.  
+**Decision record:** `docs/architecture/AEGIS-A3-ADR-006-CROSS-PLATFORM-TECHNOLOGY.md` (AEGIS-A3-ADR-006 v1.0).  
+**Plan alignment:** `docs/implementation/AEGIS-A3-BOUNDED-IMPLEMENTATION-PLAN.md`, Section 10 addendum.
+
+**Decision:** Kotlin Multiplatform is the target for shared pure domain logic, adopted incrementally; platform-native security adapters remain authoritative for capability discovery, key custody, local authentication, trusted time, protected storage, VPN and OS enforcement. Android uses Kotlin/Jetpack Compose; iOS/iPadOS uses Swift/SwiftUI; Windows/macOS/Linux desktop shells target Kotlin/JVM + Compose Multiplatform Desktop, with narrowly scoped native helpers only where required.
+
+**Contract reconciliation:** A3.01 capability provenance/freshness, A3.02 membership/role/scope and mode isolation, A3.03 deterministic deny-by-default decisions (P3 approval, P4 disabled), A3.04 signed offline policy freshness/rollback/atomic version state, and A3.05 typed tamper-evident audit semantics are retained as shared-core invariants. Platform capability differences are explicit evidence, never inferred parity.
+
+**Portability findings:** Existing JVM core remains the conformance reference. A3.05 audit currently depends on `java.io`, `java.nio` and `java.security.MessageDigest`; these require portable canonical encoding/digest provider boundaries and identical golden vectors before KMP conversion. Current source tree has no iOS/desktop app, KMP target configuration or production native adapter. No such code was introduced in A3.06.
+
+**Evidence / scope:** Documentation-only change. ADR and plan addendum were committed and fetched back on the existing implementation branch. No source/build/dependency/CI workflow changes, no device or production interaction, no merge/deployment. `main` remains `570b6fe5abfcf0d7b369af63e211ab937bfe4024`.
+
+**Status:** A3.06 ARCHITECTURE DECISION ACCEPTED. KMP migration, native adapters, cross-platform builds and device testing are NOT STARTED / NOT RUN. Production readiness NOT ESTABLISHED.
+
+**Next gate:** A3.07 remains conditional; A3.06 completion does not authorize it automatically.
