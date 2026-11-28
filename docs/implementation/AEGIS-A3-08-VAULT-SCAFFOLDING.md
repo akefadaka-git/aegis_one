@@ -38,11 +38,15 @@ These require a separate cryptographic design gate and per-platform implementati
 
 ## 5. Acceptance evidence
 
-- Exact source SHA and CI run: PENDING.
-- Android/JVM/iOS compilation and tests: PENDING.
-- Formatting/lint, complete workspace tests, SBOM validation and secret scan: PENDING.
-- Production readiness: NOT ESTABLISHED.
+- Exact implementation SHA: `2f5da6691a5a798168774e37eb1906f858c5b6b6`.
+- Shared-core portability run [#46168750737](https://github.com/akefadaka-git/aegis_one/actions/runs/46168750737): **SUCCESS**, all five jobs passed on the exact SHA — iOS, Android, Windows JVM, macOS JVM and Ubuntu JVM.
+- iOS job #141052121627: **SUCCESS**. The decoded log confirms checkout of the exact SHA. iOS ARM64 compilation succeeded for security-state, policy, offline-policy, audit and vault. iOS Simulator ARM64 common tests succeeded for all five modules. Gradle reported `BUILD SUCCESSFUL` with 32 actionable tasks executed.
+- Android foundation run [#46168750745](https://github.com/akefadaka-git/aegis_one/actions/runs/46168750745): **SUCCESS** on the same exact SHA. Android build, module tests, lint, APK assembly, SBOM generation/validation and full-history Gitleaks scan passed.
+- Android evidence artifact ID `15273151015`, 946,207 bytes; SHA-256 `4e4ee081dba95e0d298b4bd0f63e70b32782d60aa28cfc16523117275da95f2d`. Artifact metadata binds it to run #46168750745 and the exact implementation SHA. Archive inspection found no unresolved SBOM references and zero Gitleaks findings.
+- The portability run published no separate artifact; its run/job records and decoded iOS job log are the retained evidence.
+- Verified implementation SHA: `2f5da6691a5a798168774e37eb1906f858c5b6b6`. Documentation record commits followed verification; `main` remains `570b6fe5abfcf0d7b369af63e211ab937bfe4024`.
+- Production readiness: **NOT ESTABLISHED**. This workstream remains a non-operational scaffold only.
 
-## 6. Next gate
+## 6. Acceptance boundary and next gate
 
-Run formatting, all-target compilation, all module tests, Android lint/assembly, SBOM validation and secret scanning against the exact resulting SHA. Resolve all failures before A3.08 acceptance.
+A3.08 is **ACCEPTED — BOUNDED SCAFFOLD ONLY**. Acceptance proves the shared scaffold compiles and its declared tests pass on the configured targets; it does not prove cryptographic custody, durable storage, recovery, backup, biometric enforcement, device integration, or production security. Those remain separate design and implementation gates. No merge, release, deployment, production mutation, key generation, or handset interaction occurred.
