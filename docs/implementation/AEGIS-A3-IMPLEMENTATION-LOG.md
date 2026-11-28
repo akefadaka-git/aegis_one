@@ -86,3 +86,31 @@ A3.0–A3.5 source foundation is **IMPLEMENTED / PARTIAL VERIFICATION**. Do not 
 **Repository controls:** No merge or deployment. `main` remains `570b6fe5abfcf0d7b369af63e211ab937bfe4024`. The implementation source SHA above is the exact SHA verified by the successful CI runs; subsequent commits in this branch are documentation-only records.
 
 **Next gate:** A3.08 vault scaffolding remains conditional and separately gated.
+
+
+---
+
+## A3.08 implementation log — vault scaffolding (2026-11-28)
+
+**Owner instruction:** Execute A3.08 vault scaffolding while preserving user-owned recovery, prohibition of operator recovery, prohibition of Enterprise escrow of Personal vault keys, and native key-custody boundaries.
+
+**Implementation branch:** `docs/a1-baseline-a2-reconciliation`.  
+**Base SHA:** `f80b24c83a59f3abc4b07a5329838c5b6d60ba14`.  
+**Current implementation commits:** `302c7a8203170e0a5309eab578a024e04c2ba82d`, `73ebfba0072a13b3f197b3720b2aae47e99e6ca6`, `8fec47e94b28abd62d92be9af253a23619aa579a`, `134503de349960c513630baa38308080ced7d62d`, `07e0658853199351507018b350ea73291053af94`.
+
+**Changed paths:**
+- `core/vault/build.gradle.kts`
+- `core/vault/src/commonMain/kotlin/org/akefadaka/aegis/vault/VaultScaffold.kt`
+- `core/vault/src/commonTest/kotlin/org/akefadaka/aegis/vault/VaultScaffoldTest.kt`
+- `settings.gradle.kts`
+- `docs/implementation/AEGIS-A3-08-VAULT-SCAFFOLDING.md`
+
+**Implementation:** Registered a new KMP `:core:vault` module for Android/JVM/iOS ARM64/iOS Simulator ARM64. Added opaque identifier types, Personal-only descriptor, immutable user-only recovery policy, capability-only native custody/storage ports, and a status model that cannot report the vault usable. Added five common regression tests. No crypto, key operation, recovery flow, persistence, plaintext handling, production adapter or device integration exists.
+
+**Security boundary:** The scaffold contains no API to export, unwrap, reset, recover, or escrow key material. Operator recovery and Enterprise escrow configurations fail construction. Capability values marked unknown, unsupported or available-unverified cannot make the vault usable. The native custody interface reports capability only; key custody remains unimplemented and platform-native.
+
+**Verification:** Exact-SHA CI, all-target compilation, complete workspace tests, lint, artifact/SBOM inspection and secret scan are **PENDING**. No test or build result is claimed from the source-write responses. No merge, deployment, production mutation, key generation, or handset interaction occurred.
+
+**Status:** A3.08 IMPLEMENTED / VERIFICATION PENDING. A3.08 is not accepted until exact-SHA verification passes and the source is fetched back. Production readiness NOT ESTABLISHED.
+
+**Immediate next step:** Run the existing Android and portability workflows on the final implementation SHA; inspect all actual job results and artifacts, remediate failures, and rerun against the corrected SHA.
