@@ -4,20 +4,21 @@ import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.cinterop.addressOf
 import kotlinx.cinterop.convert
 import kotlinx.cinterop.usePinned
-import org.akefadaka.aegis.audit.commoncrypto.CC_SHA256
+import org.akefadaka.aegis.audit.commoncrypto.aegis_sha256
 
 @OptIn(ExperimentalForeignApi::class)
 actual fun platformSha256(input: ByteArray): ByteArray {
     require(input.isNotEmpty())
     val digest = ByteArray(32)
-    input.usePinned { source ->
+    val status = input.usePinned { source ->
         digest.usePinned { destination ->
-            CC_SHA256(
+            aegis_sha256(
                 source.addressOf(0),
                 input.size.convert(),
                 destination.addressOf(0)
             )
         }
     }
+    check(status == 1) { "Apple CommonCrypto SHA-256 operation failed" }
     return digest
 }

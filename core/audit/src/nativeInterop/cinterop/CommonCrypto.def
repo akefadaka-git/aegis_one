@@ -1,2 +1,6 @@
 headers = CommonCrypto/CommonDigest.h
 package = org.akefadaka.aegis.audit.commoncrypto
+---
+static inline int aegis_sha256(const void *input, unsigned int length, void *output) {
+    return CC_SHA256(input, (CC_LONG)length, (unsigned char *)output) != 0 ? 1 : 0;
+}
